@@ -1,0 +1,129 @@
+/* General Reset */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.bottom-menu {
+  margin-top: 210px;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  position: fixed;
+  /* top: 0; */
+  top: 60px; /* Match the height of the header */
+  left: 0;
+  width: 250px;
+  /* height: 100vh; Full height of the page */
+  height: calc(100% - 60px); /* Subtract the header height */
+  background: linear-gradient(#111827, #1F2937 );
+  color: white;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 100000;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.sidebar-open {
+  transform: translateX(0);
+}
+
+.sidebar h2 {
+  padding: 20px;
+  border-bottom: 1px solid white;
+}
+
+.sidebar ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar ul li {
+  /* padding: 20px 20px;
+  cursor: pointer;
+  text-align: left; */
+  position: relative; /* Make the list item a positioned parent */
+  padding: 0;         /* Remove padding from the list item */
+  margin: 0;          /* Remove margins */
+  cursor: pointer;    /* Add pointer cursor */
+  text-align: left;
+}
+
+.sidebar ul li a {
+  display: block;      /* Make the link a block element */
+  padding: 20px 20px;  /* Add padding to the link */
+  text-decoration: none; /* Remove underline */
+  color: white;        /* Text color for links */
+}
+
+.sidebar ul li:hover {
+  background-color: #34495e;
+}
+
+/* Toggle Button with Vertical Line */
+.toggle-container {
+  display: flex;
+  align-items: center; /* Aligns button and line vertically */
+  gap: 5px; /* Adjust gap between button and line */
+  position: fixed;
+  top: 55px;
+  left: 10px;
+  z-index: 1100;
+}
+
+.toggle-btn {
+  background: none; /* Remove default button background */
+  color: #333; /* Dark color for the icon */
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  border: none;
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+/* Change color on hover */
+.toggle-btn:hover {
+  color: #000; /* Darker color on hover */
+}
+
+/* Optional: Add some padding */
+.toggle-container {
+  padding: 10px; /* Adjust padding as needed */
+}
+
+.vertical-line {
+  width: 2px;               /* Thickness of the line */
+  height: 20px;             /* Height of the line */
+  background-color: #ccc;   /* Color of the line */
+  margin: 0;                /* Ensures no extra space around the line */
+}
+
+/* Dropdown Submenu */
+.submenu {
+  list-style: none;
+  margin-left: 20px;
+  padding: 0;
+}
+
+.submenu li {
+  padding: 10px 20px;
+}
+
+.folder-toggle {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dropdown-icon.rotated {
+  transform: rotate(180deg);
+}
+
+.menu-list li:nth-child(4) { /* Targets the "My Manage" item */
+  margin-bottom: 70px; /* Adjust the spacing as needed */
+}

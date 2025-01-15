@@ -1,0 +1,148 @@
+/* General Styling */ 
+.pro{
+padding: 15px;
+font-weight: 600;
+}
+
+.projects-page { 
+  font-family: Arial, sans-serif; 
+  color: #333; 
+  background-color: #f9f9f9; 
+  min-height: 80vh; 
+  margin-top: 55px;
+} 
+
+/* Header Section */ 
+.header { 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  background-color: #fff; 
+  padding: 3px 2px; 
+  border-bottom: 1px solid #ddd; 
+} 
+
+.app-name { 
+  font-size: 18px; 
+  font-weight: bold; 
+  color: #0066cc; 
+} 
+
+.search-bar { 
+  padding: 8px 12px; 
+  border: 1px solid #ccc; 
+  border-radius: 4px; 
+  font-size: 14px; 
+  width: 450px; 
+} 
+
+.search-bar:focus { 
+ outline: none; 
+  border-color: #0066cc; 
+  box-shadow: 0 0 4px rgba(0, 102, 204, 0.5); 
+} 
+
+.upgrade-button { 
+  padding: 8px 16px; 
+  font-size: 14px; 
+  font-weight: bold; 
+  color: #fff; 
+  background-color: #0066cc; 
+  border: none; 
+  border-radius: 4px; 
+  cursor: pointer; 
+} 
+
+.upgrade-button:hover { 
+  background-color: #004999; 
+} 
+
+.header-icons { 
+  display: flex; 
+  gap: 10px; 
+} 
+
+.icon { 
+  font-size: 16px; 
+  cursor: pointer; 
+} 
+
+.user-email { 
+  font-size: 14px; 
+  color: #666; 
+} 
+
+/* Main Section */ 
+
+.main { 
+  padding-left: 70px; 
+  padding-top: 0; 
+} 
+
+h1 { 
+  font-size: 24px; 
+} 
+
+/* Toolbar Section */ 
+.action { 
+  display: flex; 
+  gap: 30px; 
+  margin-top: 15px; 
+  border-bottom: 2px solid #ddd; 
+  padding-bottom: 15px; 
+} 
+
+.proj-button { 
+  /* padding: 0;   */
+  font-size:smaller; 
+  font-weight: 500; 
+  color:black; /* Text color */ 
+  border: none; /* Removes border */ 
+  background: none; /* Removes background */ 
+  cursor: pointer; 
+  text-align: left; 
+  padding-left: 10px;
+} 
+
+/* .button:hover { 
+  text-decoration: underline; Adds an underline on hover for a subtle effect 
+}  */
+
+/* Table Section */ 
+
+.table { 
+  margin: 20px 0; 
+  background-color: #fff; 
+  border-radius: 4px; 
+} 
+
+.projects-table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  background-color: #fff; 
+} 
+
+.projects-table th, 
+.projects-table td { 
+  padding: 12px; 
+  text-align: left; 
+  font-size: 14px; 
+  font-weight: 500; 
+  color: #333; 
+  border-bottom: 2px solid #ddd; 
+} 
+
+.projects-table th { 
+  background-color: #ffff; 
+  font-weight: bold;
+} 
+
+.projects-table td { 
+  border-left: none; 
+  border-right: none; 
+  font-size: 13px; 
+} 
+
+.projects-table tr:hover { 
+  background-color: #f9f9f9; 
+} 

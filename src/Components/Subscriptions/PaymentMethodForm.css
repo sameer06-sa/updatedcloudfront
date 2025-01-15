@@ -1,0 +1,75 @@
+.payment-method-container {
+    width: 400px;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    text-align: justify;
+  }
+  
+  .tabs {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .tab {
+    padding: 8px 16px;
+  }
+  
+  .tab.active {
+    /* background-color: #000000;
+    color: #ffffff; */
+    font-weight: bold;
+  }
+  
+  .payment-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  label {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    font-weight: bold;
+    color: #333333;
+  }
+  
+  input {
+    padding: 8px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 14px;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .back-button,
+  .enter-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .back-button {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #cccccc;
+  }
+  
+  .enter-button {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  

@@ -1,0 +1,13 @@
+.table-search-bar{
+  width: 426px;
+  border-radius: 7px;
+}
+
+.user-title {
+text-align: left;
+margin-top: 60px;
+}
+
+.member-details{
+font-weight: bold;
+}

@@ -1,0 +1,92 @@
+ .container {
+   width: 100vw;
+   height: 100vh;
+   background: linear-gradient(#2E3192, #1BFFFF);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .card {
+   background: white;
+   padding: 20px;
+   border-radius: 20px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   width: 450px;
+   text-align: center;
+ }
+
+ .card-outer {
+   background: white;
+   padding: 5px;
+   border-radius: 20px;
+   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   text-align: left;
+ }
+
+ .card h2 {
+   font-size: 22px;
+   font-weight: bold;
+   margin-bottom: 10px;
+   text-align: center;
+ }
+
+ .content .app-name {
+   color: #888;
+   font-size: 16px;
+ }
+
+ .email {
+   color: #444;
+   text-align: left;
+   margin-bottom: 11px;
+   padding: 3px;
+ }
+
+ h3 {
+   font-size: 20px;
+   font-weight: bold;
+   margin-bottom: 15px;
+ }
+
+ .verification-option {
+   display: flex;
+   align-items: center;
+   justify-content: left;
+   background: #f1f1f1;
+   border-radius: 8px;
+   padding: 10px 10px;
+   margin-bottom: 20px;
+ }
+
+ .email-option {
+   display: flex;
+   align-items: left;
+   gap: 10px;
+   font-size: 14px;
+ }
+
+ .options {
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
+ }
+
+ .link {
+   color: #007bff;
+   text-decoration: none;
+   font-size: 10px;
+ }
+
+ .link:hover {
+   text-decoration: underline;
+ }
+
+ .emailD {
+  font-size: 0.7rem;
+ }
+
+ .error-message {
+   color: red;
+   font-size: 12px;
+ }

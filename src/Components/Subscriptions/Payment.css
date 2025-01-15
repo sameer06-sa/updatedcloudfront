@@ -1,0 +1,77 @@
+
+.payment-details-container {
+  padding-left: 35px;
+}
+
+/* Container for the form */
+.form-container {
+  max-width: 600px;
+  padding: 15px 30px;
+  border-radius: 8px;
+}
+
+/* Title of the form */
+.form-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-align: left;
+  margin-top: 35px;
+}
+
+/* Style for form groups */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Labels for the inputs */
+.form-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+/* Inputs for the form */
+.form-group input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Buttons container */
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 20px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.back{
+  width: 200px;
+  height: 35px;
+  border-radius: 5px;
+  border: 2px solid black;
+}
+
+.next {
+  background-color: black;
+  color: white;
+  width: 200px;
+  height: 35px;
+  border-radius: 5px;
+}
+
+/* .btn:hover {
+  opacity: 0.9;
+} */

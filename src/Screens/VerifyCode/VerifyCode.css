@@ -1,0 +1,155 @@
+.verifyCode-container {
+  background: linear-gradient(#2E3192, #1BFFFF);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+.header-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.otp-container {
+  display: flex;
+  /* justify-content: center; */
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.error-message {
+  margin: 10px;
+}
+
+.otp-box {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1.2rem;
+  color: black;
+  outline: none;
+}
+
+.otp-box:focus {
+  border-color: #3d3af4;
+  box-shadow: 0 0 5px #3d3af4;
+}
+
+.verification-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  padding: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 450px;
+  text-align: left;
+}
+
+.verification-container-inner {
+  background-color: rgb(255, 255, 255);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.app-main-name {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #898989;
+}
+
+.app-name {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: left;
+  color: #898989;
+}
+
+h2,
+h3 {
+  margin: 10px 0;
+}
+
+.email-section {
+  color: gray;
+  margin: 0;
+  color: black;
+  font-size: 0.8rem;
+}
+
+.info-text {
+  color: gray;
+  margin-bottom: 15px;
+  color: black;
+  font-size: 0.8rem;
+}
+
+.code-input {
+  width: 85%;
+  padding: 9px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  color: black;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.verify-code-btn {
+  padding: 7px 18px;
+  border: hug;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-back {
+  background-color: #ebebeb;
+  border: none;
+}
+
+.btn-cancel {
+  background-color: #ff1d1d;
+  text-align: center;
+  color: rgb(255, 255, 255);
+  border: none;
+  font-size: 0.7rem;
+}
+
+.btn-verify {
+  background-color: #3d3af4;
+  color: white;
+  border: none;
+  font-size: 0.7rem;
+}
+
+#application {
+  color: gray;
+  font-weight: bold;
+}
+
+.otp-mail {
+  font-weight: bold;
+}
+
+.toast {
+  left: 24px;
+  right: 24px;
+  text-align: center;
+  justify-content: center;
+}

@@ -1,0 +1,114 @@
+.notifications-container {
+    padding: 20px;
+}
+
+.notifications {
+    width: 451px;
+    border: 1px solid #ddd;
+    border-radius: 40px;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .notifications-header {
+    display: flex;
+    width: 100vw;
+    border-bottom: 1px solid #ddd;
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 1.5rem;
+  }
+
+  .notifications-tabs{
+    display: flex;
+    border-bottom: 1px solid #ddd;
+  }
+  .tab-all {
+    padding: 12px;
+    text-align: center;
+    font-weight: 700;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border: none;
+    outline: none;
+    border-right: 1px solid #333;
+    height: 30px;
+    margin-top: 3px;
+  }
+  .tab-unread {
+    padding: 12px;
+    text-align: center;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    border: none;
+    outline: none;
+  }
+  
+  .tab.active {
+    font-weight: bold;
+    background-color: #fff;
+    /* border-bottom: 2px solid black; */
+  }
+  
+  .notification-section {
+    padding: 16px;
+    border-bottom: 2px solid #f1f1f1;
+  }
+  
+  .notification-date {
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .notification-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .notification-message {
+    color: #333;
+  }
+  
+  .notification-time {
+    color: #999;
+    font-size: 0.85em;
+  }
+  
+  .notifications-page {
+    display: flex;
+  }
+  
+  .notifications-content {
+    margin-left: 60px; /* Adjust based on sidebar width */
+    padding: 20px;
+    flex-grow: 1; /* Allow content to take remaining space */
+  }
+  
+  .notification-group {
+    margin-bottom: 20px;
+  }
+  
+  .notification-group h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .notification-group ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .notification-group li {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .notification-group li span {
+    color: #555;
+  }

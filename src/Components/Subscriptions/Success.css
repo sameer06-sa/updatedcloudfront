@@ -1,0 +1,12 @@
+.payment-success-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  .payment-success-message {
+    font-size: 1.5rem; /* Adjust size as needed */
+    font-weight: bold;
+    color: #22c55e; /* Tailwind's green-500 color */
+  }

@@ -1,0 +1,85 @@
+/* Container styles */
+/* .recent-services {
+  padding: 16px 24px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+} */
+*{
+  margin: 0px;
+  padding: 0px;
+}
+
+.recent-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-top: 25px;
+  text-align: justify;
+  padding-left: 20px;
+}
+
+.recent-services {
+  margin-left: 10px;
+}
+
+.recent-services__title {
+  font-size: 1.1rem;
+  text-align: left;
+  margin-left: 20px;
+  padding-left: 25px;
+  font-weight: bold;
+}
+
+.recent-services__table-container {
+  margin-left: 25px;
+}
+
+/* Table styles */
+.recent-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+}
+
+.table-header {
+  text-align: left;
+  padding: 12px 16px;
+  font-weight: 500;
+  font-size: 14px;
+  color: #555;
+  border-bottom: 1px solid #ddd;
+}
+
+.sort-icon {
+  font-size: 12px;
+  color: #777;
+  margin-left: 4px;
+}
+
+.table-row {
+  border-bottom: 1px solid #ddd;
+}
+
+.table-cell {
+  padding: 12px 16px;
+  font-size: 14px;
+  color: #444;
+}
+
+/* .table-cell:last-child {
+  text-align: right;
+} */
+
+/* Link styles */
+.see-all-link {
+  font-size: 14px;
+  color: #007bff; /* Blue link color */
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.see-all-link:hover {
+  text-decoration: underline;
+  color: #0056b3; /* Darker blue on hover */
+}

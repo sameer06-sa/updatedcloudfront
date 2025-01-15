@@ -1,0 +1,161 @@
+
+/* General Reset */
+body, html {
+  margin: 0;
+  padding-left: 0px;
+  font-family: 'Arial', sans-serif;
+  box-sizing: border-box;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f9f9f9;
+  padding-left: 35px;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.header-left .app-name {
+  font-size: 24px;
+  color: #333;
+  font-weight: bold;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-bar {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px;
+}
+
+.upgrade-btn {
+  padding: 8px 15px;
+  border: none;
+  background-color: #4a90e2;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.upgrade-btn:hover {
+  background-color: #357abd;
+}
+
+.icon, .user-icon {
+  font-size: 20px;
+  color: #666;
+  cursor: pointer;
+}
+
+.user-email {
+  font-size: 14px;
+  color: #333;
+}
+
+/* Services Section */
+.services-section {
+  padding: 30px;
+  padding-top: 20px;
+  border-radius: 10px;
+  /* margin-top: 30px; */
+}
+
+.services-title {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 10px;
+  margin-top: 45px;
+}
+
+.service-search-bar {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 40%;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.services-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+/* Service Category Card */
+.service-category {
+  padding: 15px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  border-radius: 8px 8px 0 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: row;
+  justify-items: center;
+  cursor: pointer;
+}
+
+.category-icon {
+  font-size: 24px;
+}
+
+.service-item {
+  cursor: pointer;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #eee;
+  border-top: none;
+  border-radius: 0 0 8px 8px;
+}
+
+.service-item strong {
+  font-size: 16px;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.service-item p {
+  font-size: 14px;
+  color: #555;
+  margin: 0;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+  .services-container {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+
+  .header-right {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .upgrade-btn {
+    width: 100%;
+  }
+}

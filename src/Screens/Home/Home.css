@@ -1,0 +1,93 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+/* General Layout */
+.home-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 210vh;
+  font-family: Arial, sans-serif;
+  /* background-color: #f9f9f9; */
+  padding: 50px;
+}
+
+/* Header Section */
+
+/* Services Section */
+/* .services-section {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px;
+  padding: 20px;
+} */
+
+.services-section .service-icon {
+  text-align: center;
+  padding: 20px;
+  flex: 1;
+  max-width: 150px;
+}
+
+.services-section .service-icon img {
+  width: 50px;
+  height: 50px;
+}
+
+.services-section .service-icon p {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Recent Services Section */
+/* .recent-services-section {
+  padding: 20px;
+} */
+
+.recent-services-section h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.recent-services-section table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-left: 30px;
+  /* padding: 4px; */
+}
+
+.recent-services-section table th,
+.recent-services-section table td {
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+}
+
+.recent-services-section table th {
+  font-weight: bold;
+  background-color: #f9f9f9;
+}
+/* 
+.recent-services-section table tr:hover {
+  background-color: #f5f5f5;
+} */
+
+.recent-services-section .view-all {
+  text-align: right;
+  margin-top: 10px;
+}
+
+.recent-services-section .view-all a {
+  color: #007bff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.recent-services-section .view-all a:hover {
+  text-decoration: underline;
+}
