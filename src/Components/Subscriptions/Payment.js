@@ -12,6 +12,14 @@ const Payment = () => {
     email: '',
     mobile: '',
   });
+  const [formData, setFormData] = useState({
+    address: '',
+    area: '',
+    townCity: '',
+    state: '',
+    pincode: '',
+  });
+  const [errors, setErrors] = useState({});
   const [cardNumber, setCardNumber] = useState('');
   const [cardError, setCardError] = useState('');
   const [timeoutId, setTimeoutId] = useState(null);
@@ -58,14 +66,36 @@ const Payment = () => {
     return sum % 10 === 0;
   };
 
+  const validateForm = () => {
+    const newErrors = {};
+    const { address, area, townCity, state, pincode } = formData;
+
+    if (!address.trim()) newErrors.address = 'Address is required.';
+    if (!area.trim()) newErrors.area = 'Area is required.';
+    if (!townCity.trim()) newErrors.townCity = 'Town/City is required.';
+    if (!state.trim()) newErrors.state = 'State is required.';
+    if (!pincode.trim()) {
+      newErrors.pincode = 'Pincode is required.';
+    } else if (!/^\d{6}$/.test(pincode)) {
+      newErrors.pincode = 'Pincode must be a 6-digit number.';
+    }
+
+    if (!validateCardNumber(cardNumber)) {
+      setCardError('Please enter a valid card number.');
+    } else {
+      setCardError('');
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0 && !cardError;
+  };
+
   const handlePayment = async (e) => {
     e.preventDefault();
 
-    if (!validateCardNumber(cardNumber)) {
-      setCardError('Please enter a valid card number');
+    if (!validateForm()) {
       return;
     }
-    setCardError('');
 
     const paymentData = {
       name: userDetails.fullName,
@@ -92,36 +122,13 @@ const Payment = () => {
     }
   };
 
-  useEffect(() => {
-    const handlePaymentSuccess = async () => {
-      try {
-        const subscriptionData = {
-          userId: userDetails._id,
-          subscriptionType: 'FreeTrial',
-          durationInDays: 30,
-        };
-
-        const response = await axios.post('http://localhost:3000/api/user/subscription', subscriptionData);
-        if (response.data.success) {
-          alert('Payment successful. Redirecting to Free Trial page.');
-          navigate('/free-trial');
-        } else {
-          throw new Error('Subscription update failed.');
-        }
-      } catch (error) {
-        console.error('Error updating subscription:', error);
-        alert('Error processing subscription. Please contact support.');
-      }
-    };
-
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-      handlePaymentSuccess();
-    }
-  }, [timeoutId, navigate, userDetails]);
-
   const handleBack = () => {
     navigate('/subscriptions');
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   };
 
   return (
@@ -147,25 +154,29 @@ const Payment = () => {
               </div>
               <div className="form-group">
                 <label htmlFor="address">Address:</label>
-                <input type="text" id="address" name="address" />
+                <input type="text" id="address" name="address" value={formData.address} onChange={handleInputChange} />
+                {errors.address && <div className="error-message">{errors.address}</div>}
               </div>
               <div className="form-group">
                 <label htmlFor="area">Area:</label>
-                <input type="text" id="area" name="area" />
+                <input type="text" id="area" name="area" value={formData.area} onChange={handleInputChange} />
+                {errors.area && <div className="error-message">{errors.area}</div>}
               </div>
               <div className="form-group">
                 <label htmlFor="townCity">Town/City:</label>
-                <input type="text" id="townCity" name="townCity" />
+                <input type="text" id="townCity" name="townCity" value={formData.townCity} onChange={handleInputChange} />
+                {errors.townCity && <div className="error-message">{errors.townCity}</div>}
               </div>
               <div className="form-group">
                 <label htmlFor="state">State:</label>
-                <input type="text" id="state" name="state" />
+                <input type="text" id="state" name="state" value={formData.state} onChange={handleInputChange} />
+                {errors.state && <div className="error-message">{errors.state}</div>}
               </div>
               <div className="form-group">
                 <label htmlFor="pincode">Pincode:</label>
-                <input type="text" id="pincode" name="pincode" />
+                <input type="text" id="pincode" name="pincode" value={formData.pincode} onChange={handleInputChange} />
+                {errors.pincode && <div className="error-message">{errors.pincode}</div>}
               </div>
-              {cardError && <div className="error-message">{cardError}</div>}
               <div className="form-buttons">
                 <button type="button" className="back" onClick={handleBack}>
                   Back
