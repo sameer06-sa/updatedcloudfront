@@ -1,0 +1,66 @@
+/* General container styles */
+.hub-ingest-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.app1 {
+  display: flex;
+  flex-grow: 1;
+}
+
+/* Main layout to align Sidebar1, Sidebar2, and Main Content horizontally */
+.main-layout1 {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  width: 100%;
+}
+
+/* Sidebar styles */
+.main-layout1 > * {
+  border-right: 1px solid #e0e0e0;
+  /* background-color: #f3f4f6; */
+}
+
+/* Sidebar1 */
+.main-layout1 > div:first-child {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+/* Sidebar2 */
+.main-layout1 > div:nth-child(2) {
+  width: 200px;
+  flex-shrink: 0;
+}
+
+/* Main content */
+.main-container1 {
+  flex-grow: 1;
+  background-color: #fff;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* Header inside the main-container */
+.main-container h1 {
+  font-size: 1.8rem;
+  color: #222;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Responsive adjustments (optional) */
+@media (max-width: 768px) {
+  .main-layout {
+      flex-direction: column;
+  }
+
+  .main-layout > * {
+      border-right: none;
+      border-bottom: 1px solid #e0e0e0;
+  }
+}

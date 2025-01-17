@@ -4,6 +4,7 @@ import Header from "../../Components/Header/Header";
 import { useServiceTracking } from "../../Hooks/UseServiceTracking";
 import Sidebar from '../../Components/Sidebar/Sidebar';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { FaSearch} from 'react-icons/fa';
 
 function AllServices() {
   const startTracking = useServiceTracking();
@@ -30,7 +31,10 @@ function AllServices() {
       {/* Services Section */}
       <div className="services-section">
         <h3 className="services-title">All Services</h3>
-        <input type="text" placeholder="Search Services..." className="service-search-bar" />
+        <div className="search-container">
+                      <input id="search-input" type="text" placeholder="Search Services..." className="search-input"/>
+                      <FaSearch className="search-icon" />
+        </div>
 
         <div className="services-container">
           {(() => {

@@ -1,0 +1,28 @@
+.sidebar2 {
+  margin-top: 65px;
+    width: 210px;
+    /* background-color: #f4f4f4; */
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    height: 641px;
+    margin-left: 60px;
+  }
+  
+  .sidebar2 ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar2 ul li {
+    margin: 10px 0;
+  }
+  
+  .sidebar2 ul li ul {
+    margin-top: 5px;
+    margin-left: 20px;
+  }
+  
+  .sidebar2 ul li ul li {
+    font-size: 0.9em;
+  }
+  

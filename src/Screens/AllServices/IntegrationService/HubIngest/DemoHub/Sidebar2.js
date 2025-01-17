@@ -1,0 +1,46 @@
+import React from 'react';
+import './Sidebar2.css';
+import { FaArrowLeft ,FaSearch} from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+
+const Sidebar2 = () => {
+  return (
+    <div className="sidebar3">
+      {/* Search Bar */}
+      <div className="search-container">
+              <input id="search-input" type="text" placeholder="Search" className="search-input"/>
+              <FaSearch className="search-icon" />
+      </div>
+
+      {/* Sidebar Menu */}
+      <ul>
+        <li>
+          Collection
+          <ul>
+            <li>
+              <Link to="/demo-collec">demo_collec</Link> {/* Routing to demo_collec */}
+            </li>
+          </ul>
+        </li>
+        <li>
+          Connections
+          <ul>
+            <li>
+              <Link to="/mongodb-con">mongodb_con</Link> {/* Routing to mongodb_con */}
+            </li>
+          </ul>
+        </li>
+        <li>
+          Structures
+          <ul>
+            <li>
+              <Link to="/mongodb-str">mongodb_str</Link> {/* Routing to mongodb_str */}
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  );
+};
+
+export default Sidebar2;

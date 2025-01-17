@@ -45,6 +45,11 @@ import CreateHubIngest from './Screens/AllServices/IntegrationService/HubIngest/
 import Services from './Screens/AllServices/CreateService/CreateService';
 import Success from './Components/Subscriptions/Success';
 import Failure from './Components/Subscriptions/Failure';
+import Overview from './Screens/AllServices/IntegrationService/HubIngest/Overview/Overview';
+import DemoHub from './Screens/AllServices/IntegrationService/HubIngest/DemoHub/DemoHub';
+import DemoCollec from './Screens/AllServices/IntegrationService/HubIngest/DemoCollec/DemoCollec';
+import MongoDbCon from './Screens/AllServices/IntegrationService/HubIngest/MongoDbCon/MongoDbCon';
+import MongoDbStr from './Screens/AllServices/IntegrationService/HubIngest/MongoDbStr/MongoDbStr';
 
 function App() {
   const [notifications, setNotifications] = useState(() => {
@@ -127,6 +132,12 @@ function App() {
             <Route path="/create-user" element={<><UserSidebar /><CreateUser /></>} />
             <Route path="/edit-user/:id" element={<><UserSidebar /><EditUser /></>} />
             <Route path="/delete-user/:id" element={<><UserSidebar /><DeleteUser /></>} /> {/* Added DeleteUser route */}
+
+            <Route path="/overview" element={<Overview/>}/>
+            <Route path="/demo-hub" element={<DemoHub/>}/>
+            <Route path="/demo-collec" element={<DemoCollec/>} />
+            <Route path="/mongodb-con" element={<MongoDbCon/>}/>
+            <Route path="/mongodb-str" element={<MongoDbStr/>}/>
 
           </Routes>
         </div>

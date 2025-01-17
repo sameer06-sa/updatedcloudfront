@@ -38,6 +38,7 @@
   padding-top: 25px;
   padding-left: 75px;
   overflow-y: auto;
+  margin-top: 10px;
 }
 /* Content Header */
 .content-header {

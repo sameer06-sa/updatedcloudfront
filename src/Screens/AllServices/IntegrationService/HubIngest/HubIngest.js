@@ -6,49 +6,35 @@ import axios from 'axios';
 
 const Hubingest = () => {
     const navigate = useNavigate();
-    const [hubIngests, setHubIngests] = useState([]); // State to store fetched data
+    const [hubIngests, setHubIngests] = useState([]);
 
-    // Fetch Hub Ingest data on component mount
     useEffect(() => {
         const fetchHubIngests = async () => {
-            const token = localStorage.getItem('token'); // Retrieve token from localStorage
-            
+            const token = localStorage.getItem('token');
             if (!token) {
-                console.error('No authentication token or user ID found. Please log in.');
+                console.error('No authentication token found. Please log in.');
                 alert('Please log in to access this page.');
                 return;
             }
 
             try {
-                const response = await axios.get(`http://localhost:3000/api/hubingest`, {
-                    headers: { Authorization: `Bearer ${token}` }, // Include authentication header
+                const response = await axios.get('http://localhost:3000/api/hubingest', {
+                    headers: { Authorization: `Bearer ${token}` },
                 });
-                setHubIngests(response.data); // Set the fetched data into state
+                setHubIngests(response.data);
             } catch (error) {
                 if (error.response?.status === 401) {
-                    console.error('Unauthorized: Please check your credentials.', error);
+                    console.error('Unauthorized access:', error);
                     alert('Unauthorized access. Please log in again.');
                 } else {
-                    console.error('Error fetching Hub Ingest data:', error);
-                    alert('Failed to fetch Hub Ingest data. Please try again later.');
+                    console.error('Error fetching data:', error);
+                    alert('Failed to fetch data. Please try again later.');
                 }
             }
         };
 
         fetchHubIngests();
-    }, [navigate]); // Include navigate as a dependency
-
-    const handleCreateClick = () => {
-        navigate('/create-hub-ingest'); // Navigate to the CreateHubIngest component
-    };
-
-    const handleAccess = (hubIngest) => {
-        navigate('/access-hub-ingest', { state: { hubIngest } }); // Pass Hub Ingest data for Access
-    };
-
-    const handleDetails = (hubIngest) => {
-        navigate('/details-hub-ingest', { state: { hubIngest } }); // Pass Hub Ingest data for Details
-    };
+    }, []);
 
     const handleEdit = (hubIngest) => {
         navigate('/edit-hub-ingest', { state: { hubIngest } }); // Pass Hub Ingest data for Edit
@@ -66,6 +52,18 @@ const Hubingest = () => {
             console.error('Error deleting Hub Ingest:', error);
             alert('Failed to delete Hub Ingest.');
         }
+    };
+
+    const handleNameClick = (hubIngest) => {
+        navigate('/overview', { state: hubIngest }); // Pass the hub ingest data to Overview
+    };
+
+    const handleCreateClick = () => {
+        navigate('/create-hub-ingest'); // Navigate to the CreateHubIngest component
+    };
+
+    const handleDetails = (hubIngest) => {
+        navigate('/details-hub-ingest', { state: { hubIngest } }); // Pass Hub Ingest data for Details
     };
 
     return (
@@ -90,10 +88,14 @@ const Hubingest = () => {
                 <tbody>
                     {hubIngests.map((hubIngest, index) => (
                         <tr key={index}>
-                            {/* Updated handling of projectName */}
-                            <td>{hubIngest.projectName?.projectName || hubIngest.projectName || 'N/A'}</td> {/* Project name */}
-                            <td>{hubIngest.name || 'N/A'}</td> {/* Hub Ingest name */}
-                            <td>{hubIngest.subscriptionType?.type || 'N/A'}</td> {/* Subscription name */}
+                            <td>{hubIngest.projectName?.projectName || hubIngest.projectName || 'N/A'}</td>
+                            <td
+                                className="clickable-name"
+                                onClick={() => handleNameClick(hubIngest)}
+                            >
+                                {hubIngest.name || 'N/A'}
+                            </td>
+                            <td>{hubIngest.subscriptionType?.type || 'N/A'}</td>
                             <td>
                                 <button onClick={() => handleEdit(hubIngest)}>✍🏼 Edit</button>
                                 <button onClick={() => handleDelete(hubIngest._id)}>🗑 Delete</button>
