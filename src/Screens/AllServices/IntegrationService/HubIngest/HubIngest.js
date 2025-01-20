@@ -7,6 +7,7 @@ import axios from 'axios';
 const Hubingest = () => {
     const navigate = useNavigate();
     const [hubIngests, setHubIngests] = useState([]);
+    const [selectedHubIngest, setSelectedHubIngest] = useState(null);
 
     useEffect(() => {
         const fetchHubIngests = async () => {
@@ -14,6 +15,7 @@ const Hubingest = () => {
             if (!token) {
                 console.error('No authentication token found. Please log in.');
                 alert('Please log in to access this page.');
+                navigate('/login');
                 return;
             }
 
@@ -26,6 +28,7 @@ const Hubingest = () => {
                 if (error.response?.status === 401) {
                     console.error('Unauthorized access:', error);
                     alert('Unauthorized access. Please log in again.');
+                    navigate('/login');
                 } else {
                     console.error('Error fetching data:', error);
                     alert('Failed to fetch data. Please try again later.');
@@ -34,20 +37,50 @@ const Hubingest = () => {
         };
 
         fetchHubIngests();
-    }, []);
+    }, [navigate]);
 
-    const handleEdit = (hubIngest) => {
-        navigate('/edit-hub-ingest', { state: { hubIngest } }); // Pass Hub Ingest data for Edit
+    const handleCreateClick = () => {
+        navigate('/create-hub-ingest');
     };
 
-    const handleDelete = async (id) => {
-        const token = localStorage.getItem('token'); // Retrieve token from localStorage
+    const handleAccess = () => {
+        if (!selectedHubIngest) {
+            alert('Please select a Hub Ingest first.');
+            return;
+        }
+        navigate('/access-hub-ingest', { state: { hubIngest: selectedHubIngest } });
+    };
+
+    const handleDetails = () => {
+        if (!selectedHubIngest) {
+            alert('Please select a Hub Ingest first.');
+            return;
+        }
+        navigate('/details-hub-ingest', { state: { hubIngest: selectedHubIngest } });
+    };
+
+    const handleEdit = () => {
+        if (!selectedHubIngest) {
+            alert('Please select a Hub Ingest first.');
+            return;
+        }
+        navigate('/edit-hub-ingest', { state: { hubIngest: selectedHubIngest } });
+    };
+
+    const handleDelete = async () => {
+        if (!selectedHubIngest) {
+            alert('Please select a Hub Ingest first.');
+            return;
+        }
+
+        const token = localStorage.getItem('token');
         try {
-            await axios.delete(`http://localhost:3000/api/hubingest/${id}`, {
-                headers: { Authorization: `Bearer ${token}` }, // Include authentication header
+            await axios.delete(`http://localhost:3000/api/hubingest/${selectedHubIngest._id}`, {
+                headers: { Authorization: `Bearer ${token}` },
             });
             alert('Hub Ingest deleted successfully!');
-            setHubIngests(hubIngests.filter((hubIngest) => hubIngest._id !== id)); // Remove from state
+            setHubIngests(hubIngests.filter((hubIngest) => hubIngest._id !== selectedHubIngest._id));
+            setSelectedHubIngest(null); // Reset selected item
         } catch (error) {
             console.error('Error deleting Hub Ingest:', error);
             alert('Failed to delete Hub Ingest.');
@@ -55,15 +88,7 @@ const Hubingest = () => {
     };
 
     const handleNameClick = (hubIngest) => {
-        navigate('/overview', { state: hubIngest }); // Pass the hub ingest data to Overview
-    };
-
-    const handleCreateClick = () => {
-        navigate('/create-hub-ingest'); // Navigate to the CreateHubIngest component
-    };
-
-    const handleDetails = (hubIngest) => {
-        navigate('/details-hub-ingest', { state: { hubIngest } }); // Pass Hub Ingest data for Details
+        navigate('/overview', { state: hubIngest });
     };
 
     return (
@@ -72,22 +97,46 @@ const Hubingest = () => {
             <h1 className="page-title">Hub Ingest</h1>
             <input type="text" placeholder="Search" className="search-bar" />
             <div className="toolbar">
-                <button onClick={handleCreateClick}>+ Create</button>
-                <button>📁 Access</button>
-                <button>📝 Details</button>
+                <button onClick={handleCreateClick}>
+                    <i className="fas fa-plus"></i> Create
+                </button>
+                <button onClick={handleAccess}>
+                    <i className="fas fa-folder-open"></i> Access
+                </button>
+                <button onClick={handleDetails}>
+                    <i className="fas fa-info-circle"></i> Details
+                </button>
+                <button onClick={handleEdit}>
+                    <i className="fas fa-edit"></i> Edit
+                </button>
+                <button onClick={handleDelete}>
+                    <i className="fas fa-trash-alt"></i> Delete
+                </button>
             </div>
             <table className="custom-table">
                 <thead>
                     <tr>
+                        <th>Select</th>
                         <th>Project Name</th>
                         <th>Hub Ingest Name</th>
                         <th>Subscription Name</th>
-                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     {hubIngests.map((hubIngest, index) => (
-                        <tr key={index}>
+                        <tr
+                            key={index}
+                            onClick={() => setSelectedHubIngest(hubIngest)}
+                            className={selectedHubIngest?._id === hubIngest._id ? 'selected-row' : ''}
+                        >
+                            <td>
+                                <input
+                                    type="radio"
+                                    name="selectedHubIngest"
+                                    checked={selectedHubIngest?._id === hubIngest._id}
+                                    onChange={() => setSelectedHubIngest(hubIngest)}
+                                />
+                            </td>
                             <td>{hubIngest.projectName?.projectName || hubIngest.projectName || 'N/A'}</td>
                             <td
                                 className="clickable-name"
@@ -96,10 +145,6 @@ const Hubingest = () => {
                                 {hubIngest.name || 'N/A'}
                             </td>
                             <td>{hubIngest.subscriptionType?.type || 'N/A'}</td>
-                            <td>
-                                <button onClick={() => handleEdit(hubIngest)}>✍🏼 Edit</button>
-                                <button onClick={() => handleDelete(hubIngest._id)}>🗑 Delete</button>
-                            </td>
                         </tr>
                     ))}
                 </tbody>

@@ -5,14 +5,11 @@ import { useServiceTracking } from "../../Hooks/UseServiceTracking";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faTrashAlt,
-  faCogs,
-  faPen,
-  faPlus,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
-
+import { faTrashAlt, faCogs, faPen, faPlus, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { toast, ToastContainer } from "react-toastify";
+import { FaSearch} from "react-icons/fa";
+import "react-toastify/dist/ReactToastify.css";
+ 
 const ProjectsPage = () => {
   const navigate = useNavigate();
   const startTracking = useServiceTracking();
@@ -20,19 +17,14 @@ const ProjectsPage = () => {
   const [search, setSearch] = useState("");
   const [filteredProjects, setFilteredProjects] = useState([]);
   const [selectedProjects, setSelectedProjects] = useState([]);
-  const [isRenameModalOpen, setIsRenameModalOpen] = useState(false);
   const [renameProjectName, setRenameProjectName] = useState("");
   const [renameProjectId, setRenameProjectId] = useState(null);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
-  const [notification, setNotification] = useState("");
-  const [projectToDelete, setProjectToDelete] = useState(null);
-  const [propertiesData, setPropertiesData] = useState(null);
-
+ 
   useEffect(() => {
     startTracking("All Projects", "Project");
     fetchProjects();
   }, []);
-
+ 
   useEffect(() => {
     const filtered = projects.filter(
       (project) =>
@@ -42,160 +34,121 @@ const ProjectsPage = () => {
     );
     setFilteredProjects(filtered);
   }, [search, projects]);
-
+ 
   const fetchProjects = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        `http://localhost:3000/api/proj/projects`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      // Access the 'data' array within the API response
+      const response = await axios.get(`http://localhost:3000/api/proj/projects`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+ 
       if (Array.isArray(response.data.data)) {
-        setProjects(response.data.data);
-        setFilteredProjects(response.data.data);
+        const projectsData = response.data.data.map((project) => ({
+          ...project,
+          subscriptionName: project.subscriptionType,
+        }));
+        setProjects(projectsData);
+        setFilteredProjects(projectsData);
       } else {
-        console.error(
-          "API response does not contain an array in 'data'.",
-          response.data
-        );
+        console.error("API response does not contain an array in 'data'.", response.data);
       }
     } catch (error) {
       console.error("Error fetching projects:", error);
     }
   };
-
-  const handleCreateClick = () => {
-    navigate("/create-project");
-  };
-
-  const handleEditClick = () => {
-    if (selectedProjects.length === 1) {
-      const projectId = selectedProjects[0];
-      navigate(`/edit-project/${projectId}`);
-    } else {
-      alert("Please select one project to edit.");
-    }
-  };
-
-  const handleDeleteClick = () => {
+ 
+  const handleCreateClick = () => navigate("/create-project");
+ 
+  const handleDeleteClick = async () => {
     if (selectedProjects.length > 0) {
-      const projectsToDelete = projects.filter((project) =>
-        selectedProjects.includes(project._id)
-      );
-      setProjectToDelete(projectsToDelete);
-      setIsDeleteModalOpen(true);
-    } else {
-      alert("Please select at least one project to delete.");
-    }
-  };
-
-  const confirmDelete = async () => {
-    if (!projectToDelete || projectToDelete.length === 0) return;
-
-    try {
-      const token = localStorage.getItem("token");
-
-      await Promise.all(
-        projectToDelete.map((project) =>
-          axios.delete(
-            `http://localhost:3000/api/proj/projects/${project._id}`,
-            {
+      try {
+        const token = localStorage.getItem("token");
+        await Promise.all(
+          selectedProjects.map((projectId) =>
+            axios.delete(`http://localhost:3000/api/proj/${projectId}`, {
               headers: { Authorization: `Bearer ${token}` },
-            }
+            })
           )
-        )
-      );
-
-      setProjects(
-        projects.filter((project) => !projectToDelete.includes(project))
-      );
-      setFilteredProjects(
-        filteredProjects.filter((project) => !projectToDelete.includes(project))
-      );
-      setSelectedProjects([]);
-      setNotification(
-        `${projectToDelete.length} project(s) have been successfully deleted.`
-      );
-
-      setTimeout(() => {
-        setNotification("");
-      }, 2000);
-    } catch (error) {
-      console.error("Error deleting project:", error);
-      setNotification("Failed to delete the project(s).");
-    } finally {
-      setIsDeleteModalOpen(false);
-      setProjectToDelete(null);
+        );
+ 
+        setProjects((prev) =>
+          prev.filter((project) => !selectedProjects.includes(project._id))
+        );
+        setFilteredProjects((prev) =>
+          prev.filter((project) => !selectedProjects.includes(project._id))
+        );
+        setSelectedProjects([]);
+        toast.success(`${selectedProjects.length} project(s) deleted successfully!`);
+      } catch (error) {
+        console.error("Error deleting project:", error);
+        toast.error("Failed to delete the project(s).");
+      }
+    } else {
+      toast.warning("Please select at least one project to delete.");
     }
   };
-
-  const handlePropertiesClick = async () => {
-    if (selectedProjects.length === 0) {
-      alert("Please select at least one project to view properties.");
-      return;
-    }
-
-    try {
-      const token = localStorage.getItem("token");
-      const responses = await Promise.all(
-        selectedProjects.map((projectId) =>
-          axios.get(`http://localhost:3000/api/proj/projects/${projectId}`, {
-            headers: { Authorization: `Bearer ${token}` },
-          })
-        )
-      );
-      setPropertiesData(responses.map((res) => res.data));
-    } catch (error) {
-      console.error("Error fetching properties:", error);
-      alert("Failed to fetch project properties.");
-    }
-  };
-
+ 
   const handleRenameClick = () => {
     if (selectedProjects.length === 1) {
       const projectId = selectedProjects[0];
       const project = projects.find((proj) => proj._id === projectId);
       setRenameProjectName(project.projectName);
       setRenameProjectId(projectId);
-      setIsRenameModalOpen(true);
     } else {
-      alert("Please select one project to rename.");
+      toast.warning("Please select exactly one project to rename.");
     }
   };
-
+ 
   const handleRenameSave = async () => {
     if (renameProjectName.trim() === "") {
-      alert("Please enter a new name for the project.");
+      toast.warning("Please enter a valid name.");
       return;
     }
-
+ 
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:3000/api/proj/projects/${renameProjectId}`,
+        `http://localhost:3000/api/proj/${renameProjectId}`,
         { projectName: renameProjectName },
-        {
-          headers: { Authorization: `Bearer ${token}` },
-        }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
-      setNotification(`${renameProjectName} has been renamed successfully!`);
-      setTimeout(() => {
-        setNotification("");
-      }, 2000);
+ 
+      toast.success("Project renamed successfully!");
+      setRenameProjectName("");
+      setRenameProjectId(null);
       fetchProjects();
-      setIsRenameModalOpen(false);
     } catch (error) {
       console.error("Error renaming project:", error);
-      alert("Failed to rename the project.");
+      toast.error("Failed to rename the project.");
     }
   };
-
+ 
+  const handlePropertiesClick = async () => {
+    if (selectedProjects.length === 0) {
+      toast.warning("Please select at least one project to view properties.");
+      return;
+    }
+ 
+    try {
+      const token = localStorage.getItem("token");
+      const responses = await Promise.all(
+        selectedProjects.map((projectId) =>
+          axios.get(`http://localhost:3000/api/proj/${projectId}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          })
+        )
+      );
+      const properties = responses.map((res) => res.data);
+      toast.info(
+        `Project Properties:\n${JSON.stringify(properties, null, 2)}`,
+        { autoClose: false }
+      );
+    } catch (error) {
+      console.error("Error fetching properties:", error);
+      toast.error("Failed to fetch project properties.");
+    }
+  };
+ 
   const handleCheckboxChange = (projectId) => {
     if (selectedProjects.includes(projectId)) {
       setSelectedProjects(selectedProjects.filter((id) => id !== projectId));
@@ -203,7 +156,7 @@ const ProjectsPage = () => {
       setSelectedProjects([...selectedProjects, projectId]);
     }
   };
-
+ 
   const handleSelectAllChange = () => {
     if (selectedProjects.length === filteredProjects.length) {
       setSelectedProjects([]);
@@ -211,45 +164,43 @@ const ProjectsPage = () => {
       setSelectedProjects(filteredProjects.map((project) => project._id));
     }
   };
-
+ 
   return (
     <div className="projects-page">
       <Header />
       <main className="main">
         <h1 className="pro">Projects</h1>
-        <div className="search-bar-container">
-          <FontAwesomeIcon icon={faSearch} className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search Projects..."
-            className="search-bar"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-        {notification && (
-          <div className="notification success">{notification}</div>
-        )}
+        <div className="search-container">
+                        <input
+                            id="search-input"
+                            type="text"
+                            onChange={(e)=>setSearch(e.target.value)}
+                            placeholder="Search Projects..."
+                            className="search-input"
+                        />
+                        {/* {showOptions && renderOptions()} */}
+                        <FaSearch className="search-icon" />
+                    </div>
         <div className="action">
-          <button className="proj-button" onClick={handleCreateClick}>
+          <button className="button" onClick={handleCreateClick}>
             <FontAwesomeIcon icon={faPlus} /> Create
           </button>
           <button
-            className="proj-button"
+            className="button"
             onClick={handleRenameClick}
             disabled={selectedProjects.length !== 1}
           >
             <FontAwesomeIcon icon={faPen} /> Rename
           </button>
           <button
-            className="proj-button"
+            className="button"
             onClick={handleDeleteClick}
             disabled={selectedProjects.length === 0}
           >
             <FontAwesomeIcon icon={faTrashAlt} /> Delete
           </button>
           <button
-            className="proj-button"
+            className="button"
             onClick={handlePropertiesClick}
             disabled={selectedProjects.length !== 1}
           >
@@ -262,11 +213,7 @@ const ProjectsPage = () => {
               <th>
                 <input
                   type="checkbox"
-                  checked={
-                    filteredProjects.length > 0 &&
-                    selectedProjects.length === filteredProjects.length
-                  }
-                  disabled={filteredProjects.length === 0}
+                  checked={selectedProjects.length === filteredProjects.length}
                   onChange={handleSelectAllChange}
                 />
               </th>
@@ -300,22 +247,34 @@ const ProjectsPage = () => {
             )}
           </tbody>
         </table>
-        {isRenameModalOpen && (
-          <div className="modal-overlay">
-            <div className="modal">
-              <h2>Rename a Project</h2>
+        {renameProjectId && (
+          <div className="rename-modal">
+            <div className="rename-modal-content">
+              <FontAwesomeIcon
+                icon={faTimes}
+                className="close-icon"
+                onClick={() => {
+                  setRenameProjectName("");
+                  setRenameProjectId(null);
+                }}
+              />
+              <h3>Rename Project</h3>
               <input
                 type="text"
                 value={renameProjectName}
                 onChange={(e) => setRenameProjectName(e.target.value)}
+                placeholder="Enter new project name"
               />
-              <div className="modal-actions">
-                <button onClick={handleRenameSave} className="button">
+              <div className="rename-actions">
+                <button onClick={handleRenameSave} className="button save">
                   Save
                 </button>
                 <button
-                  onClick={() => setIsRenameModalOpen(false)}
-                  className="button"
+                  onClick={() => {
+                    setRenameProjectName("");
+                    setRenameProjectId(null);
+                  }}
+                  className="button cancel"
                 >
                   Cancel
                 </button>
@@ -323,37 +282,10 @@ const ProjectsPage = () => {
             </div>
           </div>
         )}
-        {isDeleteModalOpen && (
-          <div className="modal-overlay">
-            <div className="modal">
-              <h2>Confirm Deletion</h2>
-              <p>Are you sure you want to delete the selected project(s)?</p>
-              <div className="modal-actions">
-                <button onClick={confirmDelete} className="button">
-                  Delete
-                </button>
-                <button
-                  onClick={() => setIsDeleteModalOpen(false)}
-                  className="button"
-                >
-                  Cancel
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
-        {propertiesData && (
-          <div className="properties-modal">
-            <h2>Project Properties</h2>
-            <pre>{JSON.stringify(propertiesData, null, 2)}</pre>
-            <button onClick={() => setPropertiesData(null)} className="button">
-              Close
-            </button>
-          </div>
-        )}
+        <ToastContainer position="top-right" autoClose={3000} />
       </main>
     </div>
   );
 };
-
+ 
 export default ProjectsPage;
