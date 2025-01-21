@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../../../../Components/Header/Header';
 import Sidebar from '../../../../../Components/Sidebar/Sidebar';
 import './Overview.css';
-
+import { FaFilter } from 'react-icons/fa'; // Import filter icon from react-icons
+ 
 const Overview = () => {
     const location = useLocation(); // Access passed data
     const navigate = useNavigate();
-    const { projectName, name, subscriptionType,titleName } = location.state || {}; // Destructure the passed data
-
+    const { projectName, name, subscriptionType, titleName } = location.state || {}; // Destructure the passed data
+    const [filterText, setFilterText] = useState('');
+ 
     const handleOpenClick = () => {
-        window.open('/demo-hub','_blank');
+        window.open('/demo-hub', '_blank');
     };
-
+ 
+    const handleFilterChange = (event) => {
+        setFilterText(event.target.value);
+    };
+ 
     return (
         <div className="overview-layout">
             <Header />
@@ -21,17 +27,26 @@ const Overview = () => {
                 <div className="app-container1">
                     <aside className="sidebar1">
                         <div className="sidebar-header">
-                            <h2>{name|| 'Demo_HubIngest'}</h2>
-                            {/* <h2>{name || 'HubIngest'}</h2> */}
+                            <h2>{name || 'Demo_HubIngest'}</h2>
+                            <h2>HubIngest</h2>
+                        </div>
+                        <div className="filter-container">
+                            <FaFilter className="filter-icon" />
+                            <input
+                                type="text"
+                                placeholder="Filter"
+                                className="filter-input"
+                                value={filterText}
+                                onChange={handleFilterChange}
+                            />
                         </div>
                         <nav className="sidebar-nav">
                             <ul>
-                                <li>Overview</li>
-                                <li>Store</li>
-                                <li>Dashboard</li>
-                                <li>Security</li>
-                                <li>Settings</li>
-                                <li>Docs</li>
+                                {['Overview', 'Store', 'Dashboard', 'Security', 'Settings', 'Docs']
+                                    .filter((item) => item.toLowerCase().includes(filterText.toLowerCase()))
+                                    .map((item) => (
+                                        <li key={item}>{item}</li>
+                                    ))}
                             </ul>
                         </nav>
                     </aside>
@@ -64,9 +79,6 @@ const Overview = () => {
                                 <p>
                                     <strong>Service Type:</strong> HubIngest
                                 </p>
-                                {/* <p>
-                                    <strong>Location:</strong>
-                                </p> */}
                             </div>
                         </div>
                         <div className="hub-ingest-section">
@@ -81,5 +93,5 @@ const Overview = () => {
         </div>
     );
 };
-
+ 
 export default Overview;

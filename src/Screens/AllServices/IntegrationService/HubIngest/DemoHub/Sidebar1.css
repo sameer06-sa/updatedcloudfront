@@ -1,28 +1,40 @@
 .sidebar2 {
   margin-top: 65px;
-    width: 210px;
-    /* background-color: #f4f4f4; */
-    padding: 20px;
-    border-right: 1px solid #ddd;
-    height: 641px;
-    margin-left: 60px;
-  }
-  
-  .sidebar2 ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar2 ul li {
-    margin: 10px 0;
-  }
-  
-  .sidebar2 ul li ul {
-    margin-top: 5px;
-    margin-left: 20px;
-  }
-  
-  .sidebar2 ul li ul li {
-    font-size: 0.9em;
-  }
-  
+  width: 210px;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  height: 641px;
+  margin-left: 60px;
+}
+ 
+.sidebar2 ul {
+  list-style: none;
+  padding: 0;
+}
+ 
+.sidebar2 ul li {
+  display: flex; /* Align icon and text side by side */
+  align-items: center; /* Vertically center the icon and text */
+  margin: 0px 0;
+  font-size: 1em; /* Adjust font size of text */
+  padding-top: 40px;
+  gap: 12px; /* Use gap property to create space between the icon and text */
+}
+ 
+.sidebar2 ul li ul {
+  margin-top: 5px;
+  margin-left: 20px;
+}
+ 
+.sidebar2 ul li ul li {
+  font-size: 0.9em;
+}
+ 
+.sidebar2 ul li .sidebar-icon {
+  font-size: 20px; /* Size of the icon */
+}
+ 
+/* Add gap between Dashboard and Docs */
+.sidebar2 ul li:nth-last-child(2) {
+  margin-bottom: 130px; /* Adjust the margin to create the gap */
+}

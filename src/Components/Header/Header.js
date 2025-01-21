@@ -5,6 +5,8 @@ import "./Header.css";
 import axios from "axios";
 import debounce from "lodash.debounce";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 function Header() {
     const [userEmail, setUserEmail] = useState("Guest");  // Default value to 'Guest'
     const [options, setOptions] = useState([]);
@@ -19,7 +21,7 @@ function Header() {
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                const res = await axios.get("http://localhost:3000/api/webapp");
+                const res = await axios.get(`${apiUrl}/api/webapp`);
                 if (res.data?.data) {
                     setOptions(res.data.data);
                 }

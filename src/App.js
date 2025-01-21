@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 
 import SignIn from './Screens/SignIn/Signin';
 import VerifyCode from './Screens/VerifyCode/VerifyCode';
-import SignupForm from './Screens/Signup/Signup';
 import Home from './Screens/Home/Home';
+import SignupForm from './Screens/Signup/Signup';
 
 // All_Services which is in home page
 import DataStoreService from './Screens/AllServices/DataStoreService/DataStoreService';
@@ -85,6 +85,7 @@ function App() {
           <Routes>
             {/*  using Sidebar */}
             <Route path="/" element={<LandingPage addNotification={addNotification} />} />
+
             <Route path="/signin" element={<SignIn />} />
             <Route path="/verify-code" element={<VerifyCode addNotification={addNotification} />} />
             <Route path="/verify-identity" element={<VerifyIdentity />} />

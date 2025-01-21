@@ -7,9 +7,10 @@ import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faCogs, faPen, faPlus, faSearch, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { toast, ToastContainer } from "react-toastify";
-import { FaSearch} from "react-icons/fa";
+import { FaSearch } from "react-icons/fa";
 import "react-toastify/dist/ReactToastify.css";
- 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const ProjectsPage = () => {
   const navigate = useNavigate();
   const startTracking = useServiceTracking();
@@ -19,12 +20,12 @@ const ProjectsPage = () => {
   const [selectedProjects, setSelectedProjects] = useState([]);
   const [renameProjectName, setRenameProjectName] = useState("");
   const [renameProjectId, setRenameProjectId] = useState(null);
- 
+
   useEffect(() => {
     startTracking("All Projects", "Project");
     fetchProjects();
   }, []);
- 
+
   useEffect(() => {
     const filtered = projects.filter(
       (project) =>
@@ -34,14 +35,14 @@ const ProjectsPage = () => {
     );
     setFilteredProjects(filtered);
   }, [search, projects]);
- 
+
   const fetchProjects = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:3000/api/proj/projects`, {
+      const response = await axios.get(`${apiUrl}/api/proj/projects`, {
         headers: { Authorization: `Bearer ${token}` },
       });
- 
+
       if (Array.isArray(response.data.data)) {
         const projectsData = response.data.data.map((project) => ({
           ...project,
@@ -56,21 +57,21 @@ const ProjectsPage = () => {
       console.error("Error fetching projects:", error);
     }
   };
- 
+
   const handleCreateClick = () => navigate("/create-project");
- 
+
   const handleDeleteClick = async () => {
     if (selectedProjects.length > 0) {
       try {
         const token = localStorage.getItem("token");
         await Promise.all(
           selectedProjects.map((projectId) =>
-            axios.delete(`http://localhost:3000/api/proj/${projectId}`, {
+            axios.delete(`${apiUrl}/api/proj/${projectId}`, {
               headers: { Authorization: `Bearer ${token}` },
             })
           )
         );
- 
+
         setProjects((prev) =>
           prev.filter((project) => !selectedProjects.includes(project._id))
         );
@@ -87,7 +88,7 @@ const ProjectsPage = () => {
       toast.warning("Please select at least one project to delete.");
     }
   };
- 
+
   const handleRenameClick = () => {
     if (selectedProjects.length === 1) {
       const projectId = selectedProjects[0];
@@ -98,21 +99,21 @@ const ProjectsPage = () => {
       toast.warning("Please select exactly one project to rename.");
     }
   };
- 
+
   const handleRenameSave = async () => {
     if (renameProjectName.trim() === "") {
       toast.warning("Please enter a valid name.");
       return;
     }
- 
+
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:3000/api/proj/${renameProjectId}`,
+        `${apiUrl}/api/proj/${renameProjectId}`,
         { projectName: renameProjectName },
         { headers: { Authorization: `Bearer ${token}` } }
       );
- 
+
       toast.success("Project renamed successfully!");
       setRenameProjectName("");
       setRenameProjectId(null);
@@ -122,18 +123,18 @@ const ProjectsPage = () => {
       toast.error("Failed to rename the project.");
     }
   };
- 
+
   const handlePropertiesClick = async () => {
     if (selectedProjects.length === 0) {
       toast.warning("Please select at least one project to view properties.");
       return;
     }
- 
+
     try {
       const token = localStorage.getItem("token");
       const responses = await Promise.all(
         selectedProjects.map((projectId) =>
-          axios.get(`http://localhost:3000/api/proj/${projectId}`, {
+          axios.get(`${apiUrl}/api/proj/${projectId}`, {
             headers: { Authorization: `Bearer ${token}` },
           })
         )
@@ -148,7 +149,7 @@ const ProjectsPage = () => {
       toast.error("Failed to fetch project properties.");
     }
   };
- 
+
   const handleCheckboxChange = (projectId) => {
     if (selectedProjects.includes(projectId)) {
       setSelectedProjects(selectedProjects.filter((id) => id !== projectId));
@@ -156,7 +157,7 @@ const ProjectsPage = () => {
       setSelectedProjects([...selectedProjects, projectId]);
     }
   };
- 
+
   const handleSelectAllChange = () => {
     if (selectedProjects.length === filteredProjects.length) {
       setSelectedProjects([]);
@@ -164,23 +165,23 @@ const ProjectsPage = () => {
       setSelectedProjects(filteredProjects.map((project) => project._id));
     }
   };
- 
+
   return (
     <div className="projects-page">
       <Header />
       <main className="main">
         <h1 className="pro">Projects</h1>
         <div className="search-container">
-                        <input
-                            id="search-input"
-                            type="text"
-                            onChange={(e)=>setSearch(e.target.value)}
-                            placeholder="Search Projects..."
-                            className="search-input"
-                        />
-                        {/* {showOptions && renderOptions()} */}
-                        <FaSearch className="search-icon" />
-                    </div>
+          <input
+            id="search-input"
+            type="text"
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search Projects..."
+            className="search-input"
+          />
+          {/* {showOptions && renderOptions()} */}
+          <FaSearch className="search-icon" />
+        </div>
         <div className="action">
           <button className="button" onClick={handleCreateClick}>
             <FontAwesomeIcon icon={faPlus} /> Create
@@ -287,5 +288,5 @@ const ProjectsPage = () => {
     </div>
   );
 };
- 
+
 export default ProjectsPage;

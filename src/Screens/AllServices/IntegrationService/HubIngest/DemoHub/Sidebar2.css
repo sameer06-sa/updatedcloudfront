@@ -1,47 +1,65 @@
 .sidebar3 {
-    width: 220px;
-    /* background-color: #f4f4f4; */
-    padding: 20px;
-    border-right: 1px solid #ddd;
-    height: 641px;
-    margin-top: 65px;
-  }
-  
-  .search-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .search-arrow {
-  font-size: 24px;
-  margin-right: 10px;
+  width: 220px;
+  padding: 20px;
+  border-right: 1px solid #ddd;
+  height: 641px;
+  margin-top: 65px;
+  position: relative; /* Make it easier to position close icon */
+}
+ 
+.close-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+ 
+.close-icon {
+  font-size: 1.5em;
   color: #333;
 }
-  
-  .search-input {
-    width: 100%;
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .sidebar3 ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .sidebar3 ul li {
-    margin: 10px 0;
-  }
-  
-  .sidebar3 ul li ul {
-    margin-top: 5px;
-    margin-left: 20px;
-  }
-  
-  .sidebar3 ul li ul li {
-    font-size: 0.9em;
-  }
-  
+ 
+.search-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+ 
+.search-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+ 
+/* Sidebar Menu Styling */
+.sidebar3 ul {
+  list-style: none;
+  padding: 0;
+}
+ 
+.sidebar3 ul li {
+  margin: 10px 0;
+}
+ 
+/* Flexbox for icons and text alignment */
+.sidebar3 ul li > a {
+  display: flex;  /* Aligns the icon and text horizontally */
+  align-items: center; /* Vertically centers the icon and text */
+  font-size: 1em; /* Keeps text size normal */
+}
+ 
+.menu-icon {
+  margin-right: 10px; /* Adds space between the icon and the text */
+  font-size: 1.2em; /* Adjust icon size */
+  color: #333; /* Optional: Set icon color */
+}
+ 
+.sidebar3 ul li ul {
+  margin-top: 5px;
+  margin-left: 20px;
+}
+ 
+.sidebar3 ul li ul li {
+  font-size: 0.9em;
+}

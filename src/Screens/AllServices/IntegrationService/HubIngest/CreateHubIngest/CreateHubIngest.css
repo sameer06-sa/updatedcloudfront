@@ -8,28 +8,27 @@
 
 .create-hub-container-heading {
   text-align: left;
-  margin-bottom: 40px;
-  margin-top: 70px;
+  /* margin-bottom: 40px; */
+  margin-top: 85px;
+  margin-left:15px;
 }
 
-.tab-navigation {
+.tab-navigation1 {
   display: flex;
   margin-bottom: 20px;
-  font-weight: bold;
+  /* font-weight: bold; */
   margin-left: 1px;
- 
- 
-  /* border-bottom: 1px solid #ccc; */
 }
 
-.tab {
+.tabs {
   padding: 10px 15px;
   cursor: pointer;
 }
 
-.tab.active {
-  font-weight: bold;
-  border-bottom: 2px solid black;
+.tabs.active {
+  /* font-weight: bold; */
+  /* border-bottom: 2px solid black; */
+  color:#2563EB;
 }
 /* Form styles */
 .form-container {

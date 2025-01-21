@@ -4,6 +4,8 @@ import './CreateHubIngest.css';
 import Header from '../../../../../Components/Header/Header';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
+const apiUrl = process.env.REACT_APP_API_URL;
  
 const CreateHubIngest = () => {
     const [name, setName] = useState('');
@@ -36,7 +38,7 @@ const CreateHubIngest = () => {
     const fetchProjects = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:3000/api/proj/projects`, {
+            const response = await fetch(`${apiUrl}/api/proj/projects`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -81,7 +83,7 @@ const CreateHubIngest = () => {
             };
  
             const token = localStorage.getItem('token');
-            const response = await axios.post(`http://localhost:3000/api/hubingest`, data, {
+            const response = await axios.post(`${apiUrl}/api/hubingest`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -103,14 +105,15 @@ const CreateHubIngest = () => {
         <div className="create-hub-container">
             <Header />
             <h1 className="create-hub-container-heading">Create Hub Ingest</h1>
-            <div className="tab-navigation">
-                <button className={`tab ${activeTab === 'Details' ? 'active' : ''}`} onClick={() => handleTabClick('Details')}>
+            <hr/>
+            <div className="tab-navigation1">
+                <button className={`tabs ${activeTab === 'Details' ? 'active' : ''}`} onClick={() => handleTabClick('Details')}>
                     Details
                 </button>
-                <button className={`tab ${activeTab === 'Title' ? 'active' : ''}`} onClick={() => handleTabClick('Title')}>
+                <button className={`tabs ${activeTab === 'Title' ? 'active' : ''}`} onClick={() => handleTabClick('Title')}>
                     Title
                 </button>
-                <button className={`tab ${activeTab === 'Preview' ? 'active' : ''}`} onClick={() => handleTabClick('Preview')}>
+                <button className={`tabs ${activeTab === 'Preview' ? 'active' : ''}`} onClick={() => handleTabClick('Preview')}>
                     Preview
                 </button>
             </div>

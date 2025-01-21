@@ -5,7 +5,7 @@ import { FaSearch} from "react-icons/fa";
 const Sidebar3 = () => {
 
   return (
-    <div className="sidebar3">
+    <div className="sidebar4">
         <h2>demo_collec</h2>
         <h2>Transformations</h2>
       {/* Search Bar */}
