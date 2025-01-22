@@ -8,6 +8,7 @@ const Free_trail_sub = () => {
   const [subscriptions, setSubscriptions] = useState([]); // Initialize as an empty array
   const [loading, setLoading] = useState(true); // Track loading state
   const [error, setError] = useState(null); // Track errors
+  const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const userEmail = localStorage.getItem("userData")
@@ -23,7 +24,7 @@ const Free_trail_sub = () => {
     const fetchSubscriptions = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/subscriptions/${userEmail}`
+          `${apiUrl}/api/subscriptions/${userEmail}`
         );
         const subscriptionData = response.data.subscription;
 
@@ -72,7 +73,7 @@ const Free_trail_sub = () => {
         <Sidebar />
         <div className="content">
           <div className="subscriptions-container">
-            <h1 className="subscriptions-title">Subscriptions</h1>
+            <h1 className="subscriptions-title">Subscription</h1>
             <div className="subscriptions-table-container">
               <table className="subscriptions-table">
                 <thead>

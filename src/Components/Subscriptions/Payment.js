@@ -5,6 +5,8 @@ import Sidebar from '../Sidebar/Sidebar';
 import './Payment.css';
 import axios from 'axios';
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const Payment = () => {
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
@@ -35,7 +37,7 @@ const Payment = () => {
 
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/user/${userEmail}`);
+        const response = await axios.get(`${apiUrl}/api/user/${userEmail}`);
         setUserDetails(response.data.data);
       } catch (error) {
         console.error('Error fetching user details:', error);
@@ -95,7 +97,7 @@ const Payment = () => {
     };
 
     try {
-      const response = await axios.post('http://localhost:3000/api/payment/create-order', paymentData);
+      const response = await axios.post(`${apiUrl}/api/payment/create-order`, paymentData);
       if (response.data && response.data.url) {
         window.location.href = response.data.url;
       } else {

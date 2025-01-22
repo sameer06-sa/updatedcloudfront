@@ -12,7 +12,7 @@ function ServiceMenu() {
         { label: "All Services", icon: <FaPlusCircle className="icon-blue" />, path: "/all-services" },
         { label: "Data Storage", icon: <BsFillDatabaseFill className="icon-blue" />, path: "/data-store-services" },
         { label: "Team Collaboration", icon: <FaUsers className="icon-blue" />, path: "/team-collaborations" },
-        { label: "Integrations", icon: <MdIntegrationInstructions className="icon-blue" />, path: "/integration-service" },
+        { label: "Integrations", icon: <MdIntegrationInstructions className="icon-blue" />, path: "/integration-services" },
         { label: "Reporting and Analytics", icon: <FaChartPie className="icon-blue" />, path: "/reporting-analytics" },
         { label: "Help and Support", icon: <IoIosHelpCircle className="icon-blue" />, path: "/help-support" }
     ];

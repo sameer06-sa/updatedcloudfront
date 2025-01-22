@@ -57,6 +57,7 @@ input, select {
   border: 1px solid #ccc;
   border-radius: 15px;
   font-size: 14px;
+  width: 80%;
 }
 
 /* Button group styles */

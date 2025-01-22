@@ -11,7 +11,7 @@ const CreateHubIngest = () => {
     const [name, setName] = useState('');
     const [subscriptionType, setSubscriptionType] = useState('');
     const [projectName, setProjectName] = useState('');
-    const [organizationName, setOrganizationName] = useState('');
+    // const [organizationName, setOrganizationName] = useState('');
     const [status, setStatus] = useState('Running');
     const [activeTab, setActiveTab] = useState('Details');
     const [titleName, setTitleName] = useState('');
@@ -76,7 +76,6 @@ const CreateHubIngest = () => {
                 name,
                 subscriptionType,
                 projectName,
-                organizationName,
                 status,
                 titleName,
                 titleDetails
@@ -160,17 +159,7 @@ const CreateHubIngest = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="organizationName">Organization Name</label>
-                        <input
-                            type="text"
-                            id="organizationName"
-                            placeholder="Organization Name"
-                            value={organizationName}
-                            onChange={(e) => setOrganizationName(e.target.value)}
-                            required
-                        />
-                    </div>
+                    
                     <div className="button-group">
                         <button type="button" className="btn back" onClick={handleBackClick}>
                             Back
@@ -226,7 +215,6 @@ const CreateHubIngest = () => {
                             <p>Hub Ingest Name: {name}</p>
                             <p>Subscription Type: {subscriptionType}</p>
                             <p>Project Name: {projectName}</p>
-                            <p>Organization Name: {organizationName}</p>
                             <p>Status: {status}</p>
                         </div>
                         <div className="preview-section">

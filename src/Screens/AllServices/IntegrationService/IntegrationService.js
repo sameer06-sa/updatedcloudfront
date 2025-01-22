@@ -2,90 +2,140 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./IntegrationService.css"; // Ensure path is correct
 import Sidebar from "../../../Components/Sidebar/Sidebar";
-import UsersSidebar from "../../../Settings/UsersSidebar"; // Ensure this file exists
 import Header from "../../../Components/Header/Header";
-
-const IntegrationServicesPage = () => {
+import {
+  HubRounded,
+  Settings,
+  Storage,
+  Lan,
+  Dns,
+  Security,
+} from "@mui/icons-material";
+ 
+const IntegrationService = () => {
   const [activeService, setActiveService] = useState("Integration Services");
-  const navigate = useNavigate(); // React Router hook for navigation
-
-  // Handle service click and navigation
-  const handleServiceClick = (serviceName, route) => {
-    setActiveService(serviceName); // Set active service
-    navigate(route); // Navigate to the specified route
+  const [serviceData, setServiceData] = useState([
+    "Hub Ingest",
+    "Service",
+    "Integration Data 3",
+    "Integration Data 4",
+    "Integration Data 5",
+  ]); // Default service data for "Integration Services"
+ 
+  const navigate = useNavigate();
+ 
+  const serviceDetails = {
+    "Integration Services": [
+      "Hub Ingest",
+      "Service",
+      "Integration Data 3",
+      "Integration Data 4",
+      "Integration Data 5",
+    ],
+    "Management Services": [
+      "Management Data 1",
+      "Management Data 2",
+      "Management Data 3",
+      "Management Data 4",
+      "Management Data 5",
+    ],
+    "Database Services": [
+      "Database Data 1",
+      "Database Data 2",
+      "Database Data 3",
+      "Database Data 4",
+      "Database Data 5",
+    ],
+    "Network Services": [
+      "Network Data 1",
+      "Network Data 2",
+      "Network Data 3",
+      "Network Data 4",
+      "Network Data 5",
+    ],
+    "Compute Services": [
+      "Compute Data 1",
+      "Compute Data 2",
+      "Compute Data 3",
+      "Compute Data 4",
+      "Compute Data 5",
+    ],
+    "Security Services": [
+      "Security Data 1",
+      "Security Data 2",
+      "Security Data 3",
+      "Security Data 4",
+      "Security Data 5",
+    ],
   };
-
-  // Navigate to Hub Ingest creation
-  const handleCreateClick = () => {
+ 
+  const handleServiceClick = (serviceName) => {
+    setActiveService(serviceName);
+    setServiceData(serviceDetails[serviceName] || []);
+  };
+ 
+  const handleHubIngestClick = () => {
     navigate("/hub-ingest");
   };
-
+ 
   const services = [
-    { name: "Integration Services", icon: "🔗", route: "/integration" },
-    { name: "Management Services", icon: "⚙️", route: "/management" },
-    { name: "Database Services", icon: "💾", route: "/database" },
-    { name: "Network Services", icon: "🌐", route: "/network" },
-    { name: "Compute Services", icon: "🖥️", route: "/compute" },
-    { name: "Security Services", icon: "🔒", route: "/security" },
+    { name: "Integration Services", icon: <HubRounded /> },
+    { name: "Management Services", icon: <Settings /> },
+    { name: "Database Services", icon: <Storage /> },
+    { name: "Network Services", icon: <Lan /> },
+    { name: "Compute Services", icon: <Dns /> },
+    { name: "Security Services", icon: <Security /> },
   ];
-
+ 
   return (
     <div className="app">
-      {/* Top Bar */}
       <Header />
-
-      {/* Main Layout */}
-      <div className="main-layout">
-        {/* Primary Sidebar */}
+      <div className="int-main-layout">
         <Sidebar />
-
-        {/* Main Content */}
-        <div className="main-content">
-          {/* Content Header */}
-          <div className="content-header">
+        <div className="int-main-content">
+          <div className="int-content-header">
             <h1>
               All Services <span>| {activeService}</span>
             </h1>
             <input
               type="text"
-              className="search-input"
+              className="int-search-input"
               placeholder="Search Services..."
             />
           </div>
           <div className="services-list-container">
-          {/* Service List */}
-          <ul className="services-list">
-            {services.map((service, index) => (
-              <li
-                key={index}
-                className={`service-item ${
-                  activeService === service.name ? "active" : ""
-                }`}
-                onClick={() => handleServiceClick(service.name, service.route)}
-              >
-                <span className="icon">{service.icon}</span>
-                <span className="text">{service.name}</span>
-              </li>
-            ))}
-          </ul>
-
-          {/* Action Buttons */}
-          <main className="content">
-            <div className="actions">
-              <button className="actions-button" onClick={handleCreateClick}>
-                Hub Ingest
-              </button>
-              <button className="actions-button">Service Bus</button>
-              <button className="actions-button">Logic Apps</button>
-              <button className="actions-button">Properties</button>
-              <button className="actions-button">Data Access</button>
-            </div>
-          </main>
-        </div>
+            <ul className="int-services-list">
+              {services.map((service, index) => (
+                <li
+                  key={index}
+                  className={`int-service-item ${
+                    activeService === service.name ? "active" : ""
+                  }`}
+                  onClick={() => handleServiceClick(service.name)}
+                >
+                  <span className="icon">{service.icon}</span>
+                  <span className="text">{service.name}</span>
+                </li>
+              ))}
+            </ul>
+            <main className="int-content">
+              <div className="int-actions">
+                {serviceData.map((data, index) => (
+                  <button
+                    onClick={handleHubIngestClick}
+                    key={index}
+                    className={`actions-button box${index + 1}`}
+                  >
+                    {data}
+                  </button>
+                ))}
+              </div>
+            </main>
+          </div>
         </div>
       </div>
     </div>
   );
 };
-
-export default IntegrationServicesPage;
+ 
+export default IntegrationService;

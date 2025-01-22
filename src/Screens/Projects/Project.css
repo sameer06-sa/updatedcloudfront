@@ -121,7 +121,6 @@
   .projects-table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #fff;
   }
    
   .projects-table th,
@@ -129,13 +128,12 @@
     padding: 12px;
     text-align: left;
     font-size: 14px;
-    font-weight: 500;
     color: #333;
     border-bottom: 2px solid #ddd;
   }
    
   .projects-table th {
-    background-color: #ffff;
+    font-weight:600;
   }
    
   .projects-table td {

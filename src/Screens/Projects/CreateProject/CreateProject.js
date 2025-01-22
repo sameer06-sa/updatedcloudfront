@@ -174,7 +174,7 @@ function CreateProjectForm() {
                         </select>
                     </div>
  
-                    <div className="button-group">
+                    <div className="button-group1">
                         <button type="button" className="cancel-button" onClick={() => navigate('/projects')}>
                             Cancel
                         </button>

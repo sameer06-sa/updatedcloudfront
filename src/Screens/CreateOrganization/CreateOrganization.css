@@ -8,6 +8,7 @@
 
 .create-organization-container {
   margin-left: 75px;
+  margin-top: 68px;
 }
 
 
@@ -93,17 +94,20 @@ hr {
   border: 0.5px solid #ddd;
   margin: 15px 0;
 }
-.payment-method{
+
+.payment-method {
   border: #666 1px solid;
   width: 470px;
   padding: 8px;
   border-radius: 4px;
 }
+
 .form-actions {
   display: flex;
-  justify-content:start;
-  gap: 43px;
+  justify-content: start;
+  gap: 150px;
   width: 357px;
+  margin-top: 36px;
 }
 
 .cancel-btn {
