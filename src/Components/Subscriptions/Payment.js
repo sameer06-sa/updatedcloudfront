@@ -4,9 +4,9 @@ import Header from '../Header/Header';
 import Sidebar from '../Sidebar/Sidebar';
 import './Payment.css';
 import axios from 'axios';
-
+ 
 const apiUrl = process.env.REACT_APP_API_URL;
-
+ 
 const Payment = () => {
   const navigate = useNavigate();
   const [userDetails, setUserDetails] = useState({
@@ -23,32 +23,37 @@ const Payment = () => {
     cardNumber: '',
   });
   const [errors, setErrors] = useState({});
-
+ 
   useEffect(() => {
+    const token = localStorage.getItem('token');
     const userEmail = localStorage.getItem('userData')
       ? JSON.parse(localStorage.getItem('userData')).email
       : null;
-
-    if (!userEmail) {
+ 
+    if (!token || !userEmail) {
       alert('User session expired. Please log in again.');
       navigate('/signin');
       return;
     }
-
+ 
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/api/user/${userEmail}`);
+        const response = await axios.get(`${apiUrl}/api/user/${userEmail}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         setUserDetails(response.data.data);
       } catch (error) {
         console.error('Error fetching user details:', error);
-        alert('Failed to fetch user details. Please try again later.');
+        alert('Failed to fetch user details. Redirecting to login...');
         navigate('/signin');
       }
     };
-
+ 
     fetchUserDetails();
   }, [navigate]);
-
+ 
   const validateFields = () => {
     const newErrors = {};
     if (!formData.address.trim()) newErrors.address = 'Address is required';
@@ -57,139 +62,108 @@ const Payment = () => {
     if (!formData.state.trim()) newErrors.state = 'State is required';
     if (!formData.pincode.trim()) newErrors.pincode = 'Pincode is required';
     else if (!/^\d{6}$/.test(formData.pincode)) newErrors.pincode = 'Pincode must be a 6-digit number';
-    if (!formData.cardNumber.trim()) newErrors.cardNumber = 'Card number is required';
-    else if (!validateCardNumber(formData.cardNumber)) newErrors.cardNumber = 'Invalid card number';
-
+ 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
-
-  const validateCardNumber = (number) => {
-    let sum = 0;
-    let shouldDouble = false;
-
-    for (let i = number.length - 1; i >= 0; i--) {
-      let digit = parseInt(number.charAt(i), 10);
-      if (shouldDouble) {
-        digit *= 2;
-        if (digit > 9) digit -= 9;
-      }
-      sum += digit;
-      shouldDouble = !shouldDouble;
-    }
-
-    return sum % 10 === 0;
-  };
-
+ 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-
-  const handlePayment = async (e) => {
+ 
+  const handleNext = (e) => {
     e.preventDefault();
     if (!validateFields()) return;
-
-    const paymentData = {
-      name: userDetails.fullName,
-      mobileNumber: userDetails.mobile,
-      amount: 5,
-    };
-
-    try {
-      const response = await axios.post(`${apiUrl}/api/payment/create-order`, paymentData);
-      if (response.data && response.data.url) {
-        window.location.href = response.data.url;
-      } else {
-        throw new Error('Payment URL not returned');
-      }
-    } catch (error) {
-      console.error('Error initiating payment:', error.message);
-      alert('Error initiating payment. Please try again.');
-    }
+ 
+    // Save form data or pass it to the next page if needed
+    localStorage.setItem('paymentFormData', JSON.stringify(formData));
+ 
+    // Redirect to the PaymentDetails page
+    navigate('/paymentdetails');
   };
-
+ 
   const handleBack = () => {
     navigate('/subscriptions');
   };
-
+ 
   return (
     <div className="App">
       <Header />
       <div className="payment-details-container">
         <Sidebar />
         <div className="content">
-          <div className="form-container">
-            <h1 className="form-title">Start Free Trial</h1>
-            <form className="form" onSubmit={handlePayment}>
-              <div className="form-group1">
-                <label htmlFor="fullName">Full Name:</label>
-                <input type="text" id="fullName" name="fullName" value={userDetails.fullName} readOnly />
+          <div className="payment-form-container">
+            <h2 className='pay'>Payment Details</h2>
+            <form onSubmit={handleNext}>
+              <div className="form-group2">
+                <label>Full Name</label>
+                <input type="text" value={userDetails.fullName} readOnly />
               </div>
-              <div className="form-group1">
-                <label htmlFor="email">Email ID:</label>
-                <input type="email" id="email" name="email" value={userDetails.email} readOnly />
+              <div className="form-group2">
+                <label>Email ID</label>
+                <input type="email" value={userDetails.email} readOnly />
               </div>
-              <div className="form-group1">
-                <label htmlFor="mobile">Phone Number:</label>
-                <input type="text" id="mobile" name="mobile" value={userDetails.mobile} readOnly />
+              <div className="form-group2">
+                <label>Mobile Number</label>
+                <input type="text" value={userDetails.mobile} readOnly />
               </div>
-              <div className="form-group1">
-                <label htmlFor="address">Address:</label>
+              <div className="form-group2">
+                <label>Address</label>
                 <input
                   type="text"
-                  id="address"
                   name="address"
                   value={formData.address}
                   onChange={handleInputChange}
+                  placeholder="Enter your address"
                 />
-                {errors.address && <div className="error-message">{errors.address}</div>}
+                {errors.address && <small className="error">{errors.address}</small>}
               </div>
-              <div className="form-group1">
-                <label htmlFor="area">Area:</label>
+              <div className="form-group2">
+                <label>Area</label>
                 <input
                   type="text"
-                  id="area"
                   name="area"
                   value={formData.area}
                   onChange={handleInputChange}
+                  placeholder="Enter your area"
                 />
-                {errors.area && <div className="error-message">{errors.area}</div>}
+                {errors.area && <small className="error">{errors.area}</small>}
               </div>
-              <div className="form-group1">
-                <label htmlFor="townCity">Town/City:</label>
+              <div className="form-group2">
+                <label>Town/City</label>
                 <input
                   type="text"
-                  id="townCity"
                   name="townCity"
                   value={formData.townCity}
                   onChange={handleInputChange}
+                  placeholder="Enter your town/city"
                 />
-                {errors.townCity && <div className="error-message">{errors.townCity}</div>}
+                {errors.townCity && <small className="error">{errors.townCity}</small>}
               </div>
-              <div className="form-group1">
-                <label htmlFor="state">State:</label>
+              <div className="form-group2">
+                <label>State</label>
                 <input
                   type="text"
-                  id="state"
                   name="state"
                   value={formData.state}
                   onChange={handleInputChange}
+                  placeholder="Enter your state"
                 />
-                {errors.state && <div className="error-message">{errors.state}</div>}
+                {errors.state && <small className="error">{errors.state}</small>}
               </div>
-              <div className="form-group1">
-                <label htmlFor="pincode">Pincode:</label>
+              <div className="form-group2">
+                <label>Pincode</label>
                 <input
                   type="text"
-                  id="pincode"
                   name="pincode"
                   value={formData.pincode}
                   onChange={handleInputChange}
+                  placeholder="Enter your pincode"
                 />
-                {errors.pincode && <div className="error-message">{errors.pincode}</div>}
+                {errors.pincode && <small className="error">{errors.pincode}</small>}
               </div>
-              <div className="form-buttons">
+              <div className="button-group2">
                 <button type="button" className="back" onClick={handleBack}>
                   Back
                 </button>
@@ -204,5 +178,5 @@ const Payment = () => {
     </div>
   );
 };
-
+ 
 export default Payment;

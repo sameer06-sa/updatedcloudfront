@@ -10,26 +10,26 @@
   z-index: 1000;
   height:60px;
 }
-
+ 
 /* Application Name */
 .header-left {
   flex-shrink: 0;
   padding-left: 15px;
 }
-
+ 
 .app-name {
   font-size: 22px;
   font-weight: bold;
   margin: 0;
   white-space: nowrap;
 }
-
+ 
 .app-link {
   text-decoration: none;
-  color: #6D28D9;
+  color: #0011FF;
   font-size: 1.3rem;
 }
-
+ 
 /* Search Bar */
 .search-container {
   flex: 1;
@@ -37,7 +37,7 @@
   margin: 0 20px;
   position: relative;
 }
-
+ 
 .search-input {
   width: 100%;
   height: 30px;
@@ -49,11 +49,11 @@
   transition: border-color 0.3s ease;
   margin-top: 20px;
 }
-
+ 
 .search-input:focus {
   border-color: #6D28D9;
 }
-
+ 
 .search-icon {
   position: absolute;
   right: 15px;
@@ -63,7 +63,7 @@
   cursor: pointer;
   margin-top: 10px;
 }
-
+ 
 /* Right Section */
 .header-right {
   display: flex;
@@ -71,10 +71,10 @@
   gap: 15px;
   flex-shrink: 0;
 }
-
+ 
 .upgrade-button {
   /* background-color: #4F46E5; */
-  background: linear-gradient(#8B5CF6, #6D28D9);
+  background: #0011FF;
   color: #F3E8FF;
   border: none;
   min-width: 120px;
@@ -85,33 +85,33 @@
   transition: background-color 0.3s ease;
   white-space: nowrap;
 }
-
-/* .upgrade-button:hover { */
-  /* background-color: #4338CA; */
-/* } */
-
+ 
+ .upgrade-button:hover {
+ background: #0011FF;
+ }
+ 
 .icon {
   font-size: 20px;
   cursor: pointer;
   color: #555;
   transition: color 0.3s ease;
 }
-
+ 
 .icon:hover {
-  color: #6D28D9;
+  color: #0011FF;
 }
-
+ 
 .user-icon {
   font-size: 25px;
   cursor: pointer;
   color: #555;
   transition: color 0.3s ease;
 }
-
+ 
 .user-icon:hover {
-  color: #6D28D9;
+  color: #0011FF;
 }
-
+ 
 .email {
   font-size: 0.9rem;
     color: #555;
@@ -120,7 +120,7 @@
     text-overflow: ellipsis; /* Show ellipsis for overflow */
     /* max-width: 100%;  */
 }
-
+ 
 /* Dropdown Menu */
 .dropdown-menu {
   position: absolute;
@@ -134,19 +134,19 @@
   padding: 10px;
   z-index: 10;
 }
-
+ 
 .application-name {
   font-weight: bold;
   color: #666;
 }
-
+ 
 .signout {
   text-align: right;
   color: red;
   cursor: pointer;
   margin-bottom: 10px;
 }
-
+ 
 .account {
   display: flex;
   align-items: center;
@@ -154,16 +154,16 @@
   padding: 8px 0;
   cursor: pointer;
 }
-
+ 
 .account p {
   font-size: 0.9rem;
 }
-
+ 
 .account:hover {
   background-color: #f5f5f5;
   border-radius: 5px;
 }
-
+ 
 .icon-circle {
   width: 30px;
   height: 30px;
@@ -173,7 +173,7 @@
   align-items: center;
   border-radius: 50%;
 }
-
+ 
 /* Divider */
 .divider {
   width: 1px;
@@ -181,7 +181,7 @@
   background-color: #ddd;
   margin: 0 15px;
 }
-
+ 
 /* Dropdown Menu Header */
 .dropdown-header {
   display: flex;
@@ -189,7 +189,7 @@
   align-items: center;
   padding: 8px 0;
 }
-
+ 
 /* Responsive Design */
 @media screen and (max-width: 1024px) {
   .search-container {
@@ -197,35 +197,35 @@
     margin: 0 15px;
   }
 }
-
+ 
 @media screen and (max-width: 768px) {
   .show-on-desktop {
     display: none;
   }
-
+ 
   .app-name {
     font-size: 18px;
   }
-
+ 
   .search-container {
     max-width: none;
     margin: 0 10px;
   }
-
+ 
   .search-input {
     height: 36px;
   }
-
+ 
   .user-icon {
     font-size: 22px;
   }
 }
-
+ 
 /* Add space below header for fixed positioning */
 /* body {
   padding-top: 70px;
 } */
-
+ 
 @media screen and (max-width: 768px) {
   body {
     padding-top: 60px;

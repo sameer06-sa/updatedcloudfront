@@ -4,17 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import Header from '../../../Components/Header/Header';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+ 
 const apiUrl = process.env.REACT_APP_API_URL;
-
+ 
 function CreateProjectForm() {
     const navigate = useNavigate();
-
+ 
     const [projectName, setProjectName] = useState('');
     const [organizationName, setOrganizationName] = useState('');
     const [subscriptionName, setSubscriptionName] = useState('');
     const [organizations, setOrganizations] = useState([]);
-
+ 
     // Fetch organizations on component mount
     useEffect(() => {
         const fetchOrganizations = async () => {
@@ -23,7 +23,7 @@ function CreateProjectForm() {
                 alert("You need to log in first!");
                 return;
             }
-
+ 
             try {
                 const response = await fetch(`${apiUrl}/api/org/organizations`, {
                     headers: {
@@ -31,12 +31,12 @@ function CreateProjectForm() {
                         'Content-Type': 'application/json',
                     },
                 });
-
+ 
                 if (!response.ok) {
                     const errorData = await response.json();
                     throw new Error(errorData.message || 'Failed to fetch organizations');
                 }
-
+ 
                 const data = await response.json();
                 if (Array.isArray(data)) {
                     setOrganizations(data);
@@ -51,46 +51,46 @@ function CreateProjectForm() {
                 toast.error('Failed to load organizations. Please try again.');
             }
         };
-
+ 
         fetchOrganizations();
     }, []);
-
+ 
     // Automatically set organization name for FreeTrial subscription
     useEffect(() => {
-        if (subscriptionName === 'FreeTrail') {
+        if (subscriptionName === 'FreeTrial') {
             setOrganizationName('Free Trial Organization');
         } else if (subscriptionName === 'Organization') {
             setOrganizationName('');
         }
     }, [subscriptionName]);
-
+ 
     // Form submission handler
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+ 
         // Validate organization name based on subscription type
-        if (subscriptionName === 'FreeTrail' && organizationName !== 'Free Trial Organization') {
+        if (subscriptionName === 'FreeTrial' && organizationName !== 'Free Trial Organization') {
             alert("You must select 'Free Trial Organization' for FreeTrial subscription.");
             return;
         }
-
+ 
         if (subscriptionName === 'Organization' && !organizationName) {
             alert("Please select an organization.");
             return;
         }
-
+ 
         const newProject = {
             projectName,
             organizationName,
             subscriptionName,
         };
-
+ 
         try {
             const token = localStorage.getItem('token');
             if (!token) {
                 throw new Error("Authorization token is missing.");
             }
-
+ 
             const response = await fetch(`${apiUrl}/api/proj/projects`, {
                 method: 'POST',
                 headers: {
@@ -99,24 +99,24 @@ function CreateProjectForm() {
                 },
                 body: JSON.stringify(newProject),
             });
-
+ 
             if (!response.ok) {
                 const errorData = await response.json();
                 console.error('Backend error response:', errorData);
                 throw new Error(errorData.message || 'Failed to create project');
             }
-
+ 
             const createdProject = await response.json();
             console.log('Project created successfully:', createdProject);
-
+ 
             // Show success toast message
             toast.success('Project created successfully!');
-
+ 
             // Clear form fields
             setProjectName('');
             setOrganizationName('');
             setSubscriptionName('');
-
+ 
             // Navigate to the projects page after a delay
             setTimeout(() => navigate('/projects', { state: { project: createdProject } }), 3000);
         } catch (error) {
@@ -124,11 +124,11 @@ function CreateProjectForm() {
             toast.error(`Failed to create the project: ${error.message}`);
         }
     };
-
+ 
     return (
         <div className="projects-page">
             <Header />
-
+ 
             <div className="create-project-container">
                 <h2>Create New Project</h2>
                 <form onSubmit={handleSubmit}>
@@ -142,7 +142,7 @@ function CreateProjectForm() {
                             required
                         />
                     </div>
-
+ 
                     {subscriptionName === 'Organization' ? (
                         <div className="input-group">
                             <label htmlFor="organizationName">Organization Name *</label>
@@ -171,7 +171,7 @@ function CreateProjectForm() {
                             />
                         </div>
                     )}
-
+ 
                     <div className="input-group">
                         <label htmlFor="subscriptionName">Subscription Type *</label>
                         <select
@@ -185,7 +185,7 @@ function CreateProjectForm() {
                             <option value="Organization">Organization</option>
                         </select>
                     </div>
-
+ 
                     <div className="button-group1">
                         <button type="button" className="cancel-button" onClick={() => navigate('/projects')}>
                             Cancel
@@ -196,11 +196,11 @@ function CreateProjectForm() {
                     </div>
                 </form>
             </div>
-
+ 
             {/* Toast container for displaying messages */}
             <ToastContainer position="top-center" autoClose={3000} />
         </div>
     );
 }
-
+ 
 export default CreateProjectForm;

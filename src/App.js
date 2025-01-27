@@ -50,6 +50,7 @@ import DemoHub from './Screens/AllServices/IntegrationService/HubIngest/DemoHub/
 import DemoCollec from './Screens/AllServices/IntegrationService/HubIngest/DemoCollec/DemoCollec';
 import MongoDbCon from './Screens/AllServices/IntegrationService/HubIngest/MongoDbCon/MongoDbCon';
 import MongoDbStr from './Screens/AllServices/IntegrationService/HubIngest/MongoDbStr/MongoDbStr';
+import Preview from './Components/Subscriptions/Preview';
 
 function App() {
   const [notifications, setNotifications] = useState(() => {
@@ -123,6 +124,7 @@ function App() {
             <Route path="/freetrail" element={<><Sidebar /><Free_trail_sub /></>} />
             <Route path="/payment" element={<><Sidebar /><Payment /></>} />
             <Route path="/paymentdetails" element={<><Sidebar /><Payment_Details /></>} />
+            <Route path="/preview" element={<Preview/>}/>
             {/* <Route path="/service" element={<><Sidebar /><Services /></>} /> */}
 
             <Route path="/payment-success" element={<Success />} />

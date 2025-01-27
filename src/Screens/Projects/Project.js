@@ -183,25 +183,25 @@ const ProjectsPage = () => {
           <FaSearch className="search-icon" />
         </div>
         <div className="action">
-          <button className="button" onClick={handleCreateClick}>
+          <button className="button3" onClick={handleCreateClick}>
             <FontAwesomeIcon icon={faPlus} /> Create
           </button>
           <button
-            className="button"
+            className="button3"
             onClick={handleRenameClick}
             disabled={selectedProjects.length !== 1}
           >
             <FontAwesomeIcon icon={faPen} /> Rename
           </button>
           <button
-            className="button"
+            className="button3"
             onClick={handleDeleteClick}
             disabled={selectedProjects.length === 0}
           >
             <FontAwesomeIcon icon={faTrashAlt} /> Delete
           </button>
           <button
-            className="button"
+            className="button3"
             onClick={handlePropertiesClick}
             disabled={selectedProjects.length !== 1}
           >

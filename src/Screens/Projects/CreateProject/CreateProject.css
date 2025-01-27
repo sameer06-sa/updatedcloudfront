@@ -23,7 +23,7 @@
 }
  
 .upgrade-button {
-  background-color: #007bff;
+  background-color: #0011FF;
   color: white;
   border: none;
   padding: 8px 15px;
@@ -33,7 +33,7 @@
 }
  
 .upgrade-button:hover {
-  background-color: #0056b3;
+  background-color: #0011FF;
 }
  
 .header-icons {

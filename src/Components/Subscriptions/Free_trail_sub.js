@@ -4,68 +4,81 @@ import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import "./Free_trail_sub.css";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+ 
 const Free_trail_sub = () => {
-  const [subscriptions, setSubscriptions] = useState([]); // Initialize as an empty array
-  const [loading, setLoading] = useState(true); // Track loading state
-  const [error, setError] = useState(null); // Track errors
-  const apiUrl = process.env.REACT_APP_API_URL;
-
+  const [subscriptions, setSubscriptions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+ 
   useEffect(() => {
     const userEmail = localStorage.getItem("userData")
       ? JSON.parse(localStorage.getItem("userData")).email
       : null;
-
+ 
     if (!userEmail) {
       setError("User session expired. Please log in again.");
       setLoading(false);
       return;
     }
-
+ 
     const fetchSubscriptions = async () => {
       try {
         const response = await axios.get(
           `${apiUrl}/api/subscriptions/${userEmail}`
         );
-        const subscriptionData = response.data.subscription;
-
-        // Process and map the data
-        const processedData = [
-          {
-            email: subscriptionData.email || "N/A",
-            type: "FreeTrial", // Hardcoded as the user is subscribing for Free Trial
-            userId: subscriptionData.userId || "N/A",
-            status:
-              subscriptionData.endDate &&
-              new Date(subscriptionData.endDate) > new Date()
-                ? "Active"
-                : "Expired",
-          },
-        ];
-
-        setSubscriptions(processedData); // Store the processed data
+   
+        if (response.data.subscription) {
+          const subscriptionData = response.data.subscription;
+   
+          // Debug logs
+          console.log("Fetched Subscription Data:", subscriptionData);
+   
+          const processedData = [
+            {
+              email: subscriptionData.email || "N/A",
+              type: subscriptionData.subscriptionType.type || "N/A",
+              userId: subscriptionData.id || "N/A",
+              status: (() => {
+                const currentDate = new Date();
+                const endDate = new Date(subscriptionData.subscriptionType.endDate);
+   
+                console.log("Current Date:", currentDate);
+                console.log("End Date:", endDate);
+   
+                return endDate > currentDate ? "Active" : "Expired";
+              })(),
+            },
+          ];
+   
+          setSubscriptions(processedData);
+        } else {
+          setSubscriptions([]);
+        }
+   
         setLoading(false);
       } catch (err) {
         console.error("Error fetching subscriptions:", err.message);
         setError(
           err.response && err.response.status === 404
-            ? "User not found or no subscriptions available."
+            ? "No subscriptions found for this user."
             : "Failed to fetch subscriptions. Please try again later."
         );
         setLoading(false);
       }
     };
-
+   
     fetchSubscriptions();
   }, []);
-
+ 
   if (loading) {
-    return <div>Loading subscriptions...</div>;
+    return <div className="loading-message">Loading subscriptions...</div>;
   }
-
+ 
   if (error) {
     return <div className="error-message">{error}</div>;
   }
-
+ 
   return (
     <div className="App">
       <Header />
@@ -73,7 +86,7 @@ const Free_trail_sub = () => {
         <Sidebar />
         <div className="content">
           <div className="subscriptions-container">
-            <h1 className="subscriptions-title">Subscription</h1>
+            <h1 className="subscriptions-title">Subscriptions</h1>
             <div className="subscriptions-table-container">
               <table className="subscriptions-table">
                 <thead>
@@ -89,7 +102,7 @@ const Free_trail_sub = () => {
                     subscriptions.map((subscription, index) => (
                       <tr key={index}>
                         <td>{subscription.email}</td>
-                        <td>{subscription.type}</td>
+                        <td className="subscription-type">{subscription.type}</td>
                         <td>{subscription.userId}</td>
                         <td
                           className={`subscription-status ${
@@ -114,5 +127,5 @@ const Free_trail_sub = () => {
     </div>
   );
 };
-
+ 
 export default Free_trail_sub;

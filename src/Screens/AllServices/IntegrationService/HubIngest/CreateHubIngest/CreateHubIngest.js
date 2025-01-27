@@ -4,7 +4,7 @@ import './CreateHubIngest.css';
 import Header from '../../../../../Components/Header/Header';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-
+ 
 const apiUrl = process.env.REACT_APP_API_URL;
  
 const CreateHubIngest = () => {
@@ -139,7 +139,7 @@ const CreateHubIngest = () => {
                             required
                         >
                             <option value="">Select</option>
-                            <option value="Basic">Free Trial</option>
+                            <option value="FreeTrial">Free Trial</option>
                             <option value="Organization">Organization</option>
                         </select>
                     </div>
@@ -159,7 +159,7 @@ const CreateHubIngest = () => {
                             ))}
                         </select>
                     </div>
-                    
+                   
                     <div className="button-group">
                         <button type="button" className="btn back" onClick={handleBackClick}>
                             Back
@@ -208,7 +208,7 @@ const CreateHubIngest = () => {
  
             {activeTab === 'Preview' && (
                 <div className="preview-container">
-                    <h2>Preview</h2>
+                    {/* <h2>Preview</h2> */}
                     <div className="preview-details">
                         <div className="preview-section">
                             <h3>Details</h3>

@@ -135,3 +135,7 @@ hr {
 .create-btn:hover {
   background-color: #218838;
 }
+
+.form-group1 select{
+  width:37vw;
+}

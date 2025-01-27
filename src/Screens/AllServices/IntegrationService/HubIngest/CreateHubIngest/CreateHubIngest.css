@@ -25,6 +25,10 @@
   cursor: pointer;
 }
 
+.preview-container{
+  margin-left: 15px;
+}
+
 .tabs.active {
   /* font-weight: bold; */
   /* border-bottom: 2px solid black; */
@@ -63,7 +67,7 @@ input, select {
 /* Button group styles */
 .button-group {
   display: flex;
-  justify-content: space-between;
+  gap:100px;
   margin-top: 20px;
 }
 

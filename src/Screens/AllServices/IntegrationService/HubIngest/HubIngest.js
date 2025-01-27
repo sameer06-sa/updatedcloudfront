@@ -153,8 +153,8 @@ const Hubingest = () => {
                                 onChange={handleSelectAllChange}
                             />
                         </th>
-                        <th>Project Name</th>
                         <th>Hub Ingest Name</th>
+                        <th>Project Name</th>
                         <th>Subscription Name</th>
                     </tr>
                 </thead>
@@ -172,13 +172,13 @@ const Hubingest = () => {
                                     onChange={() => handleCheckboxChange(hubIngest)}
                                 />
                             </td>
-                            <td>{hubIngest.projectName?.projectName || hubIngest.projectName || 'N/A'}</td>
                             <td
                                 className="clickable-name"
                                 onClick={() => handleNameClick(hubIngest)}
                             >
                                 {hubIngest.name || 'N/A'}
                             </td>
+                            <td>{hubIngest.projectName?.projectName || hubIngest.projectName || 'N/A'}</td>
                             <td>{hubIngest.subscriptionType?.type || 'N/A'}</td>
                         </tr>
                     ))}

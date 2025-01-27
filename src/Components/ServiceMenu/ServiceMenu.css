@@ -64,13 +64,13 @@
 
 .icon-blue {
   font-size: 2.5rem;
-  color: #6D28D9;
+  color: #0011FF;
   margin-bottom: 8px;
   transition: color 0.3s ease;
 }
 
 .menu-item:hover .icon-blue {
-  color: #4338CA;
+  color: #0011FF;
 }
 
 .menu-label {
