@@ -3,31 +3,34 @@ import './HubIngest.css';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../../../Components/Header/Header';
 import axios from 'axios';
- 
+
 // Ensure you have Font Awesome imported
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faPlus, faFolderOpen, faInfoCircle, faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
- 
+
+// Import React Toastify
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 library.add(faPlus, faFolderOpen, faInfoCircle, faEdit, faTrashAlt);
 const apiUrl = process.env.REACT_APP_API_URL;
- 
+
 const Hubingest = () => {
     const navigate = useNavigate();
     const [hubIngests, setHubIngests] = useState([]);
-    const [selectedHubIngests, setSelectedHubIngests] = useState([]); // Allow multiple selections
-    const [selectAll, setSelectAll] = useState(false); // State to track "Select All" checkbox
- 
+    const [selectedHubIngests, setSelectedHubIngests] = useState([]);
+    const [selectAll, setSelectAll] = useState(false);
+
     useEffect(() => {
         const fetchHubIngests = async () => {
             const token = localStorage.getItem('token');
             if (!token) {
-                console.error('No authentication token found. Please log in.');
-                alert('Please log in to access this page.');
+                toast.error('No authentication token found. Please log in.');
                 navigate('/login');
                 return;
             }
- 
+
             try {
                 const response = await axios.get(`${apiUrl}/api/hubingest`, {
                     headers: { Authorization: `Bearer ${token}` },
@@ -35,53 +38,54 @@ const Hubingest = () => {
                 setHubIngests(response.data);
             } catch (error) {
                 if (error.response?.status === 401) {
-                    console.error('Unauthorized access:', error);
-                    alert('Unauthorized access. Please log in again.');
+                    toast.error('Unauthorized access. Please log in again.');
                     navigate('/login');
                 } else {
-                    console.error('Error fetching data:', error);
-                    alert('Failed to fetch data. Please try again later.');
+                    toast.error('Failed to fetch data. Please try again later.');
                 }
             }
         };
- 
+
         fetchHubIngests();
     }, [navigate]);
- 
+
     const handleCreateClick = () => {
         navigate('/create-hub-ingest');
     };
- 
+
     const handleAccess = () => {
         if (selectedHubIngests.length === 0) {
-            alert('Please select a Hub Ingest first.');
+            toast.warning('Please select a Hub Ingest first.');
             return;
         }
         navigate('/access-hub-ingest', { state: { hubIngests: selectedHubIngests } });
+        toast.success('Accessing selected Hub Ingest.');
     };
- 
+
     const handleDetails = () => {
         if (selectedHubIngests.length === 0) {
-            alert('Please select a Hub Ingest first.');
+            toast.warning('Please select a Hub Ingest first.');
             return;
         }
         navigate('/details-hub-ingest', { state: { hubIngests: selectedHubIngests } });
+        toast.success('Viewing details of selected Hub Ingest.');
     };
- 
+
     const handleEdit = () => {
         if (selectedHubIngests.length === 0) {
-            alert('Please select a Hub Ingest first.');
+            toast.warning('Please select a Hub Ingest first.');
             return;
         }
         navigate('/edit-hub-ingest', { state: { hubIngests: selectedHubIngests } });
+        toast.success('Editing selected Hub Ingest.');
     };
- 
+
     const handleDelete = async () => {
         if (selectedHubIngests.length === 0) {
-            alert('Please select a Hub Ingest first.');
+            toast.warning('Please select a Hub Ingest first.');
             return;
         }
- 
+
         const token = localStorage.getItem('token');
         try {
             await Promise.all(
@@ -91,15 +95,15 @@ const Hubingest = () => {
                     });
                 })
             );
-            alert('Hub Ingests deleted successfully!');
+            toast.success('Hub Ingests deleted successfully!');
             setHubIngests(hubIngests.filter((hubIngest) => !selectedHubIngests.some(selected => selected._id === hubIngest._id)));
-            setSelectedHubIngests([]); // Reset selected items
+            setSelectedHubIngests([]);
         } catch (error) {
             console.error('Error deleting Hub Ingests:', error);
-            alert('Failed to delete Hub Ingests.');
+            toast.error('Failed to delete Hub Ingests.');
         }
     };
- 
+
     const handleCheckboxChange = (hubIngest) => {
         if (selectedHubIngests.some((selected) => selected._id === hubIngest._id)) {
             setSelectedHubIngests(selectedHubIngests.filter((selected) => selected._id !== hubIngest._id));
@@ -107,20 +111,20 @@ const Hubingest = () => {
             setSelectedHubIngests([...selectedHubIngests, hubIngest]);
         }
     };
- 
+
     const handleSelectAllChange = () => {
         if (selectAll) {
-            setSelectedHubIngests([]); // Deselect all
+            setSelectedHubIngests([]);
         } else {
-            setSelectedHubIngests(hubIngests); // Select all
+            setSelectedHubIngests(hubIngests);
         }
-        setSelectAll(!selectAll); // Toggle the "Select All" state
+        setSelectAll(!selectAll);
     };
- 
+
     const handleNameClick = (hubIngest) => {
         navigate('/overview', { state: hubIngest });
     };
- 
+
     return (
         <div className="hub-ingest_main-content">
             <Header />
@@ -162,7 +166,7 @@ const Hubingest = () => {
                     {hubIngests.map((hubIngest, index) => (
                         <tr
                             key={index}
-                            onClick={() => setSelectedHubIngests([hubIngest])} // Single row selection
+                            onClick={() => setSelectedHubIngests([hubIngest])}
                             className={selectedHubIngests.some((selected) => selected._id === hubIngest._id) ? 'selected-row' : ''}
                         >
                             <td>
@@ -184,8 +188,9 @@ const Hubingest = () => {
                     ))}
                 </tbody>
             </table>
+            <ToastContainer position="top-right" autoClose={3000} />
         </div>
     );
 };
- 
+
 export default Hubingest;

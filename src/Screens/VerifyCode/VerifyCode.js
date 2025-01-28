@@ -1,14 +1,15 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Check } from 'lucide-react';
-import styles from './VerifyCode.css';
+import { toast, ToastContainer } from 'react-toastify'; // Import react-toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import styles for react-toastify
+import './VerifyCode.css';
 
 function VerifyCode({ addNotification }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [otpInput, setOtpInput] = useState(new Array(6).fill('')); // OTP state
   const [error, setError] = useState('');
-  const [showToast, setShowToast] = useState(false);
 
   const email = location.state?.email || 'No email provided'; // Email from location state
   const generatedOtp = localStorage.getItem('otp'); // Retrieve OTP from localStorage
@@ -44,17 +45,19 @@ function VerifyCode({ addNotification }) {
     }
 
     if (otpString === generatedOtp) {
-      setShowToast(true); // Show the toast
-
-      addNotification(`You have successfully logged into your account with ${email}.`); // Add notification
+      // Display success toaster message
+      toast.success(`You have successfully logged into your account with ${email}.`, {
+      });
 
       setTimeout(() => {
-        navigate('/home'); // Navigate after the toast is shown
-      }, 2000); // Show toast for 2 seconds
-      // alert('OTP verified successfully!');
-      // navigate('/home');
+        navigate('/home'); // Navigate after the verification
+      }, 2000); // Wait 2 seconds before navigating
     } else {
       setError('Invalid OTP. Please try again.');
+      toast.error('Invalid OTP. Please try again.', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      });
     }
   };
 
@@ -100,14 +103,10 @@ function VerifyCode({ addNotification }) {
             </button>
           </div>
         </div>
-
-        {showToast && (
-          <div className={styles.toast}>
-            <Check size={16} />
-            Signed in successfully!
-          </div>
-        )}
       </div>
+      
+      {/* Toast Container */}
+      <ToastContainer />
     </div>
   );
 }

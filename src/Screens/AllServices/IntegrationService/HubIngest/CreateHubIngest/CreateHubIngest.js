@@ -4,37 +4,37 @@ import './CreateHubIngest.css';
 import Header from '../../../../../Components/Header/Header';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
- 
+import { toast, ToastContainer } from 'react-toastify'; // Import Toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import Toastify CSS
+
 const apiUrl = process.env.REACT_APP_API_URL;
- 
+
 const CreateHubIngest = () => {
     const [name, setName] = useState('');
     const [subscriptionType, setSubscriptionType] = useState('');
     const [projectName, setProjectName] = useState('');
-    // const [organizationName, setOrganizationName] = useState('');
     const [status, setStatus] = useState('Running');
     const [activeTab, setActiveTab] = useState('Details');
     const [titleName, setTitleName] = useState('');
     const [titleDetails, setTitleDetails] = useState('');
- 
     const navigate = useNavigate();
     const startTracking = useServiceTracking();
     const [projects, setProjects] = useState([]);
     const [search, setSearch] = useState('');
     const [filteredProjects, setFilteredProjects] = useState([]);
- 
+
     useEffect(() => {
         startTracking('All Projects', 'Project');
         fetchProjects();
     }, []);
- 
+
     useEffect(() => {
         const filtered = projects.filter((project) =>
             project.projectName.toLowerCase().includes(search.toLowerCase())
         );
         setFilteredProjects(filtered);
     }, [search, projects]);
- 
+
     const fetchProjects = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -43,14 +43,13 @@ const CreateHubIngest = () => {
                     Authorization: `Bearer ${token}`,
                 },
             });
- 
+
             if (!response.ok) {
                 const errorText = await response.text();
                 throw new Error(`Network response was not ok. Status: ${response.status}, Message: ${errorText}`);
             }
- 
+
             const data = await response.json();
- 
             if (Array.isArray(data)) {
                 setProjects(data);
                 setFilteredProjects(data);
@@ -64,11 +63,11 @@ const CreateHubIngest = () => {
             console.error('Error fetching projects:', error.message);
         }
     };
- 
+
     const handleTabClick = (tabName) => {
         setActiveTab(tabName);
     };
- 
+
     const handleFormSubmit = async (event) => {
         event.preventDefault();
         try {
@@ -80,31 +79,33 @@ const CreateHubIngest = () => {
                 titleName,
                 titleDetails
             };
- 
+
             const token = localStorage.getItem('token');
             const response = await axios.post(`${apiUrl}/api/hubingest`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
- 
-            alert('Hub Ingest created successfully!');
-            navigate(-1);
+
+            // Replace alert with toast
+            toast.success('Hub Ingest created successfully!');
+            setTimeout(() => navigate(-1), 3000); // Redirect after 3 seconds
         } catch (error) {
             console.error('Error creating Hub Ingest:', error);
-            alert('Failed to create Hub Ingest');
+            // Replace alert with toast
+            toast.error('Failed to create Hub Ingest. Please try again.');
         }
     };
- 
+
     const handleBackClick = () => {
         navigate(-1);
     };
- 
+
     return (
         <div className="create-hub-container">
             <Header />
             <h1 className="create-hub-container-heading">Create Hub Ingest</h1>
-            <hr/>
+            <hr />
             <div className="tab-navigation1">
                 <button className={`tabs ${activeTab === 'Details' ? 'active' : ''}`} onClick={() => handleTabClick('Details')}>
                     Details
@@ -116,7 +117,7 @@ const CreateHubIngest = () => {
                     Preview
                 </button>
             </div>
- 
+
             {activeTab === 'Details' && (
                 <form className="form-container">
                     <div className="form-group">
@@ -159,7 +160,7 @@ const CreateHubIngest = () => {
                             ))}
                         </select>
                     </div>
-                   
+
                     <div className="button-group">
                         <button type="button" className="btn back" onClick={handleBackClick}>
                             Back
@@ -170,7 +171,7 @@ const CreateHubIngest = () => {
                     </div>
                 </form>
             )}
- 
+
             {activeTab === 'Title' && (
                 <form className="form-container">
                     <div className="form-group">
@@ -205,10 +206,9 @@ const CreateHubIngest = () => {
                     </div>
                 </form>
             )}
- 
+
             {activeTab === 'Preview' && (
                 <div className="preview-container">
-                    {/* <h2>Preview</h2> */}
                     <div className="preview-details">
                         <div className="preview-section">
                             <h3>Details</h3>
@@ -227,14 +227,17 @@ const CreateHubIngest = () => {
                         <button type="button" className="btn back" onClick={() => handleTabClick('Title')}>
                             Back
                         </button>
-                        <button type="button" className="btn create" onClick={handleFormSubmit}>
+                        <button type="submit" className="btn create" onClick={handleFormSubmit}>
                             Create
                         </button>
                     </div>
                 </div>
             )}
+
+            {/* Toast container for displaying messages */}
+            <ToastContainer position="top-center" autoClose={3000} />
         </div>
     );
 };
- 
+
 export default CreateHubIngest;

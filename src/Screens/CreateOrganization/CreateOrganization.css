@@ -137,5 +137,6 @@ hr {
 }
 
 .form-group1 select{
-  width:37vw;
+  width:24vw;
+  border-radius:10px;
 }
