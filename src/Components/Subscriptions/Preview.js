@@ -74,7 +74,7 @@ const Preview = () => {
     try {
       // Make the API call to update the subscription
       const response = await axios.put(
-        `${apiUrl}/api/user/subscription`, // Update your API URL
+        `http://localhost:3000/api/user/subscription`, // Update your API URL
         {
           subscriptionType: formData.subscriptionType,
           durationInDays: formData.durationInDays,

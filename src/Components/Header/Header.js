@@ -21,7 +21,7 @@ function Header() {
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                const res = await axios.get(`${apiUrl}/api/webapp`);
+                const res = await axios.get(`http://localhost:3000/api/webapp`);
                 if (res.data?.data) {
                     setOptions(res.data.data);
                 }

@@ -1,0 +1,142 @@
+/* General Layout */
+.app-container {
+    padding-left: 70px;
+    padding-top: 30px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    min-height: 100vh;
+  }
+  
+  .data-store-header {
+    margin-bottom: 24px;
+  }
+  
+  .header h1 {
+    font-size: 24px;
+  }
+  .Data-store-search-bar {
+    padding: 16px;
+    padding-left: 0;
+  }
+  .Data-store-search-input {
+    padding: 8px;
+    border-radius: 4px;
+    border: none;
+    color: white;
+    font-size: 14px;
+    border: #ccc 1px solid;
+  }
+  
+  
+  
+  .filter-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-icon {
+    position: absolute;
+    left: 8px;
+    color: #888;
+    font-size: 16px;
+  }
+  
+  .filter-input {
+    padding: 8px 8px 8px 28px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+  }
+  
+  .search-button {
+    padding: 8px 16px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .search-button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Actions */
+  .data-store-actions {
+    margin-bottom: 16px;
+  }
+  
+  .data-store-create-button,
+  .data-store-refresh-button {
+    padding: 8px 16px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .data-store-create-button {
+    margin-left: 0;
+  }
+  
+  .data-store-create-button:hover {
+    color: #0056b3;
+  }
+  
+  
+  .data-store-refresh-button:hover {
+    color: #0056b3;
+    ;
+  }
+  
+  /* Table */
+  .store-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+  }
+  
+  .store-table th,
+  .store-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .store-table th {
+    background-color: #f4f4f4;
+    font-weight: bold;
+  }
+  
+  .store-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  .store-table input[type="checkbox"] {
+    cursor: pointer;
+  }
+  
+  .data-overview-search-bar11 {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding-bottom: 20px;
+    padding-right: 950px;
+  }
+
+  .data-overview-search-input11 {
+    padding-left: 20px; /* Space for the icon */
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .data-overview-search-icon11 {
+    position: absolute;
+    left: 145px; /* Adjust icon placement */
+    pointer-events: none; /* Ensure clicks go through to the input */
+  }
+  

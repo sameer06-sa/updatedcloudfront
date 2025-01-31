@@ -25,7 +25,7 @@ const Free_trail_sub = () => {
     const fetchSubscriptions = async () => {
       try {
         const response = await axios.get(
-          `${apiUrl}/api/subscriptions/${userEmail}`
+          `http://localhost:3000/api/subscriptions/${userEmail}`
         );
    
         if (response.data.subscription) {

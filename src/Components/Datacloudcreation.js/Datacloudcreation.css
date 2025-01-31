@@ -1,0 +1,191 @@
+/* General container styles */
+.Data-cloud-create-hub-container {
+    max-width: 900px;
+    margin-left: 10px;
+    padding-left: 60px;
+    padding-top: 30px;
+    font-family: Arial, sans-serif;
+  }
+ 
+  h1 {
+    text-align: left;
+    margin-bottom: 20px;
+    margin-top: 38px;
+    font-weight: 700;
+  }
+ 
+  .Data-cloud-tab-navigation {
+    display: flex;
+    margin-bottom: 20px;
+    font-weight: bold;
+    margin-left: 1px;
+   
+   
+    /* border-bottom: 1px solid #ccc; */
+  }
+ 
+  .Data-cloud-title-tab {
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+ 
+  .Data-cloud-title-tab.active {
+    font-weight: bold;
+    border-bottom: 2px solid rgb(88, 140, 253);
+    color:rgb(66, 107, 241);
+  }
+  /* Form styles */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    height: 350px;
+  }
+
+  .data-form-group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Align label and input side by side */
+    padding: 20px;
+    width: 600px;
+    padding-left: 0;
+  }
+ .data-form-group-option{
+  width: 300px;
+ }
+  label {
+    font-weight: bold;
+    flex: 1; /* Adjust label width */
+    margin-right: 10px;
+    margin-bottom: 20px;
+    width: 300px;
+  }
+  .title-form-group{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+  }
+  .titlename-form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+ 
+  .data-overview-search-bar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding-left: 15px;
+    padding-top: 20px;
+  }
+  
+  .data-overview-search-input {
+    padding-left: 32px; /* Space for the icon */
+    height: 32px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%; /* Adjust width as needed */
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .data-overview-search-icon {
+    position: absolute;
+    left: 220px; /* Adjust icon placement */
+    pointer-events: none; /* Ensure clicks go through to the input */
+  }
+  
+  .Data-cloud-add-button{
+    text-align: left;
+    font-weight: 700;
+  }
+  .Data-cloud-add-button:hover{
+    color: #007bff;
+  }
+ 
+  /* Button group styles */
+  .button-group {
+    display: flex;
+    /* justify-content: space-between; */
+    margin-top: 20px;
+  }
+ 
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 150px;
+  }
+ 
+  .btn.back {
+    background-color: #d9d9d9; 
+    color: white;
+    border-radius: 10px;
+  }
+  .btn.next {
+    background-color: #d9d9d9;
+    color: #64748b 100%,#475569 100%;
+    border-radius: 10px;
+  }
+  .btn.preview {
+    background: linear-gradient(90deg, #FF0080 0%, #FF8C00 49.45%);
+    color: #64748b 100%,#475569 100%;
+    border-radius: 10px;
+  }
+ 
+  .btn.next {
+    background-color: #007bff;
+    color: white;
+    border-radius: 10px;
+  }
+ 
+  .btn.create {
+    background-color: #28a745;
+    color: white;
+    border-radius: 10px;
+  }
+ 
+  .btn:hover {
+    opacity: 0.9;
+  }
+  .footer{
+    margin-top: auto;
+  }
+  .preview-details {
+    display: flex;
+    flex-direction: column;
+  }
+  .Data-cloud-hub-form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: end; /* Ensures content and footer are spaced */
+    height: 320px; /* Make the container fill the available height */
+    padding: 30px;
+    border: none;
+  }
+  
+  .title-form-group {
+    display: flex;
+    flex-direction: row;
+    gap: 20px; /* Adds spacing between input fields */
+    margin-bottom: 20px; /* Ensures this section pushes buttons to the bottom */
+  }
+  
+  
+  label {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #333;
+  }
+  
+  footer {
+    margin-top: auto; /* Pushes the footer to the bottom */
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 98px; /* Adds space between buttons */
+  }
+  

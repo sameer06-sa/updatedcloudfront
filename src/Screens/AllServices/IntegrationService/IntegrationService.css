@@ -39,10 +39,11 @@
 }
 /* Content Header */
 .int-content-header {
-  padding-top: 39px;
-  background-color: #fff;
+  padding-top: 0px;
+  /* background-color: #fff; */
   border-bottom: 1px solid #ddd;
   padding-left: 0;
+  margin-top: -4px;
 }
 .span{
   font-weight: normal;

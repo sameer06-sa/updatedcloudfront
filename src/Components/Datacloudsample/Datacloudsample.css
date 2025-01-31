@@ -1,0 +1,89 @@
+/* Container */
+.Datacloudsample-sample-container {
+    padding: 16px;
+    font-family: Arial, sans-serif;
+    padding-top: 60px;
+    padding-left: 70px;
+  }
+  
+  /* Header Section */
+  .Datacloudsample-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .Datacloudsample-back-icon {
+    background: none;
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    text-align: center;
+    padding-bottom: 10px;
+  }
+  
+  /* Search and Filter Controls */
+  .Datacloudsample-controls {
+    display: flex;
+    gap: 10px;
+    margin: 16px 0;
+    box-sizing: 10px;
+    width: 500px;
+  }
+  
+  .Datacloudsample-search-bar {
+    flex: 1;
+    padding: 8px;
+    font-size: 14px;
+    width: 250px;
+  }
+  
+  .Datacloudsample-filter-bar {
+    padding: 8px;
+    font-size: 14px;
+    width: 150px;
+  }
+  
+  /* Action Buttons */
+  .Datacloudsample-action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  
+  .Datacloudsample-action-buttons button {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .Datacloudsample-action-buttons button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Table Styling */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  thead {
+    background-color: #f9f9f9;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  tr:hover {
+    background-color: #f1f1f1;
+  }
+  

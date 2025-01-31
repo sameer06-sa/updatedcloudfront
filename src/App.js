@@ -51,6 +51,12 @@ import DemoCollec from './Screens/AllServices/IntegrationService/HubIngest/DemoC
 import MongoDbCon from './Screens/AllServices/IntegrationService/HubIngest/MongoDbCon/MongoDbCon';
 import MongoDbStr from './Screens/AllServices/IntegrationService/HubIngest/MongoDbStr/MongoDbStr';
 import Preview from './Components/Subscriptions/Preview';
+import Datacloudcreation from './Components/Datacloudcreation.js/Datacloudcreation';
+import Datastoreservice from './Components/Datacloudestorage/Datastorageservice';
+import Datacloudoverview from './Components/Datacloudoverview/Datacloudoverview';
+import Datacloudsample from './Components/Datacloudsample/Datacloudsample';
+import Datacloudstore from './Components/Datacloudstore/Datacloudstore';
+import Datastore from './Components/Datastore/Datastore';
 
 function App() {
   const [notifications, setNotifications] = useState(() => {
@@ -94,7 +100,7 @@ function App() {
             <Route path="/home" element={<><Sidebar /><Home /></>} />
 
             {/* All Services which is in the homepage */}
-            <Route path="/data-store-services" element={<><Sidebar /><DataStoreService /></>} />
+            <Route path="/data-store-services" element={<><Datastoreservice></Datastoreservice></>} />
             <Route path="/team-collaborations" element={<><Sidebar /><TeamCollaborations /></>} />
             <Route path="/integration-services" element={<><Sidebar /><IntegrationService /></>} />
             <Route path="/reporting-analytics" element={<><Sidebar /><ReportingAnalytics /></>} />
@@ -124,11 +130,11 @@ function App() {
             <Route path="/freetrail" element={<><Sidebar /><Free_trail_sub /></>} />
             <Route path="/payment" element={<><Sidebar /><Payment /></>} />
             <Route path="/paymentdetails" element={<><Sidebar /><Payment_Details /></>} />
-            <Route path="/preview" element={<Preview/>}/>
             {/* <Route path="/service" element={<><Sidebar /><Services /></>} /> */}
 
             <Route path="/payment-success" element={<Success />} />
             <Route path="/payment-failure" element={<Failure />} />
+            <Route path="/preview" element={<><Sidebar /><Preview /></>} />
 
             {/* User Management Routes */}
             <Route path="/manage-users" element={<><UserSidebar /><UserList /></>} />
@@ -141,6 +147,13 @@ function App() {
             <Route path="/demo-collec" element={<DemoCollec/>} />
             <Route path="/mongodb-con" element={<MongoDbCon/>}/>
             <Route path="/mongodb-str" element={<MongoDbStr/>}/>
+
+            <Route path="/Datastorageservice" element={<><Datastoreservice></Datastoreservice></>} />
+            <Route path="/Datacloudcreation" element={<><Datacloudcreation></Datacloudcreation></>} />
+            <Route path="/Datacloudstore" element={<><Datacloudstore></Datacloudstore></>} />
+            <Route path="/Datacloudoverview" element={<><Datacloudoverview></Datacloudoverview></>} />
+            <Route path="/Datastore" element={<><Datastore></Datastore></>} />
+            <Route path="/Datacloudsample" element={<><Datacloudsample></Datacloudsample></>} />
 
           </Routes>
         </div>
