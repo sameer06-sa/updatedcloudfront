@@ -40,7 +40,7 @@ const Signin = () => {
     setError('');
 
     try {
-      const response = await fetch(`http://localhost:3000/api/user/signin`, {
+      const response = await fetch(`${apiUrl}/api/user/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

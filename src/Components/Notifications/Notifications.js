@@ -3,6 +3,8 @@ import axios from 'axios';
 import Sidebar from '../../Components/Sidebar/Sidebar'; // Adjust the path as necessary
 import './Notifications.css'; // Import the CSS file
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const Notifications = ({ userEmail }) => {
   // State to store notifications
   const [notifications, setNotifications] = useState([]);
@@ -12,7 +14,7 @@ const Notifications = ({ userEmail }) => {
   // Function to fetch notifications from the backend
   const fetchNotifications = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/notifications/yasmin@gmail.com`);
+      const response = await axios.get(`${apiUrl}/api/notifications/yasmin@gmail.com`);
       setNotifications(response.data);
     } catch (err) {
       setError('Failed to load notifications.');

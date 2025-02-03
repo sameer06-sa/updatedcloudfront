@@ -7,6 +7,8 @@ import "./Datacloudcreation.css";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const Datacloudcreation = () => {
     const [activeTab, setActiveTab] = useState("Details");
     const [name, setName] = useState("");
@@ -36,7 +38,7 @@ const Datacloudcreation = () => {
     const fetchProjects = async () => {
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch(`http://localhost:3000/api/proj/projects`, {
+            const response = await fetch(`${apiUrl}/api/proj/projects`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -88,7 +90,7 @@ const Datacloudcreation = () => {
 
         try {
             const token = localStorage.getItem("token");
-            await axios.post(`http://localhost:3000/api/datastore`, data, {
+            await axios.post(`${apiUrl}/api/datastore`, data, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { FaSearch, FaBell, FaUserCircle } from "react-icons/fa";
+import { FaSearch, FaBell, FaUserCircle, FaTimes } from "react-icons/fa";
 import "./Header.css";
 import axios from "axios";
 import debounce from "lodash.debounce";
@@ -14,6 +14,7 @@ function Header() {
     const [filteredOptions, setFilteredOptions] = useState([]);
     const [showOptions, setShowOptions] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
+    const [previousAccounts, setPreviousAccounts] = useState([]); // List of previous accounts
     const navigate = useNavigate();
     const dropdownRef = useRef(null); // Reference for the dropdown menu
 
@@ -21,7 +22,7 @@ function Header() {
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                const res = await axios.get(`http://localhost:3000/api/webapp`);
+                const res = await axios.get(`${apiUrl}/api/webapp`);
                 if (res.data?.data) {
                     setOptions(res.data.data);
                 }
@@ -53,6 +54,14 @@ function Header() {
         } catch (error) {
             console.error("Error parsing userData from localStorage:", error);
             setUserEmail("Guest");  // Fallback value
+        }
+    }, []);
+
+    // Fetch previous accounts from localStorage
+    useEffect(() => {
+        const storedAccounts = localStorage.getItem("previousAccounts");
+        if (storedAccounts) {
+            setPreviousAccounts(JSON.parse(storedAccounts));
         }
     }, []);
 
@@ -89,12 +98,26 @@ function Header() {
 
     // Clear session and redirect to a specific path
     const clearSessionAndRedirect = (redirectPath) => {
-        localStorage.clear();  // Clear localStorage on logout
+        localStorage.removeItem("userData");  // Clear current user data
         sessionStorage.clear();  // Optional: clear sessionStorage if needed
         navigate(redirectPath);  // Redirect user to the given path
     };
 
     const handleSignOut = () => {
+        // Add current account to previous accounts list if it doesn't already exist
+        const userData = localStorage.getItem("userData");
+        if (userData) {
+            const parsedData = JSON.parse(userData);
+            if (parsedData && parsedData.email) {
+                const email = parsedData.email;
+                // Check if the account already exists in the list
+                if (!previousAccounts.includes(email)) {
+                    const updatedAccounts = [...previousAccounts, email];
+                    localStorage.setItem("previousAccounts", JSON.stringify(updatedAccounts));
+                    setPreviousAccounts(updatedAccounts);
+                }
+            }
+        }
         clearSessionAndRedirect("/signin");  // Clear session data and redirect to sign-in page
     };
 
@@ -108,6 +131,20 @@ function Header() {
 
     const handleSubscriptions = () => {
         navigate("/subscriptions");
+    };
+
+    // Remove an account from the previous accounts list
+    const handleRemoveAccount = (accountToRemove) => {
+        const updatedAccounts = previousAccounts.filter(
+            (account) => account !== accountToRemove
+        );
+        localStorage.setItem("previousAccounts", JSON.stringify(updatedAccounts));
+        setPreviousAccounts(updatedAccounts);
+    };
+
+    // Handle clicking on a previous account
+    const handlePreviousAccountClick = (account) => {
+        navigate(`/signin?email=${encodeURIComponent(account)}`);
     };
 
     // Close dropdown menu on outside click or Escape key press
@@ -209,6 +246,22 @@ function Header() {
                         <div className="icon-circle">🧑</div>
                         <p>Signin with different account</p>
                     </div>
+                    {/* Display previous accounts with a message and remove button */}
+                    {previousAccounts.map((account, index) => (
+                        <div className="account" key={index}>
+                            <div className="icon-circle">👤</div>
+                            <p onClick={() => handlePreviousAccountClick(account)}>
+                                {account} <span className="previous-account-message">(Previously logged in)</span>
+                            </p>
+                            <button
+                                className="remove-account-button"
+                                onClick={() => handleRemoveAccount(account)}
+                                aria-label="Remove account"
+                            >
+                                <FaTimes />
+                            </button>
+                        </div>
+                    ))}
                 </div>
             )}
         </header>

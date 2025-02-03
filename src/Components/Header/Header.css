@@ -231,3 +231,16 @@
     padding-top: 60px;
   }
 }
+
+.remove-account-button {
+  background: none;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  margin-left: auto; /* Push the button to the right */
+  padding: 0;
+}
+
+.remove-account-button:hover {
+  color: #ff4d4d; /* Change color on hover */
+}

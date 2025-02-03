@@ -38,7 +38,7 @@ const Payment = () => {
  
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/user/${userEmail}`, {
+        const response = await axios.get(`${apiUrl}/api/user/${userEmail}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
