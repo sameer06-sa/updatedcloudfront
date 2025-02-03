@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Datastorageservice.css";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
-import "font-awesome/css/font-awesome.min.css";
+import 'font-awesome/css/font-awesome.min.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";  // Add this line
 
 const apiUrl = process.env.REACT_APP_API_URL;
