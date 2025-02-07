@@ -51,18 +51,29 @@ const Signin = () => {
       const data = await response.json();
       console.log('Full response from backend:', data);
 
-      if (data && data.data && data.data.token) {
-        // Store token in localStorage
-        localStorage.setItem('token', data.data.token);
-        localStorage.setItem('userData', JSON.stringify({
-          email: formData.email,
-          fullName: data.data.user.fullName,
-        }));
+      if (!response.ok) {
+        if (data.message === 'Invalid password') {
+          toast.error('Password is invalid');
+        } else if (data.message) {
+          toast.error(data.message);
+        } else {
+          toast.error('Signin failed. Please try again.');
+        }
+        return;
+      }
 
-        // Display success notification
+      if (data && data.data && data.data.token) {
+        localStorage.setItem('token', data.data.token);
+        localStorage.setItem(
+          'userData',
+          JSON.stringify({
+            email: formData.email,
+            fullName: data.data.user.fullName,
+          })
+        );
+
         toast.success('Successfully signed in!');
 
-        // Navigate to verify-identity page after a short delay
         setTimeout(() => {
           navigate('/verify-identity', { state: { email: formData.email } });
         }, 1500);

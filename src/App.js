@@ -58,6 +58,26 @@ import Datacloudsample from './Components/Datacloudsample/Datacloudsample';
 import Datacloudstore from './Components/Datacloudstore/Datacloudstore';
 import Datastore from './Components/Datastore/Datastore';
 
+import DeploymentProject from './Screens/Deploymentservices/pages/DeploymentProject';
+import DeploymentSidebar from './Screens/Deploymentservices/DeploymentSidebar';
+import DeploymentHeader from './Screens/Deploymentservices/DeploymentHeader';
+import DeploymentProjectsPage from './Screens/Deploymentservices/DeploymentProjectsPage';
+import DeploymentHome from './Screens/Deploymentservices/pages/DeploymentHome';
+import DeploymentDashboards from './Screens/Deploymentservices/pages/DeploymentDashboards';
+import DeploymentOrganization from './Screens/Deploymentservices/pages/DeploymentOrganization';
+import Deploymentcode from './Screens/Deploymentservices/pages/DeploymentCode';
+import Deploymentpipelines from './Screens/Deploymentservices/pages/DeploymentPipelines';
+import DeploymentBuild from './Screens/Deploymentservices/pages/DeploymentBuild';
+import DeploymentTest from './Screens/Deploymentservices/pages/DeploymentTest';
+import DeploymentSettings from './Screens/Deploymentservices/pages/DeployementSettings';
+import CreateDeploymentproject from './Screens/Deploymentservices/CreateDeploymentProject';
+import DeploymentTaskManager from './Screens/Deploymentservices/DeploymentTaskManager';
+import CreateDeploymentTask from './Screens/Deploymentservices/CreateDeploymentTask';
+import Deploymentcircle from './Screens/Deploymentservices/DeploymentCircle';
+import CreateNewDeployementCircle from './Screens/Deploymentservices/CreateNewDeploymentCircle';
+import Deploymentprojectcontext from './Screens/Deploymentservices/DeploymentProjectContext';
+
+
 function App() {
   const [notifications, setNotifications] = useState(() => {
     // Retrieve notifications from local storage on initial load
@@ -154,6 +174,25 @@ function App() {
             <Route path="/Datacloudoverview" element={<><Datacloudoverview></Datacloudoverview></>} />
             <Route path="/Datastore" element={<><Datastore></Datastore></>} />
             <Route path="/Datacloudsample" element={<><Datacloudsample></Datacloudsample></>} />
+
+            <Route path="/projects/sample_project" element={<DeploymentProject/>}/>
+            <Route path="/DeploymentSidebar" element={<DeploymentSidebar/>}/>
+            <Route path="/DeploymentHeader" element={<DeploymentHeader/>}/>
+            <Route path="/projects/page" element={<DeploymentProjectsPage/>}/>
+            <Route path="/" element={<DeploymentHome/>}/>
+            <Route path="/DeploymentDashboard" element={<DeploymentDashboards/>} />
+            <Route path="/Deploymentorganization" element={<DeploymentOrganization/>}/>
+            <Route path="/code" element ={<Deploymentcode/>}/>
+            <Route path="/pipelines" element={<Deploymentpipelines/>}/>
+            <Route path="/Build" element={<DeploymentBuild/>}/>
+            <Route path="/Test" element={<DeploymentTest/>}/>
+            <Route path="/DepSettings" element={<DeploymentSettings/>}/>
+            <Route path="/projects/New" element={<CreateDeploymentproject/>}/>
+            <Route path="/tasks" element={<DeploymentTaskManager/>}/>
+            <Route path="/tasks/New" element={<CreateDeploymentTask/>}/>
+            <Route path="/Circle" element={<Deploymentcircle/>}/>
+            <Route path="/Circle/New" element={<CreateNewDeployementCircle/>}/>
+            
 
           </Routes>
         </div>

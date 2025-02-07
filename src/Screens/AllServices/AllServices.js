@@ -14,9 +14,15 @@ function AllServices() {
   //   navigate('/integration-service');
   // };
 
+  
   const handleServiceClick = (servicePath) => {
-    navigate(servicePath);
+    if (servicePath === '/deployment-services') {
+      navigate('/projects/page'); // Redirect Deployment Services to /projects/page
+    } else {
+      navigate(servicePath);
+    }
   };
+  
 
   useEffect(() => {
     // Track when page loads
@@ -129,7 +135,7 @@ const servicesData = [
   </svg>,
   },
   {
-    category: "Network Services",
+    category: "Deployment Services",
     services: [
       { name: "Virtual Network", description: "Provision private networks, optionally connect to on-premises" },
       { name: "Load Balancer", description: "Delivery high availability and network performance" },

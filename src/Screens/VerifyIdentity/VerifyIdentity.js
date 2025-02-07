@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import emailjs from 'emailjs-com';
 import './VerifyIdentity.css';
-
+ 
 function VerifyIdentity() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -10,38 +10,38 @@ function VerifyIdentity() {
   const [loading, setLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   const [error, setError] = useState('');
-
+ 
   const sendOtp = async () => {
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setError('Invalid email address.');
       return;
     }
-
+ 
     setLoading(true);
     setError('');
-
+ 
     try {
       const otp = Math.floor(100000 + Math.random() * 900000); // Generate 6-digit OTP
-
+ 
       // EmailJS configuration
-      const serviceID = 'service_hf8jgsu';
-      const templateID = 'template_qq2xn7u';
-      const userID = '1ExTfjeSdW4N0Uyag';
-
+      const serviceID = 'service_13vkt98';
+      const templateID = 'template_mu5i71v';
+      const userID = 'etqX8Hii9egT7UVNW';
+ 
       const templateParams = {
         otp, // The generated OTP
         email, // User's email
       };
-
+ 
       // Use EmailJS to send the email
       await emailjs.send(serviceID, templateID, templateParams, userID);
-
+ 
       setOtpSent(true);
       // alert(`OTP sent to ${email}!`);
-
+ 
       // Store OTP in localStorage (for demonstration; ideally use secure backend validation)
       localStorage.setItem('otp', otp);
-
+ 
       // Navigate to OTP verification page
       navigate('/verify-code', { state: { email } });
     } catch (err) {
@@ -51,7 +51,7 @@ function VerifyIdentity() {
       setLoading(false);
     }
   };
-
+ 
   return (
     <div className="container">
       <div className="card">
@@ -91,5 +91,6 @@ function VerifyIdentity() {
     </div>
   );
 }
-
+ 
 export default VerifyIdentity;
+ 
