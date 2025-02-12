@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route,Navigate, useLocation } from 'react-router-dom';
 
 import SignIn from './Screens/SignIn/Signin';
 import VerifyCode from './Screens/VerifyCode/VerifyCode';
@@ -76,6 +76,8 @@ import CreateDeploymentTask from './Screens/Deploymentservices/CreateDeploymentT
 import Deploymentcircle from './Screens/Deploymentservices/DeploymentCircle';
 import CreateNewDeployementCircle from './Screens/Deploymentservices/CreateNewDeploymentCircle';
 import Deploymentprojectcontext from './Screens/Deploymentservices/DeploymentProjectContext';
+import ProtectedRoute from './Screens/Home/ProtectedRoutes';
+// import ProjectBoard from './Screens/Deploymentservices/ProjectBoard';
 
 
 function App() {
@@ -102,6 +104,8 @@ function App() {
     localStorage.setItem('notifications', JSON.stringify(notifications));
   }, [notifications]);
 
+  const isAuthenticated = localStorage.getItem('isSignedIn') === 'true';
+
   return (
     <RecentServicesProvider>
       <Router>
@@ -112,13 +116,14 @@ function App() {
           <Routes>
             {/*  using Sidebar */}
             <Route path="/" element={<LandingPage addNotification={addNotification} />} />
-
+            <Route path="/signup" element={<SignupForm />} />
             <Route path="/signin" element={<SignIn />} />
             <Route path="/verify-code" element={<VerifyCode addNotification={addNotification} />} />
             <Route path="/verify-identity" element={<VerifyIdentity />} />
 
-            <Route path="/home" element={<><Sidebar /><Home /></>} />
-
+            {/* Protected Routes */}
+            <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+              <Route path="/home" element={<><Sidebar /><Home /></>} />
             {/* All Services which is in the homepage */}
             <Route path="/data-store-services" element={<><Datastoreservice></Datastoreservice></>} />
             <Route path="/team-collaborations" element={<><Sidebar /><TeamCollaborations /></>} />
@@ -192,8 +197,11 @@ function App() {
             <Route path="/tasks/New" element={<CreateDeploymentTask/>}/>
             <Route path="/Circle" element={<Deploymentcircle/>}/>
             <Route path="/Circle/New" element={<CreateNewDeployementCircle/>}/>
-            
+            {/* <Route path="/projectboard" element={<ProjectBoard/>}/> */}
+            </Route>
 
+            {/* Fallback Route */}
+            <Route path="*" element={<Navigate to="/signin" replace />} />
           </Routes>
         </div>
       </Router>
@@ -203,25 +211,15 @@ function App() {
 
 const ConditionalHeaderAndNotifications = ({ notifications }) => {
   const location = useLocation();
-
-  // Define the routes where you want to show the header and notifications
-  const showHeaderRoutes = [
-    '/notifications',
-  ];
-
-  // Check if the current route is one of the routes to show the header and notifications
+  const showHeaderRoutes = ['/notifications'];
   const shouldShowHeader = showHeaderRoutes.includes(location.pathname);
 
-  return (
+  return shouldShowHeader ? (
     <>
-      {shouldShowHeader && (
-        <>
-          <Header /> {/* Render Header only if on the specified routes */}
-          <Notifications notifications={notifications} /> {/* Render Notifications only if on the specified routes */}
-        </>
-      )}
+      <Header />
+      <Notifications notifications={notifications} />
     </>
-  );
+  ) : null;
 };
 
 export default App;

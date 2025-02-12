@@ -85,6 +85,19 @@
   background: #764ba2;
 }
 
+.forgotPasswordLink{
+  color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.2s;
+    margin-left: 125px;
+    font-size: 0.9rem;
+}
+
+.forgotPasswordLink:hover {
+  color: #764ba2;
+}
+
 .signupText {
   text-align: center;
   color: #666;
