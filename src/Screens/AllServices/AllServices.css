@@ -101,7 +101,7 @@ html {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
-  margin-left: 13px;
+  margin-left: 20px;
 }
 
 /* Service Category Card */

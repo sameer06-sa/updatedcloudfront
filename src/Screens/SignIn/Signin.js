@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, AlertCircle,Key } from 'lucide-react';
+import { Mail, Lock, AlertCircle, Key } from 'lucide-react';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './Signin.module.css';
@@ -106,26 +106,26 @@ const Signin = () => {
 
   const handleSendOTP = async (e) => {
     e.preventDefault();
-  
+
     if (!forgotEmail.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
       setForgotMessage("Enter a valid email address");
       toast.error("Enter a valid email address");  // Toaster message for invalid email
       return;
     }
-  
+
     setForgotLoading(true);
     setForgotMessage("");
-  
+
     try {
-      const response = await fetch(`http://localhost:3000/api/auth/forgot-password`, {
+      const response = await fetch(`${apiUrl}/api/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: forgotEmail }),
       });
-  
+
       const data = await response.json();
       if (!response.ok) throw new Error(data.message);
-  
+
       setOtpSent(true);
       setForgotMessage("OTP sent to your email.");
       toast.success("OTP sent to your email.");  // Success toaster message
@@ -135,39 +135,39 @@ const Signin = () => {
     } finally {
       setForgotLoading(false);
     }
-  };  
+  };
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
-    
+
     if (!otp || !newPassword) {
       setForgotMessage("Please enter OTP and a new password.");
       toast.error("Please enter OTP and a new password.");  // Toaster message for missing OTP or password
       return;
     }
-    
+
     if (newPassword.length < 8) {
       setForgotMessage("Password must be at least 8 characters.");
       toast.error("Password must be at least 8 characters.");  // Toaster message for password length validation
       return;
     }
-  
+
     setForgotLoading(true);
     setForgotMessage("");
-    
+
     try {
-      const response = await fetch(`http://localhost:3000/api/auth/reset-password`, {
+      const response = await fetch(`${apiUrl}/api/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: forgotEmail, otp, newPassword }),
       });
-  
+
       const data = await response.json();
       if (!response.ok) throw new Error(data.message);
-  
+
       setForgotMessage("Password reset successfully. You can now sign in.");
       toast.success("Password reset successfully. You can now sign in.");  // Success toaster message
-      
+
       setForgotPasswordMode(false);
       setOtpSent(false);
     } catch (error) {
@@ -177,7 +177,7 @@ const Signin = () => {
       setForgotLoading(false);
     }
   };
-  
+
 
   return (
     <div className={styles.container}>
@@ -185,13 +185,13 @@ const Signin = () => {
       <div className={styles.formCard}>
         <div className={styles.formHeader}>
           <h1 className={styles.title}>Welcome Back</h1>
-          <p className={styles.subtitle}>{forgotPasswordMode ? "Reset Your Password":"Please sign in to continue"}</p>
+          <p className={styles.subtitle}>{forgotPasswordMode ? "Reset Your Password" : "Please sign in to continue"}</p>
         </div>
         <div className={styles.formContent}>
-          {forgotPasswordMode?(
+          {forgotPasswordMode ? (
             <form onSubmit={otpSent ? handleResetPassword : handleSendOTP} className={styles.form}>
               <div className={styles.inputGroup}>
-                <Mail className={styles.inputIcon} size={20}/>
+                <Mail className={styles.inputIcon} size={20} />
                 <input
                   type="email"
                   placeholder="Enter your email"
@@ -202,11 +202,11 @@ const Signin = () => {
                   disabled={otpSent}
                 />
               </div>
-              {otpSent &&(
+              {otpSent && (
                 <>
-                <div className={styles.inputGroup}>
-                  <Key className={styles.inputIcon} size={20}/>
-                  <input
+                  <div className={styles.inputGroup}>
+                    <Key className={styles.inputIcon} size={20} />
+                    <input
                       type="text"
                       placeholder="Enter OTP"
                       value={otp}
@@ -214,8 +214,8 @@ const Signin = () => {
                       className={styles.input}
                       required
                     />
-                </div>
-                <div className={styles.inputGroup}>
+                  </div>
+                  <div className={styles.inputGroup}>
                     <Lock className={styles.inputIcon} size={20} />
                     <input
                       type="password"
@@ -246,7 +246,7 @@ const Signin = () => {
                 </button>
               </p>
             </form>
-          ):(<form onSubmit={handleSubmit} className={styles.form}>
+          ) : (<form onSubmit={handleSubmit} className={styles.form}>
             <div className={styles.inputGroup}>
               <Mail className={styles.inputIcon} size={20} />
               <input
@@ -287,19 +287,19 @@ const Signin = () => {
               {loading ? 'Signing in...' : 'Sign In'}
             </button>
             <p className={styles.forgotPassword}>
-  <button type="button" className={styles.forgotPasswordLink} onClick={() => setForgotPasswordMode(true)}>
-    Forgot Password
-  </button>
-</p>
+              <button type="button" className={styles.forgotPasswordLink} onClick={() => setForgotPasswordMode(true)}>
+                Forgot Password
+              </button>
+            </p>
 
-<p className={styles.signupText}>
-  Don't have an account?{" "}
-  <a href="/" className={styles.signupLink}>
-    Sign up
-  </a>
-</p>
+            <p className={styles.signupText}>
+              Don't have an account?{" "}
+              <a href="/" className={styles.signupLink}>
+                Sign up
+              </a>
+            </p>
           </form>
-        )}
+          )}
         </div>
       </div>
     </div>

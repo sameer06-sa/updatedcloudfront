@@ -122,7 +122,7 @@ function App() {
             <Route path="/verify-identity" element={<VerifyIdentity />} />
 
             {/* Protected Routes */}
-            <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}>
+            {/* <Route element={<ProtectedRoute isAuthenticated={isAuthenticated} />}> */}
               <Route path="/home" element={<><Sidebar /><Home /></>} />
             {/* All Services which is in the homepage */}
             <Route path="/data-store-services" element={<><Datastoreservice></Datastoreservice></>} />
@@ -198,7 +198,7 @@ function App() {
             <Route path="/Circle" element={<Deploymentcircle/>}/>
             <Route path="/Circle/New" element={<CreateNewDeployementCircle/>}/>
             {/* <Route path="/projectboard" element={<ProjectBoard/>}/> */}
-            </Route>
+            {/* </Route> */}
 
             {/* Fallback Route */}
             <Route path="*" element={<Navigate to="/signin" replace />} />
