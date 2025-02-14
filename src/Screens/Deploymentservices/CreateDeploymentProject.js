@@ -4,18 +4,15 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./DeploymentHeader";
-
-const apiUrl = process.env.REACT_APP_API_URL;
-
-
-const API_URL = "${apiUrl}/api/deployments"; 
-
+ 
+const API_URL = "${apiUrl}/api/deployments";
+ 
 const CreateDeploymentProject = () => {
   const navigate = useNavigate();
   const [projectName, setProjectName] = useState("");
   const [projectCategory, setProjectCategory] = useState("");
   const [description, setDescription] = useState("");
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!projectName || !projectCategory) {
@@ -25,18 +22,18 @@ const CreateDeploymentProject = () => {
       });
       return;
     }
-
+ 
     try {
       const newProject = { projectName, projectCategory, description };
-
+ 
       // API call to create deployment project
       await axios.post(API_URL, newProject);
-
+ 
       toast.success("Deployment project created successfully!", {
         position: "top-right",
         autoClose: 3000,
       });
-
+ 
       setTimeout(() => navigate("/Projects/page"), 3000);
     } catch (error) {
       console.error("Error creating deployment project:", error);
@@ -46,7 +43,7 @@ const CreateDeploymentProject = () => {
       });
     }
   };
-
+ 
   return (
     <div className="min-h-screen bg-white flex flex-col pt-20">
       <ToastContainer />
@@ -115,5 +112,6 @@ const CreateDeploymentProject = () => {
     </div>
   );
 };
-
+ 
 export default CreateDeploymentProject;
+ 

@@ -194,7 +194,7 @@ function App() {
             <Route path="/DepSettings" element={<DeploymentSettings/>}/>
             <Route path="/projects/New" element={<CreateDeploymentproject/>}/>
             <Route path="/tasks" element={<DeploymentTaskManager/>}/>
-            <Route path="/tasks/New" element={<CreateDeploymentTask/>}/>
+            <Route path="/tasks/create" element={<CreateDeploymentTask/>}/>
             <Route path="/Circle" element={<Deploymentcircle/>}/>
             <Route path="/Circle/New" element={<CreateNewDeployementCircle/>}/>
             {/* <Route path="/projectboard" element={<ProjectBoard/>}/> */}

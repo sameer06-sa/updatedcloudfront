@@ -20,7 +20,7 @@ const DeploymentTaskManager = () => {
  
   const fetchTasks = async () => {
     try {
-      const response = await fetch("${apiUrl}/api/tasks");
+      const response = await fetch('${apiUrl}/api/tasks');
       const data = await response.json();
       setTasks(data);
     } catch (error) {
