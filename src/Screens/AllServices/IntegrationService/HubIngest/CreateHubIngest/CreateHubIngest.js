@@ -38,7 +38,7 @@ const CreateHubIngest = () => {
     const fetchProjects = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:3000/api/proj/projects`, {
+            const response = await fetch(`${apiUrl}/api/proj/projects`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -81,7 +81,7 @@ const CreateHubIngest = () => {
             };
 
             const token = localStorage.getItem('token');
-            const response = await axios.post(`http://localhost:3000/api/hubingest`, data, {
+            const response = await axios.post(`${apiUrl}/api/hubingest`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

@@ -38,7 +38,7 @@ const Datastoreservice = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/datastore`, {
+      const response = await axios.get(`${apiUrl}/api/datastore`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
       setData(response.data);
@@ -68,7 +68,7 @@ const Datastoreservice = () => {
 
     try {
       await axios.put(
-        `http://localhost:3000/api/datastore/${renameServiceId}`,
+        `${apiUrl}/api/datastore/${renameServiceId}`,
         { serviceName: renameServiceName },
         {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -93,7 +93,7 @@ const Datastoreservice = () => {
 
     try {
       for (let index of selectedRows) {
-        await axios.delete(`http://localhost:3000/api/datastore/${data[index]._id}`, {
+        await axios.delete(`${apiUrl}/api/datastore/${data[index]._id}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         });
       }

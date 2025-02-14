@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaBriefcase, FaCog, FaUserCircle } from "react-icons/fa";
 import ProjectCard from "./DeploymentProjectCard";
- 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 // Function to map the first letter to a color
 const getColorForFirstLetter = (letter) => {
   const colors = [
@@ -31,7 +32,7 @@ const DeploymentProjectsPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch("http://localhost:3000/api/deployments");
+        const response = await fetch("${apiUrl}/api/deployments");
         if (!response.ok) {
           throw new Error("Failed to fetch projects");
         }

@@ -7,7 +7,7 @@ import axios from "axios";
 import debounce from "lodash.debounce";
 import "./Header.css";
 
-const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:3000";
+const apiUrl = process.env.REACT_APP_API_URL || "${apiUrl}";
 const MAX_PREVIOUS_ACCOUNTS = 5;
 
 const RemoveAccountsPopup = ({ previousAccounts, onRemove, onClose }) => {
@@ -66,7 +66,7 @@ function Header() {
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                const response = await axios.get(`http://localhost:3000/api/webapp`);
+                const response = await axios.get(`${apiUrl}/api/webapp`);
                 if (response.data?.data) {
                     setOptions(response.data.data);
                 }
@@ -122,7 +122,7 @@ function Header() {
     const handleAutoLogin = async (email) => {
         setIsLoading(true);
         try {
-            const response = await axios.post(`http://localhost:3000/api/user/auto-login`, { email });
+            const response = await axios.post(`${apiUrl}/api/user/auto-login`, { email });
 
             if (response.data?.success) {
                 if (response.data.data?.user) {
