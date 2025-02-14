@@ -56,7 +56,7 @@ function Sidebar() {
             <Link to="/projects" onClick={toggleSidebar}>Projects</Link>
           </li>
           <li>
-            <Link to="/manage-users" onClick={toggleSidebar}>My Manage</Link>
+            {/* <Link to="/manage-users" onClick={toggleSidebar}>My Manage</Link> */}
           </li>
           <li>
             <Link to="/docs" onClick={toggleSidebar}>Docs</Link>

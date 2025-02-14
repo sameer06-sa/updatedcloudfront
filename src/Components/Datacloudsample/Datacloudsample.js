@@ -83,9 +83,8 @@ const Datacloudsample = () => {
           value={filterType}
           onChange={(e) => setFilterType(e.target.value)}
         >
-          <option value="Filter">All</option>
-          <option value="Folder">Folder</option>
-          <option value="CSV">CSV</option>
+          
+          <option value="Filter">Filter</option>
         </select>
 
       {/* Table */}

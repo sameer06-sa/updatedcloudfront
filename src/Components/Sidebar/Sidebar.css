@@ -15,6 +15,7 @@ body {
   top: 60px; /* Match the height of the header */
   left: 0;
   width: 250px;
+ 
   /* height: 100vh; Full height of the page */
   height: calc(100% - 60px); /* Subtract the header height */
   background: linear-gradient(#111827, #1F2937 );
@@ -24,6 +25,9 @@ body {
   transition: transform 0.3s ease-in-out;
   z-index: 100000;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+.sidebar-container{
+  background-color: red;
 }
 
 .sidebar-open {

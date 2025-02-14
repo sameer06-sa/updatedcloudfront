@@ -14,7 +14,7 @@ const CreateNewDeploymentCircle = () => {  // Renamed Component
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg--100">
+    <div className="flex justify-center items-center min-h-screen bg-white">
       <div className="bg-white p-6 rounded-2xl shadow-lg w-[450px]">
         <h2 className="text-xl font-semibold mb-4">New Circle</h2>  {/* Updated Name */}
         

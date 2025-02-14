@@ -4,6 +4,7 @@
     font-family: Arial, sans-serif;
     padding-top: 60px;
     padding-left: 70px;
+    background-color: white;
   }
   
   /* Header Section */
@@ -48,7 +49,8 @@
   .Datacloudsample-action-buttons {
     display: flex;
     gap: 10px;
-    margin-bottom: 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
   }
   
   .Datacloudsample-action-buttons button {
@@ -58,14 +60,22 @@
     padding: 8px 12px;
     font-size: 14px;
     border: none;
-    background-color: #f5f5f5;
+    /* background-color: #f5f5f5; */
     border-radius: 5px;
+   
     cursor: pointer;
+    
+  
   }
   
   .Datacloudsample-action-buttons button:hover {
-    background-color: #e0e0e0;
+    background-color: white;
+   
+    
+
+ 
   }
+  
   
   /* Table Styling */
   table {
@@ -85,5 +95,6 @@
   
   tr:hover {
     background-color: #f1f1f1;
+    
   }
   

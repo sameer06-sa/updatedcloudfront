@@ -18,6 +18,7 @@
   display: flex;
   height: 100%;
   overflow: hidden;
+  background-color: white;
 }
  
 /* Sidebar styles */
@@ -35,7 +36,7 @@
   display: flex;
   flex-direction: column;
   padding-top: 30px;
-  padding-left: 80px;
+  padding-left: 62px;
 }
 /* Content Header */
 .int-content-header {
@@ -65,6 +66,7 @@
  
 .services-list-container{
   display: flex;
+
 }
  
 .int-services-list{
@@ -76,8 +78,10 @@
   background-color: #fff;
   border: 2px solid #eee;
   border-top: 5px;
+  width:250px ;
   border-radius: 0 0 18px 8px;
-  margin-bottom: 40px
+  margin-bottom: 40px,
+  
 }
 /* Actions */
 .int-actions {
@@ -98,10 +102,10 @@
 .actions-button:hover {
   background-color: #7ab6f7;
 }
-.int-service-item.active {
+/* .int-service-item.active {
   background-color: #f0f0f0;
-  font-weight: bold;
-}
+
+} */
  
 .service-data-box {
   border: 1px solid #ddd;
@@ -127,11 +131,14 @@
   margin-top: 20px;
 }
  
-.icon {
+.icon{
   font-size: 20px;
   margin-right: 10px;
+
+
+  
 }
- 
+
  
 /* Actions - Adjusting the box layout only */
 .int-actions {
@@ -139,6 +146,7 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto auto;
   gap: 20px;
+  
   grid-template-areas:
     "box1 box2 box3"
     ". box4 box5";

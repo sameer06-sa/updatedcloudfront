@@ -1,9 +1,11 @@
 /* General container styles */
 .create-hub-container {
-  max-width: 900px;
-  margin-left: 70px;
+  width: 1200px;
+  margin-left: 60px;
+  /* position: fixed; */
   padding: 0px;
   font-family: Arial, sans-serif;
+  background-color: white;
 }
 
 .create-hub-container-heading {

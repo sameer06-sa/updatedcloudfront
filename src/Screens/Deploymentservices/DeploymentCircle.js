@@ -13,7 +13,7 @@ export default function DeploymentCircle() {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col w-full p-6 mt-8 ml-64">
+      <div className="flex flex-col w-full bg-white p-6 mt-8 ml-64">
         {/* Top Section */}
         <div className="flex items-center justify-between">
           {/* Project Title with Dropdown Arrow */}

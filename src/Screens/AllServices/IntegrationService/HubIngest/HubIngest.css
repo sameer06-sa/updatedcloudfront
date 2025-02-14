@@ -1,7 +1,10 @@
 .hub-ingest_main-content {
-  margin-left: 75px;
-  margin-top: 65px;
+  margin-left: 62px;
+  margin-top: 60px;
   flex: 1;
+  background-color: white;
+  height: 100vh;
+ 
 }
  
 .page-title {
@@ -28,14 +31,18 @@
   cursor: pointer;
   margin-top: 10px;
 }
+.toolbar{
+  background-color: white;
+}
  
 .toolbar button:hover {
-  background-color: #f0f0f0;
+  background-color: white;
 }
 .custom-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
+  font-weight: bold;
 }
  
 .custom-table th,
@@ -43,10 +50,12 @@
   border: 1px solid #ccc;
   padding: 10px;
   text-align: left;
-  font-size: small;
+  
   font-weight: normal;
 }
  
 .custom-table th {
   background-color: #f8f8f8;
+  font-weight: bold;
+  font-size: 15px;
 }

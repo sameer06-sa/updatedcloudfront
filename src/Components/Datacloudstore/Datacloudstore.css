@@ -2,28 +2,29 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f5f5f5;
+    background-color: white;
   }
   
   .datastorage-container {
     display: flex;
     height: 100vh;
     padding-left: 75px;
+    background-color: white;
   }
   
   /* Sidebar */
   .datastorage-sidebar {
-    width: 250px;
-    background-color: #ffffff;
+    width: 220px;
+    background-color:white;
     border-right: 1px solid #e0e0e0;
-    border-bottom: 1px solid #e0e0e0;
+    /* border-bottom: 1px solid #e0e0e0; */
     display: flex;
     flex-direction: column;
-    padding-top: 42px;
+    padding-top: 35px;
   }
   
   .sidebar-title {
-    font-size: 18px;
+    font-size: 25px;
     font-weight: bold;
     padding: 20px;
     border-bottom: 1px solid #e0e0e0;
@@ -33,15 +34,17 @@ body {
   
   
   .datastorage-menu-item {
-    font-size: 16px;
+    font-size: 22px;
     color: #333333;
-    padding: 25px 20px;
-    display: flex;
+    padding: 14px;
+    /* display: flex; */
     align-items: center;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     border: none;
     justify-content: left;
+    
+    
   }
   
   .datastorage-menu-item span {
@@ -53,17 +56,18 @@ body {
     color: #007bff;
     background-color: #f0f8ff;
     border-radius: 4px;
+    margin-top: 2px;
   }
   
   .sidebar-footer {
     padding: 90px 20px 20px 0;
-    border-top: 1px solid #e0e0e0;
+    /* border-top: 1px solid #e0e0e0; */
   }
   
   /* Content Area */
   .datastorage-content-area {
     flex: 1;
-    background-color: #f9f9f9;
+    background-color: white;
     padding: 20px;
     padding-top: 80px;
   }

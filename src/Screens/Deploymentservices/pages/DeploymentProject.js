@@ -12,7 +12,7 @@ const DeploymentProject = () => {
       </div>
 
       {/* Main Content */}
-      <div className="flex flex-col w-full p-6 mt-6 mb-6 ml-64">
+      <div className="flex flex-col w-full bg-white p-6 mt-6 mb-6 ml-64">
         {/* Header */}
         <DeploymentHeader />
 

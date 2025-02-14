@@ -79,12 +79,12 @@ const IntegrationService = () => {
   };
  
   const services = [
-    { name: "Integration Services", icon: <HubRounded /> },
-    { name: "Management Services", icon: <Settings /> },
-    { name: "Database Services", icon: <Storage /> },
-    { name: "Network Services", icon: <Lan /> },
-    { name: "Compute Services", icon: <Dns /> },
-    { name: "Security Services", icon: <Security /> },
+    { name: "Integration Services", icon: <HubRounded sx={{ color: "#8000FF" }} /> },
+    { name: "Management Services", icon: <Settings sx={{ color: "#F97000" }} /> },
+    { name: "Database Services", icon: <Storage sx={{ color: "#35FF45" }} /> },
+    { name: "Network Services", icon: <Lan sx={{ color: "#5500FF" }} /> },
+    { name: "Compute Services", icon: <Dns sx={{ color: "#3946FF" }} /> },
+    { name: "Security Services", icon: <Security sx={{ color: "D80101" }} /> },
   ];
  
   return (
