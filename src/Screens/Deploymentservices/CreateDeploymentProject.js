@@ -4,8 +4,8 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./DeploymentHeader";
- 
-const API_URL = "${apiUrl}/api/deployments";
+const apiUrl = process.env.REACT_APP_API_URL;
+const API_URL = `${apiUrl}/api/deployments`;
  
 const CreateDeploymentProject = () => {
   const navigate = useNavigate();

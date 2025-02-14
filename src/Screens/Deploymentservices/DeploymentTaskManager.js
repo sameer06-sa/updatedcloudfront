@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DeploymentSidebar from "../../Screens/Deploymentservices/DeploymentSidebar";
 const apiUrl = process.env.REACT_APP_API_URL;
-
 const DeploymentTaskManager = () => {
   const navigate = useNavigate();
- 
+
   const [tasks, setTasks] = useState([]);
   const [selectedTask, setSelectedTask] = useState(null);
   const [taskName, setTaskName] = useState("");
@@ -13,27 +12,27 @@ const DeploymentTaskManager = () => {
   const [taskStatus, setTaskStatus] = useState("Pending");
   const [area, setArea] = useState("");
   const [description, setDescription] = useState("");
- 
+
   useEffect(() => {
     fetchTasks();
   }, []);
- 
+
   const fetchTasks = async () => {
     try {
-      const response = await fetch('${apiUrl}/api/tasks');
+      const response = await fetch(`${apiUrl}/api/tasks`);
       const data = await response.json();
       setTasks(data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
     }
   };
- 
+
   const createTask = async () => {
     if (!taskName || !assignedTo || !area || !description) {
       alert("Please fill in all fields.");
       return;
     }
- 
+
     const newTask = {
       taskName,
       assignedTo,
@@ -41,44 +40,42 @@ const DeploymentTaskManager = () => {
       area,
       description,
     };
- 
+
     try {
-      const token = localStorage.getItem("token")
-      const response = await fetch("${apiUrl}/api/tasks", {
+      const response = await fetch(`${apiUrl}/api/tasks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        Authorization: `Bearer ${token}`,
         body: JSON.stringify(newTask),
       });
- 
+
       if (!response.ok) throw new Error("Failed to create task");
- 
+
       fetchTasks();
       setTaskName("");
       setAssignedTo("");
       setTaskStatus("Pending");
       setArea("");
       setDescription("");
- 
+
       alert("Task created successfully!");
     } catch (error) {
       console.error("Error creating task:", error);
     }
   };
- 
+
   return (
     <div className="flex">
       {/* Sidebar */}
       <div className="w-64 fixed left-0 top-0 h-screen bg-gray-100 shadow-lg">
         <DeploymentSidebar />
       </div>
- 
+
       {/* Main Content */}
       <div className="flex-grow p-6 bg-white w-1000 rounded-lg ml-64">
         <div className="mt-10 flex items-center justify-between">
           <div className="flex items-center gap-4">
             <h2 className="text-2xl font-semibold">Tasks</h2>
- 
+
             {/* Buttons grouped together */}
             <button
               className={`bg-blue-600 text-white px-4 py-2 rounded-lg ${
@@ -97,7 +94,7 @@ const DeploymentTaskManager = () => {
             </button>
             <button className="text-gray-600 px-4 py-2 rounded-lg">Import</button>
           </div>
- 
+
           {/* Search Bar (Moved to right side) */}
           <div className="flex items-center border-gray-300 rounded-lg px-3 py-2 bg-white w-64">
             <input
@@ -107,7 +104,7 @@ const DeploymentTaskManager = () => {
             />
           </div>
         </div>
- 
+
         {/* Filter Section (Moved closer to buttons) */}
         <div className="mt-4 bg-white shadow-md p-4 rounded-lg border-b border-gray-300">
           <div className="flex items-center gap-3 mb-3">
@@ -116,7 +113,7 @@ const DeploymentTaskManager = () => {
             </span>
             <span className="text-black font-medium">✅ Task</span>
           </div>
- 
+
           {/* Create Task Form */}
           <div className="bg-gray-50 p-4 rounded-lg border mb-6">
             <h2 className="text-lg font-semibold mb-3">Create a New Task</h2>
@@ -166,7 +163,7 @@ const DeploymentTaskManager = () => {
               </button>
             </div>
           </div>
- 
+
           {/* Task Table */}
           <div className="mt-6 bg-white shadow-md rounded-lg overflow-hidden">
             <table className="w-full border-collapse">
@@ -213,5 +210,5 @@ const DeploymentTaskManager = () => {
     </div>
   );
 };
- 
+
 export default DeploymentTaskManager;

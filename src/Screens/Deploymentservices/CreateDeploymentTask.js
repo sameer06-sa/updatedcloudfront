@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "./DeploymentHeader";
 import DeploymentSidebar from "../../Screens/Deploymentservices/DeploymentSidebar";
- 
+const apiUrl = process.env.REACT_APP_API_URL;
 const CreateDeploymentTask = () => {
   const location = useLocation();
   const navigate = useNavigate();
