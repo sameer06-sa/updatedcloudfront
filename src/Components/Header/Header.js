@@ -66,7 +66,7 @@ function Header() {
     useEffect(() => {
         const fetchOptions = async () => {
             try {
-                const response = await axios.get(`${apiUrl}/api/webapp`);
+                const response = await axios.get(`http://localhost:3000/api/webapp`);
                 if (response.data?.data) {
                     setOptions(response.data.data);
                 }
@@ -122,7 +122,7 @@ function Header() {
     const handleAutoLogin = async (email) => {
         setIsLoading(true);
         try {
-            const response = await axios.post(`${apiUrl}/api/user/auto-login`, { email });
+            const response = await axios.post(`http://localhost:3000/api/user/auto-login`, { email });
 
             if (response.data?.success) {
                 if (response.data.data?.user) {
