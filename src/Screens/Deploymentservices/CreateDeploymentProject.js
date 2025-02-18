@@ -4,8 +4,8 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./DeploymentHeader";
-const apiUrl = process.env.REACT_APP_API_URL;
-const API_URL = `${apiUrl}/api/deployments`; 
+
+const API_URL = "http://localhost:3000/api/deployments"; 
 
 const CreateDeploymentProject = () => {
   const navigate = useNavigate();
@@ -95,7 +95,7 @@ const CreateDeploymentProject = () => {
               <button
                 type="button"
                 className="border border-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-gray-100 transition duration-200"
-                onClick={() => navigate("/home")}
+                onClick={() => navigate("/projects/page")}
               >
                 Cancel
               </button>

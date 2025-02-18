@@ -1,18 +1,12 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-
-const ProtectedRoute = ({ isAuthenticated, children }) => {
-  const location = useLocation();
-
-  return isAuthenticated ? (
-    children
-  ) : (
-    <Navigate 
-      to="/signin" 
-      state={{ from: location, message: 'Please sign in to access this page.' }} 
-      replace 
-    />
-  );
+import { Navigate, Outlet } from "react-router-dom";
+ 
+// Mock function to check if the user is authenticated
+const isAuthenticated = () => {
+  return localStorage.getItem("token"); // Replace with actual auth logic
 };
-
-export default ProtectedRoute;
+ 
+const PrivateRoute = () => {
+  return isAuthenticated() ? <Outlet /> : <Navigate to="/signin" />;
+};
+ 
+export default PrivateRoute;
