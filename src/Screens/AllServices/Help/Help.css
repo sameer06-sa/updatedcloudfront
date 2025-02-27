@@ -1,0 +1,160 @@
+/* Help Page Container */
+.help-container {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding: 17px;
+    margin-left: 55px;
+  }
+  
+  /* Wrapper for Help & Queries Cards (Stacked Layout) */
+  .help-wrapper {
+    display: flex;
+    flex-direction: column;
+    /* Stack elements vertically */
+    gap: 20px;
+    width: 100%;
+    max-width: 600px;
+    /* Center content with a max width */
+  }
+  
+  /* Help & Queries Card */
+  .help-card{
+    /* background: white; */
+    padding: 20px;
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+  }
+  
+  /* .help{
+    text-align: end;
+  } */
+  
+  /* Query Form */
+  .query-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .queries-card {
+    /* background: white; */
+    /* padding: 20px; */
+    text-align: center;
+    width: 100%;
+    margin-top: 30px;
+  }
+  
+  .input-field,
+  .textarea-field {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.3s;
+  }
+  
+  .input-field:focus,
+  .textarea-field:focus {
+    border-color: #007bff;
+  }
+  
+  /* Submit Button */
+  .submit-button {
+    background: #007bff;
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+  
+  .submit-button:hover {
+    background: #0056b3;
+  }
+  
+  /* Queries Container */
+  .queries-container {
+    margin-top: 20px;
+  }
+  
+  /* Query Card */
+  .query-card {
+    background: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+    text-align: left;
+    position: relative;
+  }
+  
+  /* Status Badge */
+  .status-badge {
+    font-size: 12px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 12px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .resolved-badge {
+    background-color: #28a745;
+    color: white;
+  }
+  
+  .pending-badge {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  /* Admin Response */
+  .admin-response {
+    margin-top: 10px;
+    font-weight: bold;
+    color: green;
+  }
+  
+  /* No Query Message */
+  .no-query-message {
+    font-style: italic;
+    color: gray;
+  }
+  
+  /* Pagination Buttons */
+  .pagination-buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+  }
+  
+  .nav-button {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+  
+  .nav-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .nav-button:hover:not(:disabled) {
+    background: #0056b3;
+  }

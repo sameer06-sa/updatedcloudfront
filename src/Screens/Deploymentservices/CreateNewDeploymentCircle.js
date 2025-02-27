@@ -3,7 +3,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { toast, ToastContainer } from "react-toastify"; // Import toast and ToastContainer
 import "react-toastify/dist/ReactToastify.css"; // Import styles for react-toastify
-
+const apiUrl = process.env.REACT_APP_API_URL;
+ 
 const CreateNewDeploymentCircle = () => {
   const [formData, setFormData] = useState({
     name: "",
@@ -13,12 +14,12 @@ const CreateNewDeploymentCircle = () => {
   });
   const navigate = useNavigate(); // Initialize navigate function
   const [projects, setProjects] = useState([]);  // State to hold project names
-
+ 
   // Fetch deployment projects when the component mounts
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/deploymentCircles/projects");
+        const response = await axios.get(`${apiUrl}/api/deploymentCircles/projects`);
         setProjects(response.data);  // Set projects in state
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -27,18 +28,18 @@ const CreateNewDeploymentCircle = () => {
     };
     fetchProjects();
   }, []);
-
+ 
   // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
-
+ 
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:3000/api/deploymentCircles", {
+      const response = await axios.post(`${apiUrl}/api/deploymentCircles`, {
         name: formData.name,
         projectName: formData.project,
         startDate: formData.start,
@@ -55,16 +56,16 @@ const CreateNewDeploymentCircle = () => {
       toast.error("Failed to create deployment circle."); // Show error toast
     }
   };
-
+ 
   const handleCancel = () => {
     navigate("/circle"); // Redirect to /circle page on cancel
   };
-
+ 
   return (
     <div className="flex justify-center items-center min-h-screen bg--100">
       <div className="bg-white p-6 rounded-2xl shadow-lg w-[450px]">
         <h2 className="text-xl font-semibold mb-4">New Circle</h2>
-
+ 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-600 text-sm mb-1">Name</label>
@@ -77,7 +78,7 @@ const CreateNewDeploymentCircle = () => {
               className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
-
+ 
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
               <label className="block text-gray-600 text-sm mb-1">Start</label>
@@ -100,7 +101,7 @@ const CreateNewDeploymentCircle = () => {
               />
             </div>
           </div>
-
+ 
           <div className="mb-4">
             <label className="block text-gray-600 text-sm mb-1">Project Name</label>
             <select
@@ -117,7 +118,7 @@ const CreateNewDeploymentCircle = () => {
               ))}
             </select>
           </div>
-
+ 
           <div className="flex justify-between">
             <button
               type="button"
@@ -135,11 +136,11 @@ const CreateNewDeploymentCircle = () => {
           </div>
         </form>
       </div>
-
+ 
       {/* Add ToastContainer to show toasts */}
       <ToastContainer />
     </div>
   );
 };
-
+ 
 export default CreateNewDeploymentCircle;
