@@ -14,36 +14,71 @@ function SubscriptionPlans() {
   const navigate = useNavigate();
   const startTracking = useServiceTracking();
   const [hasActiveFreeTrial, setHasActiveFreeTrial] = useState(false);
+  const [userEmail, setUserEmail] = useState('');
 
   useEffect(() => {
-    // Track when page loads
     startTracking('Subscriptions', 'Subscription');
 
-    // Check free trial status
-    const userEmail = localStorage.getItem('userEmail');
-    if (userEmail) {
-      axios.get(`/api/subscription/free-trial-status/${userEmail}`)
-        .then((response) => {
-          setHasActiveFreeTrial(response.data.hasActiveFreeTrial);
-        })
-        .catch((error) => {
-          console.error('Error checking free trial status:', error.message);
-        });
+    // Retrieve user email from localStorage
+    const storedUserData = localStorage.getItem('userData');
+
+    if (storedUserData) {
+      try {
+        const parsedUserData = JSON.parse(storedUserData);
+        if (parsedUserData.email) {
+          setUserEmail(parsedUserData.email);
+          console.log("✅ Found userEmail:", parsedUserData.email);
+
+          // Check free trial status
+          axios.get(`${apiUrl}/api/subscription/free-trial-status/${parsedUserData.email}`)
+            .then((response) => {
+              setHasActiveFreeTrial(response.data.hasActiveFreeTrial);
+            })
+            .catch((error) => {
+              console.error('❌ Error checking free trial status:', error.message);
+            });
+        } else {
+          console.error("❌ Email not found inside userData");
+        }
+      } catch (error) {
+        console.error("❌ Failed to parse userData from localStorage:", error);
+      }
+    } else {
+      console.error("❌ No userData found in localStorage");
     }
   }, []);
 
-  // Handler for Free Trial button click
-  const handleFreeTrial = () => {
+  // Handle Free Trial Payment
+  const handleFreeTrial = async () => {
+    if (!userEmail) {
+      toast.error("User email not found. Please log in again.");
+      return;
+    }
+
     if (hasActiveFreeTrial) {
       alert('You already have an active free trial. No need to make another payment.');
-    } else {
-      navigate('/payment'); // Navigate to the payment page
+      return;
+    }
+
+    try {
+      const response = await axios.post(`${apiUrl}/api/payment/initiate`, {
+        email: userEmail,
+        amount: 5 // ₹5 for trial activation
+      });
+
+      if (response.data.paymentUrl) {
+        window.location.href = response.data.paymentUrl; // Redirect to PhonePe payment page
+      } else {
+        toast.error("Failed to initiate payment. Please try again.");
+      }
+    } catch (error) {
+      console.error("❌ Error initiating payment:", error);
+      toast.error("Payment initiation failed. Try again.");
     }
   };
 
   // Handler for Organization Plan button click
   const handleOrganizationPlan = async () => {
-    // Retrieve the token from localStorage (ensure you've stored it after login)
     const token = localStorage.getItem('token');
     try {
       const response = await axios.post(
@@ -52,37 +87,13 @@ function SubscriptionPlans() {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       if (response.data.success) {
-        toast.success(response.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.success(response.data.message, { position: "top-right", autoClose: 3000 });
       } else {
-        toast.error(response.data.message, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error(response.data.message, { position: "top-right", autoClose: 3000 });
       }
     } catch (error) {
-      console.error('Error sending organization request:', error);
-      toast.error("Error sending organization request. Please try again later.", {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      console.error('❌ Error sending organization request:', error);
+      toast.error("Error sending organization request. Please try again later.");
     }
   };
 
@@ -91,12 +102,11 @@ function SubscriptionPlans() {
       {/* Header */}
       <Header />
 
-      {/* Toast Container (Required for Toasts to Work) */}
+      {/* Toast Container */}
       <ToastContainer />
 
       {/* Main layout */}
       <div className="subs-plans-container">
-        {/* Content */}
         <div className="content">
           <h1 className="subs-plan-title">Subscriptions</h1>
           <h2 className="subtitle">Choose your plan</h2>
@@ -110,8 +120,8 @@ function SubscriptionPlans() {
                 <p className="price">₹5</p>
                 <p className="payment-info">one-time payment</p>
               </div>
-              <ul className="features" id="feat">
-                <li>✔ 30 days full access</li>
+              <ul className="features">
+                <li>✔ 7 days full access</li>
                 <li>✔ Basic feature access</li>
                 <li>✔ 24/7 support</li>
                 <li>✔ Pay with Credit/Debit Card</li>
