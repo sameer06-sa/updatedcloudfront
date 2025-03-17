@@ -19,7 +19,7 @@ const DeploymentTaskManager = () => {
 
   const fetchTasks = async () => {
     try {
-      const response = await fetch(`${apiUrl}/api/tasks`);
+      const response = await fetch(`http://localhost:3000/api/tasks`);
       const data = await response.json();
       setTasks(data);
     } catch (error) {
@@ -42,7 +42,7 @@ const DeploymentTaskManager = () => {
     };
 
     try {
-      const response = await fetch(`${apiUrl}/api/tasks`, {
+      const response = await fetch(`http://localhost:3000/api/tasks`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newTask),

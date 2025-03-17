@@ -14,23 +14,23 @@
   justify-content: center;
   align-items: center;
 }
-
+ 
 .submitButton:hover {
   background-color: #4338ca;
 }
-
+ 
 .submitButton:disabled {
   background-color: #9ca3af;
   cursor: not-allowed;
 }
-
+ 
 .submitError {
   display: flex;
   align-items: center;
   padding: 20px;
   /* background: linear-gradient(#2E3192, #1BFFFF); */
 }
-
+ 
 .form {
   width: 100%;
   max-width: 550px;
@@ -42,7 +42,7 @@
   overflow-y: auto;
   margin: 0;
 }
-
+ 
 .title {
   text-align: center;
   margin-bottom: 30px;
@@ -50,18 +50,18 @@
   font-size: 24px;
   font-weight: 600;
 }
-
+ 
 .inputGroup {
   margin-bottom: 20px;
 }
-
+ 
 .inputGroup label {
   display: block;
   margin-bottom: 8px;
   font-size: 14px;
   color: #333;
 }
-
+ 
 .inputGroup input,
 .inputGroup select {
   width: 100%;
@@ -72,34 +72,34 @@
   transition: border-color 0.3s;
   color: black;
 }
-
+ 
 .inputGroup input:focus,
 .inputGroup select:focus {
   outline: none;
   border-color: #4f46e5;
 }
-
+ 
 .inputGroup input.error,
 .inputGroup select.error {
   border-color: #ef4444;
 }
-
+ 
 .errorText {
   color: #ef4444;
   font-size: 12px;
   margin-top: 4px;
   display: block;
 }
-
+ 
 .row {
   display: flex;
   gap: 20px;
 }
-
+ 
 .row .inputGroup {
   flex: 1;
 }
-
+ 
 .submitButton {
   width: 100%;
   padding: 12px;
@@ -112,16 +112,20 @@
   cursor: pointer;
   transition: background-color 0.3s;
 }
-
+ 
+.required {
+  color: red;
+}
+ 
 .submitButton:hover {
   background-color: #4338ca;
 }
-
+ 
 .submitButton:disabled {
   background-color: #9ca3af;
   cursor: not-allowed;
 }
-
+ 
 .submitError {
   display: flex;
   align-items: center;
@@ -130,7 +134,7 @@
   margin-top: 12px;
   font-size: 14px;
 }
-
+ 
 .toast {
   position: fixed;
   bottom: 24px;
@@ -145,47 +149,47 @@
   animation: slideIn 0.3s ease-out;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
+ 
 .signupText {
   text-align: center;
   color: #666;
   font-size: 0.7rem;
   margin-top: 0.8rem;
 }
-
+ 
 .signupLink {
   color: #667eea;
   font-weight: 600;
   text-decoration: none;
   transition: color 0.2s;
 }
-
+ 
 .signupLink:hover {
   color: #764ba2;
 }
-
+ 
 @keyframes slideIn {
   from {
     transform: translateX(100%);
     opacity: 0;
   }
-
+ 
   to {
     transform: translateX(0);
     opacity: 1;
   }
 }
-
+ 
 @media (max-width: 640px) {
   .form {
     padding: 20px;
   }
-
+ 
   .row {
     flex-direction: column;
     gap: 0;
   }
-
+ 
   .toast {
     left: 24px;
     right: 24px;

@@ -83,7 +83,7 @@ const Preview = () => {
 
     try {
       const response = await axios.put(
-        `${apiUrl}/api/user/subscription`,
+        `http://localhost:3000/api/user/subscription`,
         {
           subscriptionType: formData.subscriptionType,
           durationInDays: formData.durationInDays,

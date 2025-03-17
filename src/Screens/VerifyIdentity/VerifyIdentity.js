@@ -53,7 +53,7 @@ function VerifyIdentity() {
   };
  
   return (
-    <div className="container">
+    <div className="verify-container">
       <div className="card">
         <h2>Application Name</h2>
         <div className="card-outer">
@@ -93,4 +93,3 @@ function VerifyIdentity() {
 }
  
 export default VerifyIdentity;
- 

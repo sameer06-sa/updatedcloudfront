@@ -6,7 +6,7 @@ const apiUrl = process.env.REACT_APP_API_URL;
 // Fetch all users
 export const getAllUsers = async () => {
   try {
-    const response = await axios.get(`${apiUrl}/api/add-user`); // Fetch all users from correct endpoint
+    const response = await axios.get(`http://localhost:3000/api/add-user`); // Fetch all users from correct endpoint
     return response.data;
   } catch (error) {
     console.error('Error fetching users:', error);

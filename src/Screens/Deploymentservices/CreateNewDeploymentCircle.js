@@ -19,7 +19,7 @@ const CreateNewDeploymentCircle = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/api/deploymentCircles/projects`);
+        const response = await axios.get(`http://localhost:3000/api/deploymentCircles/projects`);
         setProjects(response.data);  // Set projects in state
       } catch (error) {
         console.error("Error fetching projects:", error);
@@ -39,7 +39,7 @@ const CreateNewDeploymentCircle = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${apiUrl}/api/deploymentCircles`, {
+      const response = await axios.post(`http://localhost:3000/api/deploymentCircles`, {
         name: formData.name,
         projectName: formData.project,
         startDate: formData.start,

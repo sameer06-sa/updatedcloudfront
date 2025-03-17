@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Mail, Lock, AlertCircle, Key } from 'lucide-react';
+import { Mail, Lock, AlertCircle, Key, Eye, EyeOff } from 'lucide-react'; // Import Eye and EyeOff icons
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import styles from './Signin.module.css';
@@ -23,6 +23,7 @@ const Signin = () => {
   const [forgotLoading, setForgotLoading] = useState(false);
   const [forgotEmail, setForgotEmail] = useState("");
   const [forgotMessage, setForgotMessage] = useState("");
+  const [showPassword, setShowPassword] = useState(false); // State to manage password visibility
 
   const validateForm = () => {
     if (!formData.email.match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/)) {
@@ -47,7 +48,7 @@ const Signin = () => {
     setError('');
 
     try {
-      const response = await fetch(`${apiUrl}/api/user/signin`, {
+      const response = await fetch(`http://localhost:3000/api/user/signin`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -104,6 +105,10 @@ const Signin = () => {
     setError('');
   };
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword); // Toggle password visibility
+  };
+
   const handleSendOTP = async (e) => {
     e.preventDefault();
 
@@ -117,7 +122,7 @@ const Signin = () => {
     setForgotMessage("");
 
     try {
-      const response = await fetch(`${apiUrl}/api/auth/forgot-password`, {
+      const response = await fetch(`http://localhost:3000/api/auth/forgot-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: forgotEmail }),
@@ -156,7 +161,7 @@ const Signin = () => {
     setForgotMessage("");
 
     try {
-      const response = await fetch(`${apiUrl}/api/auth/reset-password`, {
+      const response = await fetch(`http://localhost:3000/api/auth/reset-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: forgotEmail, otp, newPassword }),
@@ -177,7 +182,6 @@ const Signin = () => {
       setForgotLoading(false);
     }
   };
-
 
   return (
     <div className={styles.container}>
@@ -246,59 +250,70 @@ const Signin = () => {
                 </button>
               </p>
             </form>
-          ) : (<form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.inputGroup}>
-              <Mail className={styles.inputIcon} size={20} />
-              <input
-                type="email"
-                name="email"
-                placeholder="Email address"
-                value={formData.email}
-                onChange={handleChange}
-                className={styles.input}
-                required
-              />
-            </div>
-            <div className={styles.inputGroup}>
-              <Lock className={styles.inputIcon} size={20} />
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={formData.password}
-                onChange={handleChange}
-                className={styles.input}
-                required
-              />
-            </div>
-
-            {error && (
-              <div className={styles.errorMessage}>
-                <AlertCircle size={16} />
-                {error}
+          ) : (
+            <form onSubmit={handleSubmit} className={styles.form}>
+              <div className={styles.inputGroup}>
+                <Mail className={styles.inputIcon} size={20} />
+                <input
+                  type="email"
+                  name="email"
+                  placeholder="Email address"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required
+                />
               </div>
-            )}
+              <div className={styles.inputGroup}>
+                <Lock className={styles.inputIcon} size={20} />
+                <input
+                  type={showPassword ? "text" : "password"} // Toggle between text and password
+                  name="password"
+                  placeholder="Password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required
+                />
+                {/* Conditionally render the eye icon */}
+                {formData.password.length > 0 && (
+                  <button
+                    type="button"
+                    className={styles.passwordToggle}
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />} {/* Toggle between Eye and EyeOff icons */}
+                  </button>
+                )}
+              </div>
 
-            <button
-              type="submit"
-              className={styles.submitButton}
-              disabled={loading}
-            >
-              {loading ? 'Signing in...' : 'Sign In'}
-            </button>
-            <p className={styles.forgotPassword}>
-              <button type="button" className={styles.forgotPasswordLink} onClick={() => setForgotPasswordMode(true)}>
-                Forgot Password
+              {error && (
+                <div className={styles.errorMessage}>
+                  <AlertCircle size={16} />
+                  {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className={styles.submitButton}
+                disabled={loading}
+              >
+                {loading ? 'Signing in...' : 'Sign In'}
               </button>
-            </p>
+              <p className={styles.forgotPassword}>
+                <button type="button" className={styles.forgotPasswordLink} onClick={() => setForgotPasswordMode(true)}>
+                  Forgot Password
+                </button>
+              </p>
 
-            <p className={styles.signupText}>
-              Don't have an account?{" "}
-              <a href="/" className={styles.signupLink}>
-                Sign up
-              </a>
-            </p>
-          </form>
+              <p className={styles.signupText}>
+                Don't have an account?{" "}
+                <a href="/" className={styles.signupLink}>
+                  Sign up
+                </a>
+              </p>
+            </form>
           )}
         </div>
       </div>

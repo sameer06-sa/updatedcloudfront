@@ -67,7 +67,7 @@
   font-size: 1.2rem;
   font-weight: bold;
   text-align: center;
-  color: #898989;
+  color: black;
 }
 
 .app-name {
@@ -139,7 +139,7 @@ h3 {
 }
 
 #application {
-  color: gray;
+  color: black;
   font-weight: bold;
 }
 

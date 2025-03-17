@@ -13,7 +13,7 @@ export default function DeploymentCircle() {
   useEffect(() => {
     const fetchDeploymentCircles = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/api/deploymentCircles`);
+        const response = await axios.get(`http://localhost:3000/api/deploymentCircles`);
         setDeploymentCircles(response.data);  // Set the fetched data to state
       } catch (error) {
         console.error("Error fetching deployment circles:", error);

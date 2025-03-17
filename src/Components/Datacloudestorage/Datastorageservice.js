@@ -6,8 +6,9 @@ import "react-toastify/dist/ReactToastify.css";
 import "./Datastorageservice.css";
 import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
-import 'font-awesome/css/font-awesome.min.css';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";  // Add this line
+import "font-awesome/css/font-awesome.min.css";
+import DataStoreDetailsModal from "../DataStoreDetailsModal";
+import DatastoreDeleteConfirmationModal from "../DatastoreDeleteConfirmationModal"; // Import the renamed modal
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -17,9 +18,13 @@ const Datastoreservice = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState([]);
-  
   const [renameServiceName, setRenameServiceName] = useState("");
   const [renameServiceId, setRenameServiceId] = useState(null);
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedDataStoreDetails, setSelectedDataStoreDetails] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteServiceId, setDeleteServiceId] = useState(null);
+  const [deleteServiceName, setDeleteServiceName] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -85,30 +90,65 @@ const Datastoreservice = () => {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = () => {
     if (selectedRows.length === 0) {
       toast.warning("Select at least one service to delete");
       return;
     }
 
-    try {
-      for (let index of selectedRows) {
-        await axios.delete(`${apiUrl}/api/datastore/${data[index]._id}`, {
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        });
-      }
+    const selectedIndex = selectedRows[0]; // Assuming only one row is selected
+    const selectedData = filteredData[selectedIndex];
+    setDeleteServiceId(selectedData._id);
+    setDeleteServiceName(selectedData.serviceName);
+    setShowDeleteModal(true);
+  };
 
-      setData(data.filter((_, i) => !selectedRows.includes(i)));
+  const handleDeleteConfirm = async () => {
+    try {
+      await axios.delete(`${apiUrl}/api/datastore/${deleteServiceId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+
+      setData(data.filter((item) => item._id !== deleteServiceId));
+      setFilteredData(filteredData.filter((item) => item._id !== deleteServiceId));
       setSelectedRows([]);
-      toast.success("Selected services deleted successfully");
+      toast.success("Data store deleted successfully!");
     } catch (error) {
-      toast.error("Failed to delete services");
+      console.error("Error deleting data store:", error);
+      toast.error("Failed to delete the data store.");
+    } finally {
+      setShowDeleteModal(false);
+      setDeleteServiceId(null);
+      setDeleteServiceName("");
     }
   };
 
-  const handleAccess = () => toast.info("Accessing selected service...");
-  const handleDownload = () => toast.info("Downloading selected service...");
-  const handleDetails = () => toast.info("Showing details...");
+  const handleDeleteCancel = () => {
+    setShowDeleteModal(false);
+    setDeleteServiceId(null);
+    setDeleteServiceName("");
+  };
+
+  const handleDetails = async () => {
+    if (selectedRows.length === 0) {
+      toast.warning("Please select at least one service to view details.");
+      return;
+    }
+
+    try {
+      const selectedIndex = selectedRows[0]; // Assuming only one row is selected
+      const selectedData = filteredData[selectedIndex];
+      const response = await axios.get(`${apiUrl}/api/datastore/${selectedData._id}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+
+      setSelectedDataStoreDetails(response.data);
+      setShowDetailsModal(true);
+    } catch (error) {
+      console.error("Error fetching details:", error);
+      toast.error("Failed to fetch data store details.");
+    }
+  };
 
   const handleSelectRow = (index) => {
     setSelectedRows((prev) =>
@@ -149,12 +189,6 @@ const Datastoreservice = () => {
         </button>
         <button className="cloud-action-button" onClick={handleDelete} disabled={selectedRows.length === 0}>
           <i className="fa fa-trash" /> Delete
-        </button>
-        <button className="cloud-action-button" onClick={handleAccess} disabled={selectedRows.length === 0}>
-          <i className="fa fa-unlock" /> Access
-        </button>
-        <button className="cloud-action-button" onClick={handleDownload} disabled={selectedRows.length === 0}>
-          <i className="fa fa-download" /> Download
         </button>
         <button className="cloud-action-button" onClick={handleDetails} disabled={selectedRows.length === 0}>
           <i className="fa fa-info-circle" /> Details
@@ -235,28 +269,23 @@ const Datastoreservice = () => {
         </div>
       )}
 
+      {showDetailsModal && (
+        <DataStoreDetailsModal
+          details={selectedDataStoreDetails}
+          onClose={() => setShowDetailsModal(false)}
+        />
+      )}
+
+      {showDeleteModal && (
+        <DatastoreDeleteConfirmationModal
+          serviceName={deleteServiceName}
+          onConfirm={handleDeleteConfirm}
+          onCancel={handleDeleteCancel}
+        />
+      )}
+
       <ToastContainer position="top-right" autoClose={3000} />
     </div>
-  );
-};
-
-const DemoStoragePage = () => {
-  return (
-    <div>
-      <h2>Welcome to Demo Storage Page</h2>
-    </div>
-  );
-};
-
-const App = () => {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Datastoreservice />} />
-        <Route path="/DemoStoragePage" element={<DemoStoragePage />} />
-        <Route path="/Datacloudcreation" element={<div>Create Data Cloud Page</div>} />
-      </Routes>
-    </Router>
   );
 };
 

@@ -31,7 +31,7 @@ const DeploymentProjectsPage = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await fetch(`${apiUrl}/api/deployments`);
+        const response = await fetch(`http://localhost:3000/api/deployments`);
         if (!response.ok) {
           throw new Error("Failed to fetch projects");
         }
@@ -76,7 +76,7 @@ const DeploymentProjectsPage = () => {
                 projectCategory={project.projectCategory}
                 description={project.description}
                 color={getColorForFirstLetter(project.projectName.charAt(0))}
-                onClick={() => navigate(`/projects/${project.projectName}`)}
+                onClick={() => navigate(`/projects/sample_project`)}
               />
             ))}
           </div>
