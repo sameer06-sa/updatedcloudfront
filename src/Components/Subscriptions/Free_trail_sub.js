@@ -5,6 +5,8 @@ import Header from "../Header/Header";
 import Sidebar from "../Sidebar/Sidebar";
 import "./Free_trail_sub.css";
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const Free_trail_sub = () => {
   const [subscriptions, setSubscriptions] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -26,7 +28,7 @@ const Free_trail_sub = () => {
     const fetchSubscriptions = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/subscriptions/${userEmail}`
+          `${apiUrl}/api/subscriptions/${userEmail}`
         );
 
         if (response.data.subscription) {

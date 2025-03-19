@@ -66,7 +66,7 @@
  
 .services-list-container{
   display: flex;
-
+ 
 }
  
 .int-services-list{
@@ -81,7 +81,7 @@
   width:250px ;
   border-radius: 0 0 18px 8px;
   margin-bottom: 40px,
-  
+ 
 }
 /* Actions */
 .int-actions {
@@ -102,10 +102,13 @@
 .actions-button:hover {
   background-color: #7ab6f7;
 }
-/* .int-service-item.active {
-  background-color: #f0f0f0;
-
-} */
+/* Highlight active service item */
+.int-service-item.active {
+  background-color: #f0f0f0; /* Light gray background */
+  /* border-left: 5px solid ;  */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Box shadow */
+  transition: all 0.3s ease;
+}
  
 .service-data-box {
   border: 1px solid #ddd;
@@ -134,11 +137,11 @@
 .icon{
   font-size: 20px;
   margin-right: 10px;
-
-
-  
+ 
+ 
+ 
 }
-
+ 
  
 /* Actions - Adjusting the box layout only */
 .int-actions {
@@ -146,7 +149,7 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: auto auto;
   gap: 20px;
-  
+ 
   grid-template-areas:
     "box1 box2 box3"
     ". box4 box5";
@@ -205,3 +208,7 @@
   transform: translateX(-100px);
   width:190px;
 }
+.actions-button {
+  box-shadow: none !important;
+}
+ 

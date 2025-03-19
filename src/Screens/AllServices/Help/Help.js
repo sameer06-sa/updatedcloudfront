@@ -20,7 +20,7 @@ const Help = () => {
 
   const fetchQueries = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/support`);
+      const response = await axios.get(`${apiUrl}/api/support`);
       setQueries(response.data);
     } catch (error) {
       console.error("Error fetching queries", error);
@@ -35,7 +35,7 @@ const Help = () => {
       return;
     }
     try {
-      await axios.post(`http://localhost:3000/api/support`, { subject, message });
+      await axios.post(`${apiUrl}/api/support`, { subject, message });
       toast.success("Query submitted successfully!");
       setSubject("");
       setMessage("");

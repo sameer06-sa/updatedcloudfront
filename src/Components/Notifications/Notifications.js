@@ -4,6 +4,8 @@ import Sidebar from '../../Components/Sidebar/Sidebar'; // Adjust path if necess
 import Header from '../../Components/Header/Header'; // Import Header component
 import './Notifications.css'; // Import the CSS file
 
+const apiUrl = process.env.REACT_APP_API_URL;
+
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -40,7 +42,7 @@ const Notifications = () => {
   const fetchNotifications = async (email) => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/api/notifications/${email}`);
+      const response = await axios.get(`${apiUrl}/api/notifications/${email}`);
       setNotifications(response.data);
     } catch (err) {
       console.error("❌ Failed to load notifications:", err);

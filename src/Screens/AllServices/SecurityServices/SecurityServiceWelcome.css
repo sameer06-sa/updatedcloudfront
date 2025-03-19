@@ -1,0 +1,46 @@
+.security-app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+ 
+  .security-main-layout {
+    display: flex;
+    flex: 1;
+  }
+ 
+  .security-main-content {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    background-color: #f4f4f4;
+  }
+ 
+  .security-main-content h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 10px;
+    padding-left: 50px;
+  }
+ 
+  .security-main-content p {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 20px;
+  }
+ 
+  .security-back-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+ 
+  .security-back-button:hover {
+    background-color: #0056b3;
+  }
+ 

@@ -3,86 +3,92 @@ import './AllServices.css';
 import Header from "../../Components/Header/Header";
 import { useServiceTracking } from "../../Hooks/UseServiceTracking";
 import Sidebar from '../../Components/Sidebar/Sidebar';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { FaSearch} from 'react-icons/fa';
-
+import { useNavigate } from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa';
+ 
 function AllServices() {
   const startTracking = useServiceTracking();
   const navigate = useNavigate();
-
-  // const handleServiceClick = () => {
-  //   navigate('/integration-service');
-  // };
-
-  
+  const [searchQuery, setSearchQuery] = useState(""); // Search state
+ 
   const handleServiceClick = (servicePath) => {
     if (servicePath === '/deployment-services') {
-      navigate('/projects/page'); // Redirect Deployment Services to /projects/page
+      navigate('/deployment-services');
     } else {
       navigate(servicePath);
     }
   };
-  
-
+ 
   useEffect(() => {
-    // Track when page loads
     startTracking('All Services', 'Services');
   }, []);
-
+ 
+  // Handle search input
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value.toLowerCase());
+  };
+ 
+  // Filter services based on search query
+  const filteredServices = servicesData.filter(serviceCategory =>
+    serviceCategory.category.toLowerCase().includes(searchQuery) ||
+    serviceCategory.services.some(service =>
+      service.name.toLowerCase().includes(searchQuery) ||
+      service.description.toLowerCase().includes(searchQuery)
+    )
+  );
+ 
   return (
     <div className="app-container">
-      
       <Header />
-
+ 
       {/* Services Section */}
       <div className="services-section">
         <h3 className="services-title">All Services</h3>
+ 
+        {/* Search Input */}
         <div className="search-container">
-                      <input id="search-input" type="text" placeholder="Search Services..." className="search-input"/>
-                      <FaSearch className="search-icon" />
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search Services..."
+            className="search-input"
+            value={searchQuery}
+            onChange={handleSearchChange}
+          />
+          <FaSearch className="search-icon" />
         </div>
-
+ 
+        {/* Services List */}
         <div className="services-container">
-          {(() => {
-            const elements = [];
-            for (let index = 0; index < servicesData.length; index++) {
-              const serviceCategory = servicesData[index];
-              elements.push(
-                <div key={index}>
-                  <h2
-                    className="service-category"
-                    style={{ backgroundColor: serviceCategory.color }} 
-                    onClick={() => handleServiceClick(`/${serviceCategory.category.replace(" ", "-").toLowerCase()}`)}
-                  >
-                    <span className="category-icon">{serviceCategory.icon}</span>
-                    {serviceCategory.category}
-                  </h2>
-                  <ul>
-                    {(() => {
-                      const serviceItems = [];
-                      for (let i = 0; i < serviceCategory.services.length; i++) {
-                        const service = serviceCategory.services[i];
-                        serviceItems.push(
-                          <li key={i} className="service-item" onClick={() => handleServiceClick()} >
-                            <strong>{service.name}</strong>
-                            <p>{service.description}</p>
-                          </li>
-                        );
-                      }
-                      return serviceItems;
-                    })()}
-                  </ul>
-                </div>
-              );
-            }
-            return elements;
-          })()}
+          {filteredServices.length > 0 ? (
+            filteredServices.map((serviceCategory, index) => (
+              <div key={index}>
+                <h2
+                  className="service-category"
+                  style={{ backgroundColor: serviceCategory.color }}
+                  onClick={() => handleServiceClick(`/${serviceCategory.category.replace(" ", "-").toLowerCase()}`)}
+                >
+                  <span className="category-icon">{serviceCategory.icon}</span>
+                  {serviceCategory.category}
+                </h2>
+                <ul>
+                  {serviceCategory.services.map((service, i) => (
+                    <li key={i} className="service-item" onClick={() => handleServiceClick()}>
+                      <strong>{service.name}</strong>
+                      <p>{service.description}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          ) : (
+            <p className="no-results">No services found.</p>
+          )}
         </div>
       </div>
     </div>
   );
 }
-
 // Define servicesData outside the component but ensure it's still in the same file
 const servicesData = [
   {
@@ -101,7 +107,7 @@ const servicesData = [
   {
     category: "Integration Services",
     services: [
-      { name: "API Gateway", description: "Provision Windows and Linux virtual machines in seconds" },
+      { name: "Hubingest", description: "Provision Windows and Linux virtual machines in seconds" },
       { name: "Service Bus", description: "Streamline Kubernetes deployment and management" },
       { name: "Logic Apps", description: "Build and host web applications with automated scaling" },
     ],
@@ -137,7 +143,7 @@ const servicesData = [
   {
     category: "Deployment Services",
     services: [
-      { name: "Virtual Network", description: "Provision private networks, optionally connect to on-premises" },
+      { name: "Statustracker", description: "Provision private networks, optionally connect to on-premises" },
       { name: "Load Balancer", description: "Delivery high availability and network performance" },
       { name: "DNS Service", description: "Host your DNS domain in our global network" },
     ],
@@ -159,5 +165,5 @@ const servicesData = [
   </svg>,
   },
 ];
-
+ 
 export default AllServices;

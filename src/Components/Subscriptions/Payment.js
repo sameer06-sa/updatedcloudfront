@@ -39,7 +39,7 @@ const Payment = () => {
 
     const fetchUserDetails = async () => {
       try {
-        const userApiUrl = `http://localhost:3000/api/user/${userEmail}`;
+        const userApiUrl = `${apiUrl}/api/user/${userEmail}`;
         console.log(`Fetching user details from: ${userApiUrl}`);
 
         const response = await axios.get(userApiUrl, {
@@ -86,7 +86,7 @@ const Payment = () => {
     }
 
     const token = localStorage.getItem('token');
-    const paymentApiUrl = `http://localhost:3000/api/payment/pay`;
+    const paymentApiUrl = `${apiUrl}/api/payment/pay`;
 
     console.log("Submitting payment details to:", paymentApiUrl);
 

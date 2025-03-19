@@ -30,7 +30,7 @@ function SubscriptionPlans() {
           console.log("✅ Found userEmail:", parsedUserData.email);
 
           // Check free trial status
-          axios.get(`http://localhost:3000/api/subscription/free-trial-status/${parsedUserData.email}`)
+          axios.get(`${apiUrl}/api/subscription/free-trial-status/${parsedUserData.email}`)
             .then((response) => {
               setHasActiveFreeTrial(response.data.hasActiveFreeTrial);
             })
@@ -61,7 +61,7 @@ function SubscriptionPlans() {
     }
 
     try {
-      const response = await axios.post(`http://localhost:3000/api/payment/initiate`, {
+      const response = await axios.post(`${apiUrl}/api/payment/initiate`, {
         email: userEmail,
         amount: 5 // ₹5 for trial activation
       });
@@ -82,7 +82,7 @@ function SubscriptionPlans() {
     const token = localStorage.getItem('token');
     try {
       const response = await axios.post(
-        `http://localhost:3000/api/subscriptions/create`,
+        `${apiUrl}/api/subscriptions/create`,
         { subscriptionType: 'Organization' },
         { headers: { Authorization: `Bearer ${token}` } }
       );

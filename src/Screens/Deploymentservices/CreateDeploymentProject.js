@@ -7,7 +7,7 @@ import Header from "./DeploymentHeader";
  
 const apiUrl = process.env.REACT_APP_API_URL;
  
-const API_URL = `http://localhost:3000/api/deployments`;
+const API_URL = `${apiUrl}/api/deployments`;
  
 const CreateDeploymentProject = () => {
   const navigate = useNavigate();

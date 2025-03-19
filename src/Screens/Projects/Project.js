@@ -53,7 +53,7 @@ const ProjectsPage = () => {
   const fetchProjects = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(`http://localhost:3000/api/proj/projects`, {
+      const response = await axios.get(`${apiUrl}/api/proj/projects`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -89,7 +89,7 @@ const ProjectsPage = () => {
   const handleDeleteConfirm = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:3000/api/proj/${deleteProjectId}`, {
+      await axios.delete(`${apiUrl}/api/proj/${deleteProjectId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -139,7 +139,7 @@ const ProjectsPage = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.put(
-        `http://localhost:3000/api/proj/${renameProjectId}`,
+        `${apiUrl}/api/proj/${renameProjectId}`,
         { projectName: renameProjectName },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -164,7 +164,7 @@ const ProjectsPage = () => {
       const token = localStorage.getItem("token");
       const responses = await Promise.all(
         selectedProjects.map((projectId) =>
-          axios.get(`http://localhost:3000/api/proj/${projectId}`, {
+          axios.get(`${apiUrl}/api/proj/${projectId}`, {
             headers: { Authorization: `Bearer ${token}` },
           })
         )

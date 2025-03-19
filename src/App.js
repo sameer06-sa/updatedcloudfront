@@ -70,10 +70,22 @@ import Deploymentprojectcontext from './Screens/Deploymentservices/DeploymentPro
 import ProtectedRoute from './Screens/Home/ProtectedRoutes';
 
 // Import new service category pages
-import ManagementServices from './Screens/AllServices/AllservicesScreen/ManagementServices';
-import ComputeServices from './Screens/AllServices/AllservicesScreen/ComputeServices';
-import DatabaseServices from './Screens/AllServices/AllservicesScreen/DatabaseServices';
-import SecurityServices from './Screens/AllServices/AllservicesScreen/SecurityServices';
+// import ManagementServices from './Screens/AllServices/AllservicesScreen/ManagementServices';
+// import ComputeServices from './Screens/AllServices/AllservicesScreen/ComputeServices';
+// import DatabaseServices from './Screens/AllServices/AllservicesScreen/DatabaseServices';
+// import SecurityServices from './Screens/AllServices/AllservicesScreen/SecurityServices';
+
+
+import ManagementServices from './Screens/AllServices/ManagementServices/ManagementServices';
+import ManagementWelcome from './Screens/AllServices/ManagementServices/ManagementWelcome';
+import ComputeServices from './Screens/AllServices/ComputeServices/ComputeServices';
+import ComputeServiceWelcome from './Screens/AllServices/ComputeServices/ComputeServiceWelcome';
+import SecurityServices from './Screens/AllServices/SecurityServices/SecurityServices';
+import SecurityServiceWelcome from './Screens/AllServices/SecurityServices/SecurityServiceWelcome';
+import DataBaseService from './Screens/AllServices/DataBaseService/DataBaseService';
+import DatabaseServiceWelcome from './Screens/AllServices/DataBaseService/DatabaseServiceWelcome';
+import DeploymentServices from './Screens/AllServices/DeploymentServices/DeploymentServices';
+
 
 function App() {
   const [notifications, setNotifications] = useState(() => {
@@ -196,10 +208,20 @@ function App() {
             {/* </Route> */}
 
             {/* New Service Category Routes */}
-            <Route path="/management-services" element={<><Sidebar /><ManagementServices /></>} />
+            {/* <Route path="/management-services" element={<><Sidebar /><ManagementServices /></>} />
             <Route path="/compute-services" element={<><Sidebar /><ComputeServices /></>} />
             <Route path="/database-services" element={<><Sidebar /><DatabaseServices /></>} />
-            <Route path="/security-services" element={<><Sidebar /><SecurityServices /></>} />
+            <Route path="/security-services" element={<><Sidebar /><SecurityServices /></>} /> */}
+            <Route path="/management-services" element={<><Sidebar /><ManagementServices/></>} />
+            <Route path="/management" element={<><Sidebar /><ManagementWelcome/></>} />
+            <Route path="/compute-services" element={<><Sidebar /><ComputeServices/></>} />
+            <Route path="/compute" element={<><Sidebar /><ComputeServiceWelcome/></>} />
+            <Route path="/security-services" element={<><Sidebar /><SecurityServices/></>} />
+            <Route path="/security" element={<><Sidebar /><SecurityServiceWelcome/></>} />
+            <Route path="/database-services" element={<><Sidebar /><DataBaseService/></>} />
+            <Route path="/database" element={<><Sidebar /><DatabaseServiceWelcome/></>} />
+            <Route path="/deployment-services" element={<><Sidebar /><DeploymentServices/></>} />
+ 
 
             {/* Fallback Route */}
             <Route path="*" element={<Navigate to="/signin" replace />} />

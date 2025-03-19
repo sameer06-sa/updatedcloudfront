@@ -147,3 +147,11 @@ hr {
   font-size: 18px; /* Adjust icon size */
   vertical-align: middle; /* Ensure vertical alignment */
 }
+/* .organization-container {
+  margin-left: 20px;
+} */
+
+.organizations-main-container {
+  margin-left: 50px;
+  margin-top: 10px;
+}

@@ -4,7 +4,7 @@ import "./PropertiesModal.css";
 const PropertiesModal = ({ properties, onClose }) => {
   return (
     <div className="modal-overlay">
-      <div className="modal-content">
+      <div className="modal-content1">
         {/* Close icon at the top-right corner */}
         <button className="close-icon" onClick={onClose}>
           &times;

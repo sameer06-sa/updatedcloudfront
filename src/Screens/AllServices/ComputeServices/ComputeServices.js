@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./IntegrationService.css"; // Ensure path is correct
+import "./ComputeServices.css"; // Ensure path is correct
 import Sidebar from "../../../Components/Sidebar/Sidebar";
 import Header from "../../../Components/Header/Header";
 import {
@@ -11,19 +11,19 @@ import {
   Dns,
   Security,
 } from "@mui/icons-material";
-
-const IntegrationService = () => {
-  const [activeService, setActiveService] = useState("Integration Services");
+ 
+const ComputeServices = () => {
+  const [activeService, setActiveService] = useState("Compute Services");
   const [serviceData, setServiceData] = useState([
-    "Hub Ingest",
-    "Service",
-    "Integration Data 3",
-    "Integration Data 4",
-    "Integration Data 5",
-  ]); // Default service data for "Integration Services"
-
+   "Compute Data 1",
+    "Compute Data 2",
+    "Compute Data 3",
+    "Compute Data 4",
+    "Compute Data 5",
+  ]); // Default service data for "Compute Service"
+ 
   const navigate = useNavigate();
-
+ 
   const serviceDetails = {
     "Integration Services": [
       "Hub Ingest",
@@ -48,10 +48,10 @@ const IntegrationService = () => {
     ],
     "Deployment Services": [
       "Status Tracker",
-      "services",
-      "Deployment Data 3",
-      "Deployment Data 4",
-      "Deployment Data 5",
+    "services",
+    "Deployment Data 3",
+    "Deployment Data 4",
+    "Deployment Data 5",
     ],
     "Compute Services": [
       "Compute Data 1",
@@ -68,58 +68,19 @@ const IntegrationService = () => {
       "Security Data 5",
     ],
   };
-
+ 
   const handleServiceClick = (serviceName) => {
     setActiveService(serviceName);
     setServiceData(serviceDetails[serviceName] || []);
+    const routePath = `/${serviceName.toLowerCase().replace(/\s+/g, "-")}`;
+ 
+    navigate(routePath);
   };
-
-  const handleButtonClick = (data) => {
-    if (
-      data === "Status Tracker" ||
-      data === "services" ||
-      data === "Deployment Data 3" ||
-      data === "Deployment Data 4" ||
-      data === "Deployment Data 5"
-    ) {
-      navigate("/projects/page");
-    } else if (
-      data === "Management Data 1" ||
-      data === "Management Data 2" ||
-      data === "Management Data 3" ||
-      data === "Management Data 4" ||
-      data === "Management Data 5"
-    ) {
-      navigate("/management");
-    } else if (
-      data === "Database Data 1" ||
-      data === "Database Data 2" ||
-      data === "Database Data 3" ||
-      data === "Database Data 4" ||
-      data === "Database Data 5"
-    ) {
-      navigate("/database");
-    } else if (
-      data === "Security Data 1" ||
-      data === "Security Data 2" ||
-      data === "Security Data 3" ||
-      data === "Security Data 4" ||
-      data === "Security Data 5"
-    ) {
-      navigate("/security");
-    } else if (
-      data === "Compute Data 1" ||
-      data === "Compute Data 2" ||
-      data === "Compute Data 3" ||
-      data === "Compute Data 4" ||
-      data === "Compute Data 5"
-    ) {
-      navigate("/compute");
-    } else {
-      navigate("/hub-ingest");
-    }
+ 
+  const handleComputeClick = () => {
+    navigate("/compute");
   };
-
+ 
   const services = [
     { name: "Integration Services", icon: <HubRounded sx={{ color: "#8000FF" }} /> },
     { name: "Management Services", icon: <Settings sx={{ color: "#F97000" }} /> },
@@ -128,7 +89,7 @@ const IntegrationService = () => {
     { name: "Compute Services", icon: <Dns sx={{ color: "#3946FF" }} /> },
     { name: "Security Services", icon: <Security sx={{ color: "D80101" }} /> },
   ];
-
+ 
   return (
     <div className="app">
       <Header />
@@ -164,7 +125,7 @@ const IntegrationService = () => {
               <div className="int-actions">
                 {serviceData.map((data, index) => (
                   <button
-                    onClick={() => handleButtonClick(data)}
+                    onClick={handleComputeClick}
                     key={index}
                     className={`actions-button box${index + 1}`}
                   >
@@ -179,5 +140,5 @@ const IntegrationService = () => {
     </div>
   );
 };
-
-export default IntegrationService;
+ 
+export default  ComputeServices;
