@@ -87,7 +87,4 @@
     position: static; /* Sidebar becomes static and takes full width */
   }
 
-  .main-content {
-    margin-left: 0;
-  }
-}
+  
