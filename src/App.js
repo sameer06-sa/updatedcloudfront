@@ -245,3 +245,4 @@ const ConditionalHeaderAndNotifications = ({ notifications }) => {
   // ) : null;
 };
 
+export default App;
